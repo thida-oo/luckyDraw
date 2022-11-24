@@ -1,0 +1,9 @@
+.sidebar{
+    background-color: antiquewhite;
+    display: flex;
+    position: fixed;
+    
+    width: 250px;
+    transform: translateX(100vw);
+    justify-content: center;
+}
