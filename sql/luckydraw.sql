@@ -12,8 +12,6 @@ MySQL - 5.5.5-10.4.24-MariaDB : Database - qr_code
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
 /*Table structure for table `distributors` */
 
 DROP TABLE IF EXISTS `distributors`;
@@ -39,6 +37,47 @@ CREATE TABLE `distributors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `distributors` */
+
+/*Table structure for table `draw_event` */
+
+DROP TABLE IF EXISTS `draw_event`;
+
+CREATE TABLE `draw_event` (
+  `id` int(50) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `event_start_time` datetime DEFAULT NULL,
+  `event_end_time` datetime DEFAULT NULL,
+  `product_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `present_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remark` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `draw_event` */
+
+/*Table structure for table `draw_imei` */
+
+DROP TABLE IF EXISTS `draw_imei`;
+
+CREATE TABLE `draw_imei` (
+  `id` int(50) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `imei_sn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `imei_sn_2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `draw_date` datetime DEFAULT NULL,
+  `draw_by` int(11) DEFAULT NULL COMMENT 'draw_by_staff',
+  `draw_store` int(11) DEFAULT NULL COMMENT 'store that made draw',
+  `get_present_status` int(11) DEFAULT NULL,
+  `present_id` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `remark` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `draw_imei` */
 
 /*Table structure for table `failed_jobs` */
 
@@ -107,6 +146,26 @@ CREATE TABLE `personal_access_tokens` (
 
 /*Data for the table `personal_access_tokens` */
 
+/*Table structure for table `presents` */
+
+DROP TABLE IF EXISTS `presents`;
+
+CREATE TABLE `presents` (
+  `id` int(50) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `present_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `present_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `present_no` int(11) DEFAULT NULL,
+  `image` int(11) DEFAULT NULL COMMENT '0:NotActive, 1: Active',
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `remark` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `presents` */
+
 /*Table structure for table `region` */
 
 DROP TABLE IF EXISTS `region`;
@@ -128,6 +187,27 @@ CREATE TABLE `region` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `region` */
+
+/*Table structure for table `stock` */
+
+DROP TABLE IF EXISTS `stock`;
+
+CREATE TABLE `stock` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `imei_sn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'encrypted',
+  `imei_sn_2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `store_id` int(50) DEFAULT NULL,
+  `distributor_id` int(50) DEFAULT NULL,
+  `region_id` int(50) DEFAULT NULL COMMENT 'sale_area_no',
+  `warehouse_id` int(50) DEFAULT NULL,
+  `order_date` datetime DEFAULT NULL COMMENT 'order_time',
+  `order_by` int(11) DEFAULT NULL COMMENT 'order_by_staff',
+  `shipment_order_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '发货单号',
+  `delivery_order_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '出库单号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `stock` */
 
 /*Table structure for table `store` */
 
