@@ -21,11 +21,11 @@ CREATE TABLE `distributors` (
   `distributor_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `distributor_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `superior_distributor` int(25) DEFAULT NULL,
-  `type` int(25) DEFAULT NULL,
-  `price_system` int(25) DEFAULT NULL,
+  `type` int(25) DEFAULT NULL COMMENT '1:FirstLevelAgency, 2:SecondLevelAgency, 3:Distributor',
+  `price_system` int(25) DEFAULT NULL COMMENT '1:PurchasePrice, 2:AgentPrice, 3:DistributorPrice, 4:DistributorPrice(NoTax)',
   `region` int(25) DEFAULT NULL,
   `customer_id` int(25) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL COMMENT '0:InService, 1:Suspend Cooperation, 2:Close',
   `remark` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -34,9 +34,11 @@ CREATE TABLE `distributors` (
   `col_1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `col_2` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `distributors` */
+
+insert  into `distributors`(`id`,`distributor_code`,`distributor_name`,`superior_distributor`,`type`,`price_system`,`region`,`customer_id`,`status`,`remark`,`created_at`,`created_by`,`updated_at`,`updated_by`,`col_1`,`col_2`) values (1,'0342000011\r\n','BF Science & Technology Co.,Ltd.\r\n',0,0,NULL,NULL,NULL,0,NULL,'2020-10-15 11:34:20',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `draw_event` */
 
