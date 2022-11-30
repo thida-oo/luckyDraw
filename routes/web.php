@@ -33,7 +33,11 @@ Route::prefix('admin')->group(function(){
 Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('store', [StoreController::class, 'index'])->name('index');
     Route::get('distributor', [DistributorController::class, 'index'])->name('index');
+    Route::get('distributorImport', [DistributorController::class, 'distributorImport'])->name('distributorImport');
+    Route::post('import', [DistributorController::class, 'import'])->name('import');
+    
 });
+
 
 Route::prefix('draw')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('index', [DrawController::class, 'index'])->name('index');

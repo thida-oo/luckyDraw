@@ -59,7 +59,7 @@
                         <button type="submit" class="btn btn-primary">Search</button>
                         <button type="submit" class="btn btn-primary">Cancel</button>
                         <button type="submit" class="btn btn-primary">Export</button>
-                        <button type="submit" class="btn btn-primary">Import</button>
+                        <a href=" {{ url('setup/distributorImport') }} " class="btn btn-primary">Import</a>
                         </form>
                     </form>
                     <!-- </div> -->
@@ -76,23 +76,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($distributors as $distributor)
+
+                        $superior = $distributor->superior_distributor;
+                        $type = $distributor->type;
+                        $price_system = $distributor->price_system;
+                        $status = $distributor->status;
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <th>{{ $distributor->distributor_code }}</th>
+                            <th>{{ $distributor->distributor_name }}</th>
+                            <th>{{ $superior }}</th>
+                            <th>{{ $type }}</th>
+                            <th>{{ $price_system }}</th>
+                            <th>{{ $status }}</th>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        @endforeach
+
                     </tbody>
                     </table>
                 </div>

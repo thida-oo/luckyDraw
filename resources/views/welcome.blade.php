@@ -78,6 +78,13 @@
         </style>
     </head>
     <body class="antialiased">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-3">Welcome To OPPO Lucky Draw!</h2>
+            </div>
+        </div>
+
+        
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -101,6 +108,14 @@
                         </g>
                     </svg> -->
                 </div>
+
+                <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0"></div>
+                </div>
+                </div>
+
+                <!-- for login page -->
 
                 <div class="container">
                     <div class="row">
