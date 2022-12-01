@@ -16,9 +16,10 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
+  <!-- Styles -->
+ 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sidebars.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/sidebars.css') }}" rel="stylesheet"> -->
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -109,9 +110,9 @@
             @yield('content')
         </main>
     </div>
-
+<!-- 
     <script src="{{ asset('js/sidebarloader.js') }}" rel="javascript" type="text/javascript"></script>
-    <script src="{{ asset('js/sidebars.js') }}" rel="javascript" type="text/javascript"></script>
+    <script src="{{ asset('js/sidebars.js') }}" rel="javascript" type="text/javascript"></script> -->
     <!-- <sript type="text/javascript">
 
         $(document).ready(function(){
