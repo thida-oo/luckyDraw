@@ -76,19 +76,61 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($distributors as $distributor)
+                    
 
-                        $superior = $distributor->superior_distributor;
-                        $type = $distributor->type;
-                        $price_system = $distributor->price_system;
-                        $status = $distributor->status;
+                        @foreach($distributors as $distributor)
                         <tr>
                             <th>{{ $distributor->distributor_code }}</th>
+                            <th>{{ $distributor->distributor_code }}</th>
                             <th>{{ $distributor->distributor_name }}</th>
-                            <th>{{ $superior }}</th>
-                            <th>{{ $type }}</th>
-                            <th>{{ $price_system }}</th>
-                            <th>{{ $status }}</th>
+                        
+                        
+                        @switch($distributor->superior_distributor)
+                           @case(1) 
+                            <th> {{ "Suspend Cooperation" }} </th>
+                            @break
+                           @case(2) 
+                            <th> {{ "Close" }} </th>
+                            @break
+                           @default 
+                           <th> {{ "In Cooperation" }} </th>
+                        @endswitch
+                        
+                        @switch($distributor->type)
+                           @case(1) 
+                            <th> {{ "Suspend Cooperation"  }} </th>
+                            @break
+                           @case(2) 
+                           <th>{{ "Close"  }} </th>
+                            @break
+                           @default 
+                           <th>{{ "In Cooperation"  }} </th>
+                        @endswitch
+
+                        @switch($distributor->price_system)
+                           @case(1) 
+                           <th>{{ "Suspend Cooperation"  }} </th>
+                            @break
+                           @case(2) 
+                           <th>{{ "Close"  }} </th>
+                            @break
+                           @default 
+                           <th>{{ "In Cooperation"  }} </th>
+                        @endswitch
+
+                        
+                        @switch($distributor->status)
+                           @case(1) 
+                           <th>{{ "Suspend Cooperation"  }} </th>
+                            @break
+                           @case(2) 
+                           <th>{{ "Close"  }} </th>
+                            @break
+                           @default 
+                           <th>{{ "In Cooperation"  }} </th>
+                        @endswitch
+
+     
                         </tr>
                         @endforeach
 
