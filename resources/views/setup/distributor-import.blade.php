@@ -1,12 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-<form method="POST" enctype="multipart/form-data" action="{{ url('setup/import')}}">
-@csrf
-  <div class="form-group">
-    <label for="distributorImport">Distributor file input</label>
-    <input type="file" name="file" class="form-control-file" id="distributorImport">
-    <button type="submit">Submit</button>
+<style type="text/css">
+  
+</style>
+<div class="container col-5">
+  <form method="POST" enctype="multipart/form-data" action="{{ url('setup/import')}}">
+  @csrf
+  <div class="card">
+    <div class="card-header">
+      <span>Distributor Upload</span>
+    </div>
+    <div class="card-body">
+     <div class="form-group">
+      <label for="distributorImport">Distributor file input</label>
+      <input type="file" name="file" class="form-control-file" id="distributorImport">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    </div>
   </div>
-</form>
+
+  </form>
+</div>
 @endsection

@@ -55,16 +55,16 @@
                             </div>
                             <div class="col-md-4 col-lg-4 col-sm-4">
                                 <div class="row">
-                                <div class="col">
+                                <div class="col mb-1">
                                    <button type="submit" class="btn btn-primary">Search</button>
                                 </div>  
-                                <div class="col">
+                                <div class="col mb-1">
                                    <button type="submit" class="btn btn-primary">Cancel</button>
                                 </div>                                
-                                <div class="col">
+                                <div class="col mb-1">
                                     <button type="submit" class="btn btn-primary">Export</button>
                                 </div>                                
-                                <div class="col">
+                                <div class="col mb-1">
                                     <a href=" {{ url('setup/distributorImport') }} " class="btn btn-primary">Import</a>
                                 </div>
                              </div>
