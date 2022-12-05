@@ -5,7 +5,7 @@
   
 </style>
 <div class="container col-5">
-  <form method="POST" enctype="multipart/form-data" action="{{ url('setup/import')}}">
+  <form method="POST" enctype="multipart/form-data" action="{{ url('setup/distributor/import')}}">
   @csrf
   <div class="card">
     <div class="card-header">

@@ -34,7 +34,9 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('store', [StoreController::class, 'index'])->name('index');
     Route::get('distributor', [DistributorController::class, 'index'])->name('index');
     Route::get('distributorImport', [DistributorController::class, 'distributorImport'])->name('distributorImport');
-    Route::post('import', [DistributorController::class, 'import'])->name('import');
+    Route::post('distributor/import', [DistributorController::class, '_distributorImport'])->name('distributor-import');
+    Route::get('import',[DistributorController::class, 'import'])->name('import');
+    Route::post('store/import',[StoreController::class, '_storeImport'])->name('store-import');
     
 });
 

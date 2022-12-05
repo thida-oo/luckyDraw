@@ -58,6 +58,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="{{ url('setup/distributor')}}">Distributor</a></li>
+                                <li><a class="dropdown-item" href="{{ url('setup/import')}}">Import</a></li>
                                 <li><a class="dropdown-item" href="{{ url('setup/store')}}">Store</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
