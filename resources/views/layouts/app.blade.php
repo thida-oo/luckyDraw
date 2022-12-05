@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Ella') }}</title>
+    <title>{{ config('app.name', 'OPPO') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a  class="navbar-brand" href="{{ url('/') }}" >
-                    {{ config('app.name', 'Ella') }}
+                    {{ config('app.name', 'OPPO') }}
                 </a>
                 <!-- <a id="sidebarToggle" class="navbar-brand"> 
                     <button> sidebarButton </button>
