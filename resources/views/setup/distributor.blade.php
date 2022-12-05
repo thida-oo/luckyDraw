@@ -54,7 +54,6 @@
                                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                 </div>
                             </div>
-<<<<<<< Updated upstream
                             <div class="col-md-4 col-lg-4 col-sm-4">
                                 <div class="row">
                                 <div class="col mb-1">
@@ -67,16 +66,10 @@
                                     <button type="submit" class="btn btn-primary">Export</button>
                                 </div>                                
                                 <div class="col mb-1">
-                                    <a href=" {{ url('setup/distributorImport') }} " class="btn btn-primary">Import</a>
+                                    <!-- <a href=" {{ url('setup/distributorImport') }} " class="btn btn-primary">Import</a> -->
                                 </div>
                              </div>
                             </div>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary">Search</button>
-                        <button type="submit" class="btn btn-primary">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Export</button>
-                        <a href=" {{ url('setup/distributorImport') }} " class="btn btn-primary">Import</a>
                         </form>
                     </form>
                     <!-- </div> -->
