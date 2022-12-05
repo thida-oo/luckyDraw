@@ -21,4 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::Controller(TodoController::class)->group(function(){
 //     Route::get('todos', 'index');
 // });
-Route::get('/index', [App\Http\Controllers\TodoController::class, 'index'])->name('index');
+// Route::get('/index', [App\Http\Controllers\TodoController::class, 'index'])->name('index');
