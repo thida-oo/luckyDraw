@@ -22,12 +22,13 @@ class DistributorController extends Controller
     }
 
     public function _distributorImport(Request $request){
-        $import_file = $request->file('file');
+
+        $import_file = $request->file('distributor_file');
         if($import_file){
             try{
-
                 Excel::import(new DistributorImport, $import_file);
-                return view('setup/distributor')->with('success', 'Data successfully imported');
+                $distributors = Distributor::all();                
+                return view('setup/distributor', ['distributors' => $distributors])->with('success', 'Data already imported');
             } catch(Exception $e){
 
                dd($e);
