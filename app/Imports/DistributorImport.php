@@ -19,7 +19,7 @@ class DistributorImport implements ToModel, WithHeadingRow
         }
 
         $d_type = $row['distributor_type'];
-        if($d_type == 'Factory'){
+        if($d_type == 'FIRST_LEVEL_AGENT'){
             $type_data = 1;
         } elseif($d_type == 'SECOND_LEVEL_AGENT'){
             $type_data = 2;
@@ -49,9 +49,9 @@ class DistributorImport implements ToModel, WithHeadingRow
         }else{
             $status_data = 0;
         }
-// dd($row);
-        $table = DB::table('distributors')->where('distributor_code','=',$row['distributor_code'])->get();
-        if(count($table)<1){
+
+        // $table = DB::table('distributors')->where('distributor_code','=',$row['distributor_code'])->get();
+        if($type_data==3){
 
         return new Distributor([
             'distributor_code'     => $row['distributor_code'],
