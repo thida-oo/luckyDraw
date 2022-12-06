@@ -27,10 +27,10 @@
   margin-right: 0;
   margin-left: 0;
 
-> .col, > [class*="col-"] {
+/* > .col, > [class*="col-"] {
     padding-right: 0;
     padding-left: 0;
-  }
+  } */
 }
 </style>
     <body class="antialiased ">
