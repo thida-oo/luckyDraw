@@ -10,48 +10,13 @@
 
                 <div class="card-body">
                     <!-- <div class="container"> -->
+                               
                     <form>
                         <div class="row">
-                            <div class="col col-md-4">
-                                <div class="mb-3 ">
-                                    <label for="dCode" class="form-label">Distributor Code</label>
-                                    <input type="text" class="form-control" id="dCode">
-                                </div>
-                                <div class="mb-3 ">
-                                    <label for="dName" class="form-label">Distributor Name</label>
-                                    <input type="text" class="form-control" id="dName">
-                                </div>
-                                <div class="mb-3  form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-                            </div>
-                            <div class="col col-md-4">
-                                <div class="mb-3">
-                                    <label for="dCode" class="form-label">Distributor Code</label>
-                                    <input type="text" class="form-control" id="dCode">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="dName" class="form-label">Distributor Name</label>
-                                    <input type="text" class="form-control" id="dName">
-                                </div>
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-                            </div>
-                            <div class="col col-md-4">
-                                <div class="mb-3 ">
-                                    <label for="dCode" class="form-label">Distributor Code</label>
-                                    <input type="text" class="form-control" id="dCode">
-                                </div>
-                                <div class="mb-3 ">
-                                    <label for="dName" class="form-label">Distributor Name</label>
-                                    <input type="text" class="form-control" id="dName">
-                                </div>
-                                <div class="mb-3  form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            <div class="form-group row mx-sm-3 mb-2">
+                                <label for="search_text" class="col-sm-2 col-form-label">Search</label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control col-sm-4" id="search_text" placeholder="Please Enter Search Text">
                                 </div>
                             </div>
                             <div class="col-md-4 col-lg-4 col-sm-4">
@@ -65,12 +30,12 @@
                                 <div class="col mb-1">
                                     <button type="submit" class="btn btn-primary">Export</button>
                                 </div>                                
-                                <div class="col mb-1">
+                                <div class="col mb-1">  
                                     <!-- <a href=" {{ url('setup/distributorImport') }} " class="btn btn-primary">Import</a> -->
                                 </div>
                              </div>
                             </div>
-                        </form>
+
                     </form>
                     <!-- </div> -->
                     <table class="table table-dark table-striped" style="margin-top: 20px; ">
@@ -146,6 +111,7 @@
 
                     </tbody>
                     </table>
+                    {{ $distributors->links(); }}
                 </div>
             </div>
         </div>

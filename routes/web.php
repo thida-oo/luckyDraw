@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Draw\DrawController;
 use App\Http\Controllers\Setup\DistributorController;
+use App\Http\Controllers\Setup\EventSettingController;
+use App\Http\Controllers\Setup\PresentController;
 use App\Http\Controllers\Setup\StoreController;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,6 +40,14 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('import',[DistributorController::class, 'import'])->name('import');
     Route::post('store/import',[StoreController::class, '_storeImport'])->name('store-import');
 
+    // for present
+    Route::get('present',[PresentController::class, 'index'])->name('index');
+    Route::post('store',[PresentController::class, 'index'])->name('index');
+
+
+    // for event setting
+    Route::get('event-setting',[EventSettingController::class, 'index'])->name('index');
+    
 });
 
 
