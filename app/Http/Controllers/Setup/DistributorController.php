@@ -13,7 +13,7 @@ use Psy\Readline\Hoa\Console;
 class DistributorController extends Controller
 {
     public function index(){
-        $distributors = Distributor::all();
+        $distributors = Distributor::paginate(10);
         return view('setup/distributor', ['distributors' => $distributors]);
     }
 
@@ -22,7 +22,9 @@ class DistributorController extends Controller
     }
 
     public function _distributorImport(Request $request){
+
         Distributor::where('type',3)->delete();
+
         $import_file = $request->file('distributor_file');
         if($import_file){
             try{

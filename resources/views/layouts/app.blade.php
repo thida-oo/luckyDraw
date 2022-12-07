@@ -58,9 +58,10 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="{{ url('setup/distributor')}}">Distributor</a></li>
-                                <li><a class="dropdown-item" href="{{ url('setup/import')}}">Import</a></li>
                                 <li><a class="dropdown-item" href="{{ url('setup/store')}}">Store</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="{{ url('setup/import')}}">Import</a></li>
+                                <li><a class="dropdown-item" href="{{ url('setup/present')}}">Present</a></li>                                
+                                <li><a class="dropdown-item" href="{{ url('setup/event-setting')}}">Event Setting</a></li>
                             </ul>
                         </li>
                     </ul>
