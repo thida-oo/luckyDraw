@@ -11,24 +11,27 @@
                 <div class="card-body">
                     <!-- <div class="container"> -->
                                
-                    <form>
+                    <form action="{{route('distributors.search')}}" method="get">
+                        @method('get')
                         <div class="row">
-                            <div class="form-group row mx-sm-3 mb-2">
+                            <div class="form-group row col-sm-4 col-lg-4 col-md-4">
                                 <label for="search_text" class="col-sm-2 col-form-label">Search</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control col-sm-4" id="search_text" placeholder="Please Enter Search Text">
+                                <input type="text" name="distributor_search" class="form-control form-control-sm col-sm-4" id="search_text" placeholder="Please Enter Search Text">
                                 </div>
                             </div>
+                    </form>
+
                             <div class="col-md-4 col-lg-4 col-sm-4">
-                                <div class="row">
-                                <div class="col mb-1">
-                                   <button type="submit" class="btn btn-primary">Search</button>
+                                <div class="row no-gutters">
+                                <div class="col-sm-2 col-lg-2 col-md-2 mb-1">
+                                   <button type="submit" class="btn btn-primary btn-sm">Search</button>
                                 </div>  
-                                <div class="col mb-1">
-                                   <button type="submit" class="btn btn-primary">Cancel</button>
+                                <div class="col-sm-2 col-lg-2 col-md-2  mb-1">
+                                   <button type="submit" class="btn btn-primary btn-sm">Cancel</button>
                                 </div>                                
-                                <div class="col mb-1">
-                                    <button type="submit" class="btn btn-primary">Export</button>
+                                <div class="col-sm-2 col-lg-2 col-md-2  mb-1">
+                                    <button type="submit" class="btn btn-primary btn-sm">Export</button>
                                 </div>                                
                                 <div class="col mb-1">  
                                     <!-- <a href=" {{ url('setup/distributorImport') }} " class="btn btn-primary">Import</a> -->
@@ -36,7 +39,6 @@
                              </div>
                             </div>
 
-                    </form>
                     <!-- </div> -->
                     <table class="table table-dark table-striped" style="margin-top: 20px; ">
                     <thead>
@@ -52,10 +54,10 @@
                     </thead>
                     <tbody>
                     
-
+                        <?php $i=1; ?>
                         @foreach($distributors as $distributor)
                         <tr>
-                            <th>{{ $distributor->distributor_code }}</th>
+                            <th>{{$i++}}</th>
                             <th>{{ $distributor->distributor_code }}</th>
                             <th>{{ $distributor->distributor_name }}</th>
                         
@@ -72,10 +74,10 @@
                         @endswitch
                         
                         @switch($distributor->type)
-                           @case(1) 
+                           @case(2) 
                             <th> {{ "Suspend Cooperation"  }} </th>
                             @break
-                           @case(2) 
+                           @case(0) 
                            <th>{{ "Close"  }} </th>
                             @break
                            @default 

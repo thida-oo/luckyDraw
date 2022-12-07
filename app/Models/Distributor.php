@@ -16,4 +16,14 @@ class Distributor extends Model
         $result = DB::table('distributors')->where('distributor_name',$txt)->get();
         return $result;
     }
+    public function _searchDistributor($searchTxt)
+    {
+        $result = DB::table('distributors');
+                  $result->where(function($result) use ($searchTxt){
+                  $result->orWhere('distributor_code', 'like', '%'.$searchTxt.'%');
+                  $result->orWhere('distributor_name', 'like', '%'.$searchTxt.'%');
+                })->get();
+                  $data = $result->paginate(10);
+                  return $data;
+    }
 }

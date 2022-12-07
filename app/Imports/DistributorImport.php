@@ -12,7 +12,6 @@ class DistributorImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
 
-        echo "<pre>"; var_dump($row); echo '</pre>'; die;
         $superior_distributor = $row['upper_level_distributor']; 
         if($superior_distributor == 'BF Science & Technology Co.,Ltd.'){
             $s_data = 1;

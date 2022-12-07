@@ -14,8 +14,8 @@ use Psy\Readline\Hoa\Console;
 class StoreController extends Controller
 {
     public function index(){
-        $store = Store::all();
-        return view('setup/store', ['store' => $store]);
+        $stores = Store::paginate(10);
+        return view('setup/store', ['stores' => $stores]);
     }
 
     public function storeImport(){
@@ -39,5 +39,11 @@ class StoreController extends Controller
     public function import()
     {
         return view('setup/import');
+    }
+    public function storeSearch(Request $request)
+    {
+        $store = new Store();
+        $stores=$store->_searchStores($request->input('store_search'));
+        return view('setup/store', ['stores' => $stores]);
     }
 }

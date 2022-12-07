@@ -16,7 +16,12 @@ class StoreImport implements ToModel, WithHeadingRow
 
         $distributor = new Distributor();
         $distributor_data = $distributor->_getDistributorInfoFromText($row['affiliated_distributor']);
-        $distributor_id = $distributor_data[0]->distributor_code;
+
+        if($distributor_data[0]->distributor_code==null){
+            $distributor_id=0;
+        }else{
+            $distributor_id=$distributor_data[0]->distributor_code;
+        }
 
         $price_system = $row['price_system'];
         if($price_system == '批发价'){ // Retail Price(with Tax)

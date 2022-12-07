@@ -47,8 +47,11 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 
     // for event setting
     Route::get('event-setting',[EventSettingController::class, 'create'])->name('create');
+    Route::get('distributors/search',[DistributorController::class, 'distributorSearch'])->name('distributors.search');
+
     
 });
+    Route::get('stores/search',[StoreController::class, 'storeSearch'])->name('stores.search');
 
 
 Route::prefix('draw')->middleware('auth', 'isAdmin')->group(function(){
