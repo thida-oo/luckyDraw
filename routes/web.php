@@ -42,11 +42,11 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 
     // for present
     Route::get('present',[PresentController::class, 'index'])->name('index');
-    Route::post('store',[PresentController::class, 'index'])->name('index');
+    Route::post('present-save',[PresentController::class, 'store'])->name('store');
 
 
     // for event setting
-    Route::get('event-setting',[EventSettingController::class, 'index'])->name('index');
+    Route::get('event-setting',[EventSettingController::class, 'create'])->name('create');
     
 });
 
