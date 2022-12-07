@@ -15,9 +15,9 @@ class EventSettingController extends Controller
         return view('setup/event-setting', ['e_settings'=>$e_settings]);
     }
 
-    public function create(){
+    public function create(){ 
         $present_lists = Present::all();
         $products = Product::all();
-        return view('setup/event-setting', ['$present_lists'=>$present_lists, '$products'=>$products]);
+        return view('setup/event-setting', ['present_lists'=>$present_lists, 'products'=>$products]);
     }
 }

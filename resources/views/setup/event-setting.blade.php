@@ -62,7 +62,7 @@
                     <th>{{ $pList->id }}</th>
                     <th>{{ $pList->present_code }}</th>
                     <th>{{ $pList->present_name }}</th>
-                    <th>{{ $pList->present_code }}</th>
+                    <th>{{ $pList->present_no }}</th>
                     <th><input type="checkbox"> </th>
                     <th><img src="{{ asset('image/presentsImage/'. $pList->image) }}" class="img-fluid" alt="default" width="50" height="80"></th>
                 </tr>
