@@ -6,6 +6,7 @@ use App\Http\Controllers\Draw\DrawController;
 use App\Http\Controllers\Setup\DistributorController;
 use App\Http\Controllers\Setup\EventSettingController;
 use App\Http\Controllers\Setup\PresentController;
+use App\Http\Controllers\Setup\ProductController;
 use App\Http\Controllers\Setup\StoreController;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,11 +36,17 @@ Route::prefix('admin')->group(function(){
 Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('store', [StoreController::class, 'index'])->name('index');
     Route::get('distributor', [DistributorController::class, 'index'])->name('index');
+   
     Route::get('distributorImport', [DistributorController::class, 'distributorImport'])->name('distributorImport');
+    
     Route::post('distributor/import', [DistributorController::class, '_distributorImport'])->name('distributor-import');
+    
     Route::get('import',[DistributorController::class, 'import'])->name('import');
+
     Route::post('store/import',[StoreController::class, '_storeImport'])->name('store-import');
 
+    Route::get('product',[ProductController::class, 'index'])->name('product.index');
+    Route::post('product/import',[ProductController::class, '_productImport'])->name('product-import');
     // for present
     Route::get('present',[PresentController::class, 'index'])->name('index');
     Route::post('present-save',[PresentController::class, 'store'])->name('store');
