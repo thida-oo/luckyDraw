@@ -47,19 +47,23 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 
     Route::get('product',[ProductController::class, 'index'])->name('product.index');
     Route::post('product/import',[ProductController::class, '_productImport'])->name('product-import');
+    Route::post('product/store',[ProductController::class, 'productStore'])->name('product-store');
+    Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('product-edit');
+    Route::get('product/delete/{id}',[ProductController::class, 'delete'])->name('product-delete');
+    Route::get('product/search',[ProductController::class, 'productSearch'])->name('product-search');
     // for present
     Route::get('present',[PresentController::class, 'index'])->name('index');
     Route::post('present-save',[PresentController::class, 'store'])->name('store');
 
 
     // for event setting
-    Route::get('event-setting',[EventSettingController::class, 'create'])->name('create');
+    Route::get('event-setting',[EventSettingController::class, 'create'])->name('event-setting-create');
     Route::get('distributors/search',[DistributorController::class, 'distributorSearch'])->name('distributors.search');
 
     
 });
     Route::get('stores/search',[StoreController::class, 'storeSearch'])->name('stores.search');
-
+Route::post('event-setting/store',[EventSettingController::class, 'store'])->name('event-setting-store');
 
 Route::prefix('draw')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('index', [DrawController::class, 'index'])->name('index');
