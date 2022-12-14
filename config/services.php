@@ -30,4 +30,18 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => 'http://127.0.0.1:8000/auth/google/callback',  
+    ],
+
+    'dingtalk'=>[
+        'client_id'=>env('DINGTALK_APP_KEY'),
+        'client_secret'=>env('DINGTALK_APP_SECRET'),
+        'redirect' => 'http://127.0.0.1:8000/auth/dingtalk/callback',  
+    ]
+
+    
+
 ];

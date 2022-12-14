@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Draw\DrawController;
 use App\Http\Controllers\Setup\DistributorController;
 use App\Http\Controllers\Setup\EventSettingController;
@@ -26,6 +27,14 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+//For google login
+Route::get('auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'reDirectGoogle'])->name('reDirectGoogle');
+Route::get('auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'googleCallBack'])->name('googleCallBack');
+
+//For dingTalk Login
+Route::get('auth/dingtalk', [App\Http\Controllers\Auth\DingTalkController::class, 'reDirectDingTalk'])->name('reDirectDingTalk');
+ Route::get('auth/dingTalk/callback', [App\Http\Controllers\Auth\DingTalkController::class, 'dingTalkCallback'])->name('dingTalkCallback');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
