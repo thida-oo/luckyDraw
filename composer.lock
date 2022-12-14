@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7d9fecc63da134f05a16772dd765cdd",
+    "content-hash": "1579a085b636358320c57945418a8de4",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -7177,6 +7177,7 @@
             "time": "2022-09-12T13:28:28+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "twbs/bootstrap-icons",
             "version": "v1.10.2",
             "source": {
@@ -7188,6 +7189,19 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/twbs/icons/zipball/4deaf1f69ccbe0a996c08a308525a26b05467242",
                 "reference": "4deaf1f69ccbe0a996c08a308525a26b05467242",
+=======
+            "name": "ttskch/select2-bootstrap4-theme",
+            "version": "1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ttskch/select2-bootstrap4-theme.git",
+                "reference": "03fe405b21e4f8165a617b2b269346b1ffdc3619"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ttskch/select2-bootstrap4-theme/zipball/03fe405b21e4f8165a617b2b269346b1ffdc3619",
+                "reference": "03fe405b21e4f8165a617b2b269346b1ffdc3619",
+>>>>>>> bf61b1cf6789f583984b55da24633509f46e3637
                 "shasum": ""
             },
             "type": "library",
@@ -7197,6 +7211,7 @@
             ],
             "authors": [
                 {
+<<<<<<< HEAD
                     "name": "Mark Otto",
                     "email": "markdotto@gmail.com"
                 }
@@ -7214,6 +7229,32 @@
                 "source": "https://github.com/twbs/icons/tree/v1.10.2"
             },
             "time": "2022-11-13T17:44:34+00:00"
+=======
+                    "name": "Takashi Kanemoto",
+                    "email": "ttskch@gmail.com"
+                }
+            ],
+            "description": "Select2 v4 theme for Bootstrap4",
+            "keywords": [
+                "bootstrap",
+                "bootstrap4",
+                "css",
+                "scss",
+                "select2",
+                "theme"
+            ],
+            "support": {
+                "issues": "https://github.com/ttskch/select2-bootstrap4-theme/issues",
+                "source": "https://github.com/ttskch/select2-bootstrap4-theme/tree/1.5.2"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/paypalme/ttskch",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-01-28T07:02:26+00:00"
+>>>>>>> bf61b1cf6789f583984b55da24633509f46e3637
         },
         {
             "name": "vlucas/phpdotenv",

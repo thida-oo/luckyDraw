@@ -20,6 +20,8 @@
  
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- <link href="{{ asset('css/sidebars.css') }}" rel="stylesheet"> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -59,6 +61,7 @@
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="{{ url('setup/distributor')}}">Distributor</a></li>
                                 <li><a class="dropdown-item" href="{{ url('setup/store')}}">Store</a></li>
+                                <li><a class="dropdown-item" href="{{ url('setup/product')}}">Products</a></li>
                                 <li><a class="dropdown-item" href="{{ url('setup/import')}}">Import</a></li>
                                 <li><a class="dropdown-item" href="{{ url('setup/present')}}">Present</a></li>                                
                                 <li><a class="dropdown-item" href="{{ url('setup/event-setting')}}">Event Setting</a></li>
@@ -112,6 +115,8 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{ url('/js/jquery3.5.1.js') }}" rel="javascript" type="text/javascript"></script> 
+      <script src="{{ url('/js/bootstrap.min.js') }}"></script>
 <!-- 
     <script src="{{ asset('js/sidebarloader.js') }}" rel="javascript" type="text/javascript"></script>
     <script src="{{ asset('js/sidebars.js') }}" rel="javascript" type="text/javascript"></script> -->
