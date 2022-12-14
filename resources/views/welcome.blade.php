@@ -26,12 +26,31 @@
 .no-gutters {
   margin-right: 0;
   margin-left: 0;
-
+}
 /* > .col, > [class*="col-"] {
     padding-right: 0;
     padding-left: 0;
   } */
+
+.or-container {
+    align-items: center;
+    color: #ccc;
+    display: flex;
+    margin: 25px 0;
 }
+
+.line-separator {
+    background-color: #ccc;
+    flex-grow: 5;
+    height: 1px;
+}
+
+.or-label {
+    flex-grow: 1;
+    margin: 0 15px;
+    text-align: center;
+}
+
 </style>
     <body class="antialiased ">
 
@@ -113,6 +132,25 @@
                                 @endif
                             </div>
                         </div>
+                     
+                        <div class="or-container">
+                            <div class="line-separator"></div>
+                            <div class="or-label">or</div>
+                            <div class="line-separator"></div>
+                        </div>
+                       
+                        <a href="{{ url('auth/google') }} " role="button">                            
+                            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
+                        </a>
+                        <div class="or-container">
+                            <div class="line-separator"></div>
+                            <div class="or-label">or</div>
+                            <div class="line-separator"></div>
+                        </div>
+                       
+                        <a href="{{ url('auth/dingtalk') }} " role="button">                            
+                            <img src="{{ asset('image/dingTalk.png') }} " width="50" height="50" style="margin-left: 3em;"> Sigin with ding Talk
+                        </a>
                     </form>
                         </div>
                     </div>
