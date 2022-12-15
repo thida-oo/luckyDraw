@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="card  col-10">
 			<div class="card-header">
-					<h5>Title</h5>
+					<h3><span class="badge badge-dark">Import Lists for Set UP</span></h3>
 			</div>
 			<div class="card-body">
 				<form method="POST" enctype="multipart/form-data" action="{{ url('setup/distributor/import')}}">
@@ -39,19 +39,35 @@
 				<form method="POST" enctype="multipart/form-data" action="{{ route('product-import')}}">
 					@csrf
 					@method('POST')
-				<div class="row mt-4">
-					<div class="col-sm-2 col-lg-2 col-md-2">
-						Products
+					<div class="row mt-4">
+						<div class="col-sm-2 col-lg-2 col-md-2">
+							Products
+						</div>
+						<div class="col-sm-6 col-lg-6 col-md-6">
+							<input type="file" name="file" class="form-control form-control-sm" required />
+						</div>
+						<div class="col-sm-4 col-lg-4 col-md-4">
+							<button class="btn  btn-primary btn-sm">Submit</button>
+						</div>
+						
 					</div>
-					<div class="col-sm-6 col-lg-6 col-md-6">
-						<input type="file" name="file" class="form-control form-control-sm" required />
+				</form>
+				<form method="POST" enctype="multipart/form-data" action="{{ route('stock-import')}}">
+					@csrf
+					@method('POST')
+					<div class="row mt-4">
+						<div class="col-sm-2 col-lg-2 col-md-2">
+							Daily Stock
+						</div>
+						<div class="col-sm-6 col-lg-6 col-md-6">
+							<input type="file" name="file" class="form-control form-control-sm" required />
+						</div>
+						<div class="col-sm-4 col-lg-4 col-md-4">
+							<button class="btn  btn-primary btn-sm">Submit</button>
+						</div>
+						
 					</div>
-					<div class="col-sm-4 col-lg-4 col-md-4">
-						<button class="btn  btn-primary btn-sm">Submit</button>
-					</div>
-					
-				</div>
-			</form>
+				</form>
 			</div>
 			
 		</div>

@@ -28,10 +28,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//For google login
-Route::get('auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'reDirectGoogle'])->name('reDirectGoogle');
-Route::get('auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'googleCallBack'])->name('googleCallBack');
-
 //For dingTalk Login
 Route::get('auth/dingtalk', [App\Http\Controllers\Auth\DingTalkController::class, 'reDirectDingTalk'])->name('reDirectDingTalk');
  Route::get('auth/dingTalk/callback', [App\Http\Controllers\Auth\DingTalkController::class, 'dingTalkCallback'])->name('dingTalkCallback');
@@ -60,6 +56,10 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('product-edit');
     Route::get('product/delete/{id}',[ProductController::class, 'delete'])->name('product-delete');
     Route::get('product/search',[ProductController::class, 'productSearch'])->name('product-search');
+
+    //For stock
+    Route::post('stock/import',[ProductController::class, '_stockImport'])->name('stock-import');
+
     // for present
     Route::get('present',[PresentController::class, 'index'])->name('index');
     Route::post('present-save',[PresentController::class, 'store'])->name('store');

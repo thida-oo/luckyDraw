@@ -139,17 +139,8 @@
                             <div class="line-separator"></div>
                         </div>
                        
-                        <a href="{{ url('auth/google') }} " role="button">                            
-                            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
-                        </a>
-                        <div class="or-container">
-                            <div class="line-separator"></div>
-                            <div class="or-label">or</div>
-                            <div class="line-separator"></div>
-                        </div>
-                       
-                        <a href="{{ url('auth/dingtalk') }} " role="button">                            
-                            <img src="{{ asset('image/dingTalk.png') }} " width="50" height="50" style="margin-left: 3em;"> Sigin with ding Talk
+                        <a href="{{ url('auth/dingtalk') }} " role="button" class="btn btn-secondary" type="button">                            
+                            <img src="{{ asset('image/dingTalk.png') }} " width="35" height="35"> Sigin with DingTalk
                         </a>
                     </form>
                         </div>

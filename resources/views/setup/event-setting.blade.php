@@ -11,30 +11,32 @@
             <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6 text-right">
                 <label for="present_code" class="col-sm-3 col-md-3 col-lg-3 col-form-label ml-4" >Name</label>
                 <div class="col-sm-9 col-md-9 col-lg-9">
-                <input type="text" name="name" class="form-control form-control-sm" id="present_code">
+                    <input type="text" name="name" class="form-control form-control-sm" id="present_code">
                 </div>
             </div>
-      <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6 ">
-      <label class="col-sm-3 col-md-3 col-lg-3 col-form-label ml-4" >Products</label>
-      <div class="col-sm-9 col-md-9 col-lg-9 bg-light">
-         <select multiple data-placeholder="Choose Product" class="form-control form-control-sm bg-light" data-allow-clear="1" name="product[]">
-        @foreach($products as $product)
-        <option value="{{$product->id}}">{{$product->p_name}}</option>
-        @endforeach
-      </select>
-  </div>
-    </div>
 
             <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6">
                 <label for="present_name" class="col-sm-3 col-md-3 col-lg-3 col-form-label">Started Time</label>
                 <div class="col-sm-9 col-md-9 col-lg-9">
-                <input type="date" name="start_time" class="form-control form-control-sm" id="present_name">
+                    <input type="date" name="start_time" class="form-control form-control-sm" id="present_name">
                 </div>
             </div>
+
+            <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6 ">
+                <label class="col-sm-3 col-md-3 col-lg-3 col-form-label ml-4" >Products</label>
+                <div class="col-sm-9 col-md-9 col-lg-9 bg-light">
+                    <select multiple data-placeholder="Choose Product" class="form-control form-control-sm bg-light" data-allow-clear="1" name="product[]">
+                    @foreach($products as $product)
+                    <option value="{{$product->id}}">{{$product->p_name}}</option>
+                    @endforeach
+                </select>
+                </div>
+            </div>
+
             <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6">
                 <label for="draw_no" class="col-sm-3 col-md-3 col-lg-3 col-form-label">Ended Time</label>
                 <div class="col-sm-9 col-md-9 col-lg-9">
-                <input type="date" name="end_time" class="form-control form-control-sm" id="draw_no">
+                    <input type="date" name="end_time" class="form-control form-control-sm" id="draw_no">
                 </div>
             </div>
         </div>
