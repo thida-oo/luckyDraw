@@ -40,15 +40,16 @@ Route::prefix('admin')->group(function(){
 
 Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('store', [StoreController::class, 'index'])->name('index');
+    Route::post('store/import',[StoreController::class, '_storeImport'])->name('store-import');
+    Route::get('stores/search',[StoreController::class, 'storeSearch'])->name('stores.search');
+
+    //Route::get('distributorImport', [DistributorController::class, 'distributorImport'])->name('distributorImport');  // delete in process, but still have UI
     Route::get('distributor', [DistributorController::class, 'index'])->name('index');
-   
-    Route::get('distributorImport', [DistributorController::class, 'distributorImport'])->name('distributorImport');
-    
     Route::post('distributor/import', [DistributorController::class, '_distributorImport'])->name('distributor-import');
     
     Route::get('import',[DistributorController::class, 'import'])->name('import');
 
-    Route::post('store/import',[StoreController::class, '_storeImport'])->name('store-import');
+    
 
     Route::get('product',[ProductController::class, 'index'])->name('product.index');
     Route::post('product/import',[ProductController::class, '_productImport'])->name('product-import');
@@ -67,12 +68,12 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 
     // for event setting
     Route::get('event-setting',[EventSettingController::class, 'create'])->name('event-setting-create');
-    Route::get('distributors/search',[DistributorController::class, 'distributorSearch'])->name('distributors.search');
+    Route::post('event-setting/store',[EventSettingController::class, 'store'])->name('event-setting-store');
 
     
 });
-    Route::get('stores/search',[StoreController::class, 'storeSearch'])->name('stores.search');
-Route::post('event-setting/store',[EventSettingController::class, 'store'])->name('event-setting-store');
+    
+
 
 Route::prefix('draw')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('index', [DrawController::class, 'index'])->name('index');
