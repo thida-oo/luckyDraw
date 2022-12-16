@@ -46,6 +46,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     //Route::get('distributorImport', [DistributorController::class, 'distributorImport'])->name('distributorImport');  // delete in process, but still have UI
     Route::get('distributor', [DistributorController::class, 'index'])->name('index');
     Route::post('distributor/import', [DistributorController::class, '_distributorImport'])->name('distributor-import');
+    Route::get('distributors/search',[DistributorController::class, 'distributorSearch'])->name('distributors.search');
     
     Route::get('import',[DistributorController::class, 'import'])->name('import');
 
