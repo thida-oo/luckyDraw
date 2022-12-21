@@ -8,7 +8,8 @@ use DB;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable=['p_code','p_name','created_time','created_by','updated_at','updated_by'];
+
+    protected $fillable=['p_code','p_name','type', 'created_at','created_by','updated_at','updated_by'];
 
     public function _searchProducts($searchTxt)
     {

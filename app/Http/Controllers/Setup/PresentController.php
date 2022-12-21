@@ -13,6 +13,10 @@ class PresentController extends Controller
         return view('setup/present', ['presents'=>$presents]);
     }
 
+    public function create(){
+        return view('setup/present-create');
+    }
+
     public function store(Request $request){
         //save data
         $present = new Present();

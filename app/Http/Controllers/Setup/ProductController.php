@@ -41,6 +41,7 @@ class ProductController extends Controller
     }
     public function productStore(storeProduct $request)
     {
+
         Product::create([
             'p_code' => $request->input('p_code'),
             'p_name' => $request->input('p_name'),
@@ -48,6 +49,7 @@ class ProductController extends Controller
             'created_at' => date('Y-m-d H:i:s'),
             'created_by' => Auth::user()->id,
         ]);
+
         return redirect()->route('product.index');
     }
     public function edit($id)

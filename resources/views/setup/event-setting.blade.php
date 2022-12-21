@@ -1,102 +1,64 @@
 @extends('layouts.app')
+
 @section('content')
-  <link rel="stylesheet" href="{{url('/css/select2.css')}}" />
-  <link rel="stylesheet" href="{{url('/css/select2-bootstrap4.min.css')}}">
-  <link href="{{url('/css/select2-bootstrap4.min.css')}}" rel="stylesheet"><div class="container">
-    <form action="{{route('event-setting-store')}}" method="post">
-        @csrf
-        @method('POST')
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <div class="row">
-            <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6 text-right">
-                <label for="present_code" class="col-sm-3 col-md-3 col-lg-3 col-form-label ml-4" >Name</label>
-                <div class="col-sm-9 col-md-9 col-lg-9">
-                    <input type="text" name="name" class="form-control form-control-sm" id="present_code">
-                </div>
-            </div>
 
-            <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6">
-                <label for="present_name" class="col-sm-3 col-md-3 col-lg-3 col-form-label">Started Time</label>
-                <div class="col-sm-9 col-md-9 col-lg-9">
-                    <input type="date" name="start_time" class="form-control form-control-sm" id="present_name">
-                </div>
+<div class="container">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4><span class="badge"> Search </span></h4>
             </div>
-
-            <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6 ">
-                <label class="col-sm-3 col-md-3 col-lg-3 col-form-label ml-4" >Products</label>
-                <div class="col-sm-9 col-md-9 col-lg-9 bg-light">
-                    <select multiple data-placeholder="Choose Product" class="form-control form-control-sm bg-light" data-allow-clear="1" name="product[]">
-                    @foreach($products as $product)
-                    <option value="{{$product->id}}">{{$product->p_name}}</option>
-                    @endforeach
-                </select>
-                </div>
-            </div>
-
-            <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6">
-                <label for="draw_no" class="col-sm-3 col-md-3 col-lg-3 col-form-label">Ended Time</label>
-                <div class="col-sm-9 col-md-9 col-lg-9">
-                    <input type="date" name="end_time" class="form-control form-control-sm" id="draw_no">
-                </div>
+            <div class="card-body">
+                <form class="row g-3">
+                    <div class="col-auto">
+                        <label for="searchText" class="visually-hidden">Search Text</label>
+                        <input type="text" readonly class="form-control-plaintext" id="searchText" value="Search Text">
+                    </div>
+                    <div class="col-auto">
+                        <label for="searchBox" class="visually-hidden">Search</label>
+                        <input type="text" class="form-control" id="searchBox" placeholder="Please enter search text here">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Search</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-        
-    
-    <div class="mb-3 row">     
-        <label for="p_image" class="col-sm-2 col-form-label"></label>   
-        <div class="col-sm-10">
-        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-        <button type="reset" class="btn btn-sm btn-primary">Reset</button>
+    <div class="container pt-2">
+        <div class="card">
+            <h4 class="card-header d-flex justify-content-between align-items-center">List of Event Setting
+                <a href="{{ url('setup/event-setting-create') }}"><button type="button" class="btn btn-primary">Create</button></a>
+            </h4>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Event Name</th>
+                            <th scope="col">Start Time</th>
+                            <th scope="col">End Time</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($e_settings as $setting)
+                        <tr>
+                            <td>{{ $setting->id}}</td>
+                            <td>{{ $setting->name}}</td>
+                            <td>{{ $setting->event_start_time}}</td>
+                            <td>{{ $setting->event_end_time}}</td>
+                            <td>
+                                <span class="material-symbols-outlined">overview</span>
+                                <span class="material-icons">edit</span>
+                                <span class="material-icons">delete</span>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
-    <!-- for present ID Lists -->
-    <div>
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Present Code</th>
-                    <th>Present Name</th>
-                    <th>Draw Number</th>
-                    <th>Status</th>
-                    <th>Image</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- get Data from Present -->
-                @foreach($present_lists as $pList)
-                <tr>
-                    <th>{{ $pList->id }}</th>
-                    <th>{{ $pList->present_code }}</th>
-                    <th>{{ $pList->present_name }}</th>
-                    <th>{{ $pList->present_no }}</th>
-                    <th><input type="checkbox" name="present_id[]" value="{{$pList->id}}"> </th>
-                    <th><img src="{{ asset('image/presentsImage/'. $pList->image) }}" class="img-fluid" alt="default" width="50" height="80"></th>
-                </tr>
-                @endforeach
-
-                @foreach($products as $product)
-                <tr>
-                    <th>{{ $product->p_code }}</th>
-                    <th>{{ $product->p_code }}</th>
-                    <th>{{ $product->p_name }}</th>
-                    <th>{{ $product->type }}</th>
-                    <th>{{ $product->p_code }}</th>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    </form>
 </div>
-<script src="{{url('/js/jquery3.5.1.js')}}"></script>
-<script src="{{url('/js/bootstrap.min.js')}}"></script>
-<script src="{{url('/js/select.min.js')}}"></script>
-<script type="text/javascript">
-    $('select').select2({
-    theme: 'bootstrap4',
-});
-</script>
 @endsection

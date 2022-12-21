@@ -64,18 +64,19 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 
     // for present
     Route::get('present',[PresentController::class, 'index'])->name('index');
+    Route::get('present-create', [PresentController::class, 'create'])->name('create');
     Route::post('present-save',[PresentController::class, 'store'])->name('store');
 
 
     // for event setting
-    Route::get('event-setting',[EventSettingController::class, 'create'])->name('event-setting-create');
+    Route::get('event-setting',[EventSettingController::class, 'index'])->name('index');
+    Route::get('event-setting-create', [EventSettingController::class, 'create'])->name('event-setting-create');
     Route::post('event-setting/store',[EventSettingController::class, 'store'])->name('event-setting-store');
 
     
 });
-    
-
 
 Route::prefix('draw')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('index', [DrawController::class, 'index'])->name('index');
+    Route::post('draw-store', [DrawController::class, 'store'])->name('store');
 });
