@@ -166,8 +166,9 @@ return [
          * Package Service Providers...
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        // Laravel\Socialite\SocialiteServiceProvider::class, //remove coz of dingTalk login
-        \SocialiteProviders\Manager\ServiceProvider::class, // add
+        Laravel\Socialite\SocialiteServiceProvider::class, // no packages
+        //remove coz of dingTalk login
+        //\SocialiteProviders\Manager\ServiceProvider::class, // add
         /*
          * Application Service Providers...
          */
@@ -176,6 +177,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\SocialiteServiceProvider::class,
 
     ],
 
