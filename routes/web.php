@@ -9,7 +9,9 @@ use App\Http\Controllers\Setup\EventSettingController;
 use App\Http\Controllers\Setup\PresentController;
 use App\Http\Controllers\Setup\ProductController;
 use App\Http\Controllers\Setup\StoreController;
+use App\Http\Controllers\Setup\StocksController;
 use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +46,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('stores/search',[StoreController::class, 'storeSearch'])->name('stores.search');
 
     //Route::get('distributorImport', [DistributorController::class, 'distributorImport'])->name('distributorImport');  // delete in process, but still have UI
-    Route::get('distributor', [DistributorController::class, 'index'])->name('index');
+    Route::get('distributor', [DistributorController::class, 'index'])->name('distributor-index');
     Route::post('distributor/import', [DistributorController::class, '_distributorImport'])->name('distributor-import');
     Route::get('distributors/search',[DistributorController::class, 'distributorSearch'])->name('distributors.search');
     
@@ -60,7 +62,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('product/search',[ProductController::class, 'productSearch'])->name('product-search');
 
     //For stock
-    Route::post('stock/import',[ProductController::class, '_stockImport'])->name('stock-import');
+    Route::post('stock/import',[StocksController::class, '_stockImport'])->name('stock-import');
 
     // for present
     Route::get('present',[PresentController::class, 'index'])->name('index');

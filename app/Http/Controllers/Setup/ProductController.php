@@ -73,7 +73,4 @@ class ProductController extends Controller
         $product = Product::find($id)->delete();
         return redirect()->route('product.index');
     }
-    public function _stockImport(Request $request)
-    {
-    }
 }

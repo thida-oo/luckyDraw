@@ -13,7 +13,7 @@ class StoreImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-
+        // echo '<pre>',print_r($row,1),'</pre>';
         $distributor = new Distributor();
         $distributor_data = $distributor->_getDistributorInfoFromText($row['affiliated_distributor']);
 

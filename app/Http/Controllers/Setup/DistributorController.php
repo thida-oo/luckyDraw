@@ -30,11 +30,11 @@ class DistributorController extends Controller
             try{
                 Excel::import(new DistributorImport, $import_file);
                 $distributors = Distributor::all();                
-                return view('setup/distributor', ['distributors' => $distributors])->with('success', 'Data already imported');
             } catch(Exception $e){
 
                dd($e);
             }            
+            return redirect()->route('distributor-index')->with('success', 'Data already imported');
         }
        
     }
