@@ -30,7 +30,7 @@ Auth::routes();
 
 //For dingTalk Login
 Route::get('auth/dingtalk', [App\Http\Controllers\Auth\DingTalkController::class, 'reDirectDingTalk'])->name('reDirectDingTalk');
- Route::get('auth/dingTalk/callback', [App\Http\Controllers\Auth\DingTalkController::class, 'dingTalkCallback'])->name('dingTalkCallback');
+ Route::get('auth/dingtalk/callback', [App\Http\Controllers\Auth\DingTalkController::class, 'dingTalkCallback'])->name('dingTalkCallback');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -76,7 +76,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     
 });
 
-Route::prefix('draw')->middleware('auth', 'isAdmin')->group(function(){
+Route::prefix('draw')->group(function(){
     Route::get('index', [DrawController::class, 'index'])->name('index');
     Route::post('draw-store', [DrawController::class, 'store'])->name('store');
 });

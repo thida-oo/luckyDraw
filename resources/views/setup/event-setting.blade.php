@@ -49,9 +49,9 @@
                             <td>{{ $setting->event_start_time}}</td>
                             <td>{{ $setting->event_end_time}}</td>
                             <td>
-                                <span class="material-symbols-outlined">overview</span>
-                                <span class="material-icons">edit</span>
-                                <span class="material-icons">delete</span>
+                            <a href="{{ url('setup/event-setting-overview/' .$setting->id) }}"><span class="material-symbols-outlined">overview</span>
+                            <a href="{{ url('setup/event-setting-edit/' .$setting->id) }}"><span class="material-icons">edit</span>
+                            <a href="{{ url('setup/event-setting-delete/' .$setting->id) }}"><span class="material-icons">delete</span>
                             </td>
                         </tr>
                         @endforeach

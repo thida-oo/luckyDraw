@@ -74,12 +74,16 @@
                             <!-- get Data from Present -->
                             @foreach($present_lists as $pList)
                             <tr>
-                                <th>{{ $pList->id }}</th>
-                                <th>{{ $pList->present_code }}</th>
-                                <th>{{ $pList->present_name }}</th>
-                                <th>{{ $pList->present_no }}</th>
-                                <th><input type="checkbox" name="present_id[]" value="{{$pList->id}}"> </th>
-                                <th><img src="{{ asset('image/presentsImage/'. $pList->image) }}" class="img-fluid" alt="default" width="50" height="80"></th>
+                                <td>{{ $pList->id }}</td>
+                                <td>{{ $pList->present_code }}</td>
+                                <td>{{ $pList->present_name }}</td>
+                                <td>
+                                    <input type="text" name="draw_probability[]" value="{{$pList->present_prob}}">{{ "%" }}
+                                </td>
+                                <td><input type="checkbox" name="present_id[]" value="{{$pList->id}}"> </td>
+                                <td>
+                                    <img src="{{ asset('image/presentsImage/'. $pList->image) }}" class="img-fluid" alt="default" width="50" height="80">
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

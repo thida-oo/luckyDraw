@@ -22,19 +22,22 @@ class DingTalkController extends Controller
 
     public function dingTalkCallback(Request $request){
 
-        $dingUser = Socialite::with('dingtalk')->user();
+        $dingUser = Socialite::driver('dingtalk')->user();
 
+        
         $findUser = User::where('google_id', $dingUser->id)->first();
 
-        if($findUser){ die;
+        if($findUser){ 
             Auth::login($findUser);
             return redirect('/home');
         }else {
+            //dd($dingUser->avatar);
             $newUser = User::create([
                 'name' =>$dingUser->name,
                 'email'=>is_null( $dingUser->email)? $dingUser->unionid : $dingUser->email,
                 'password'=>Hash::make('oppoGoogle'),
-                'google_id'=>$dingUser->id
+                'google_id'=>$dingUser->id,
+                'avatar'=>$dingUser->avatar,
             ]);
 			
 			Auth::login($newUser);

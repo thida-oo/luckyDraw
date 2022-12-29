@@ -46,18 +46,25 @@
                             <th>Draw Number</th>
                             <th>Status</th>
                             <th>Image</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- get Data from Present -->
                         @foreach($presents as $pList)
                         <tr>
-                            <th>{{ $pList->id }}</th>
-                            <th>{{ $pList->present_code }}</th>
-                            <th>{{ $pList->present_name }}</th>
-                            <th>{{ $pList->present_code }}</th>
-                            <th><input type="checkbox"> </th>
-                            <th><img src="{{ asset('image/presentsImage/'. $pList->image) }}" class="img-fluid" alt="default" width="50" height="80"></th>
+                            <td>{{ $pList->id }}</td>
+                            <td>{{ $pList->present_code }}</td>
+                            <td>{{ $pList->present_name }}</td>
+                            <td>{{ $pList->present_code }}</td>
+                            <td><input type="checkbox"> </td>
+                            <td>
+                                <img src="{{ asset('image/presentsImage/'. $pList->image) }}" class="img-fluid" alt="default" width="50" height="80">
+                            </td>
+                            <td>
+                                <a href="{{ url('setup/present-edit/' .$pList->id) }}"><span class="material-icons">edit</span></a>
+                                <a href="{{ url('setup/present-delete/' .$pList->id) }}"><span class="material-icons" style="padding-left: 3.5%;">delete</span></a>
+                            </td>
                         </tr>
                         @endforeach
 

@@ -61,6 +61,18 @@ class DrawController extends Controller
 
                     //allowed product
                     //draw here
+                    $draw_presents = DB::table('event_setting_details')
+                                ->select('id', 'present_id', 'present_prob')
+                                ->where('event_id', '=', $valid_event->id)
+                                ->get()->toArray();
+                                //dd(array_column($draw_presents, 'id'));
+                    //$id_lists = array_column($id_lists, 'id' );
+
+                return view('draw/spin', ['id_lists'=> array_column($draw_presents, 'id'), 
+                                        'present_lists'=>array_column($draw_presents, 'present_id'), 
+                                        'prob_lists'=>array_column($draw_presents, 'present_prob')]);
+                //return view('draw/spin', ['id_lists'=> $draw_presents]);
+                           // dd($draw_presents);
                    
                 }
 

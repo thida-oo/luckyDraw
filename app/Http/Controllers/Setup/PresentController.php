@@ -20,7 +20,8 @@ class PresentController extends Controller
     public function store(Request $request){
         //save data
         $present = new Present();
-        $present->present_code = $request->input('present_code');
+
+        $present->present_code = $present->createPresentCode();
         $present->present_name = $request->input('present_name');
         $present->present_no = $request->input('draw_no');
         $present->remark = $request->input('remark'); 

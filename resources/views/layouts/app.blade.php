@@ -16,12 +16,17 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp|Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"  rel="stylesheet">
+
   <!-- Styles -->
  
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/spin.css') }}" rel="stylesheet">
     <!-- <link href="{{ asset('css/sidebars.css') }}" rel="stylesheet"> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+ 
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -88,7 +93,8 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    <img src = "{{ Auth::user()->avatar }}" alt="profile" class="img-fluid rounded-circle profile">
+                                    <!-- {{ Auth::user()->name }} -->
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

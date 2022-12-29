@@ -103,9 +103,9 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
      */
     public function user(){
 
-        if($this->user()){  
-            return $this->user(); 
-        }
+        // if($this->user()){  
+        //     return $this->user(); 
+        // }
         
         if($this->hasInvalidState()){  
             throw new InvalidStateException();
@@ -130,15 +130,15 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
 
 
     public function getAccessTokenResponse($code)
-    { 
+    {  
         $response = $this->getHttpClient()->post($this->getTokenUrl(), [
             RequestOptions::JSON => $this->getTokenFields($code),
         ]);
 
-        return $this->changeBody($response);
+        return $this->changeJSONBody($response);
     }
 
-    public function changeBody($response): array
+    public function changeJSONBody($response): array
     { 
         $result = \json_decode((string) $response->getBody(), true);
 
