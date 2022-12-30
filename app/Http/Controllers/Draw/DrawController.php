@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\DrawIMEI;
 use App\Models\EventSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -33,9 +35,10 @@ class DrawController extends Controller
         $store_code = $request->input('store_id');
         $imei_sn = $request->input("imei_sn");
 
-        $draw_imei = DB::table('draw_imei')->where('imei_sn', 'like', $imei_sn)->get();
+        $draw_imei = DB::table('draw_imeis')->where('imei_sn', 'like', $imei_sn)->get();
 
         if($draw_imei->isNotEmpty()){   
+            Alert::warning('This IMEI already draw Once!( ဤ IMEI သည် ကံစမ်းပြီးသော IMEI ဖြစ်သည် )');
             return view('draw/index'); // tell already done by draw
         } else { 
             //check valid product for current event
@@ -46,6 +49,7 @@ class DrawController extends Controller
                             ->get();
 
             if($imei_data->isEmpty()){
+                Alert::info('This IMEI does not exist in this store !( ဤ IMEI သည် ဆိုင်တွင် မရှိ သော IMEI ဖြစ်သည်  )');
                 return view('draw/index'); // IMEI doesn't exist in this store 
             } else {
                 $current_date = DATE('Y-m-d', strtotime(now()));
@@ -56,23 +60,35 @@ class DrawController extends Controller
                 $products = explode(',', $valid_event->product_id);
 
                 if(!in_array($imei_data[0]->product_id, $products)){
+                    Alert::warning('This IMEI Model is not allowed to participate! (ဤ IMEI ၏ Model သည် လက်ရှိ Event တွင် ပါ၀င်ခြင်း မရှိပါ )');
                     return view('draw/index');  // This is not allowed product
                 } else {
-
                     //allowed product
                     //draw here
                     $draw_presents = DB::table('event_setting_details')
-                                ->select('id', 'present_id', 'present_prob')
-                                ->where('event_id', '=', $valid_event->id)
+                                ->select('event_setting_details.present_id', 'presents.present_name', 'event_setting_details.present_prob')
+                                ->join('presents', 'event_setting_details.present_id', '=', 'presents.id')
+                                ->where('event_setting_details.event_id', '=', $valid_event->id)
                                 ->get()->toArray();
-                                //dd(array_column($draw_presents, 'id'));
-                    //$id_lists = array_column($id_lists, 'id' );
 
-                return view('draw/spin', ['id_lists'=> array_column($draw_presents, 'id'), 
-                                        'present_lists'=>array_column($draw_presents, 'present_id'), 
+                              
+
+                    if(empty($draw_presents)){
+                        Alert::info('No Present set up, please contact Adminstrator!! (လက်ရှိ Event အတွက် လက်ဆောင် များ မရှိပါ, Admin သို့ ဆက်သွယ်ပါ !! )');
+                        return view('draw/index');
+                    } else {
+
+                        // $draw_event = new DrawIMEI();
+                        // $draw_event->imei_sn=$imei_sn;
+                        // $draw_event->draw_store=$store_code; 
+                        // $draw_event->draw_by=Auth::user()->id;
+                        // $draw_event->draw_date=now();
+                        // $draw_event->save();
+
+                        return view('draw/spin', ['id_lists'=> array_column($draw_presents, 'present_id'), 
+                                        'present_lists'=>array_column($draw_presents, 'present_name'), 
                                         'prob_lists'=>array_column($draw_presents, 'present_prob')]);
-                //return view('draw/spin', ['id_lists'=> $draw_presents]);
-                           // dd($draw_presents);
+                    }
                    
                 }
 

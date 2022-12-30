@@ -16,8 +16,9 @@
         "laravel/ui": "^3.4",
         "maatwebsite/excel": "^3.1",
         "php-open-source-saver/jwt-auth": "^2.0",
-        "twbs/bootstrap-icons": "^1.10",
-        "ttskch/select2-bootstrap4-theme": "^1.5"
+        "realrashid/sweet-alert": "^5.1",
+        "ttskch/select2-bootstrap4-theme": "^1.5",
+        "twbs/bootstrap-icons": "^1.10"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

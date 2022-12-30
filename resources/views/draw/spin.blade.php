@@ -15,7 +15,11 @@
 
 <script>
     var probData = @json($prob_lists);
+    var presentId = @json($id_lists);
     var presentLabel = @json($present_lists);
+
+    // var finalResult = document.getElementById('finalValue');
+    // alert(finalResult);
 
 </script>
 
@@ -23,8 +27,6 @@
     <!-- Chart JS Plugin for displaying text over chart -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js"></script>
     <!-- Script -->
-    <script src="{{ asset('js/spin.js') }}"></script>
-
-    
+    <script src="{{ asset('js/spin.js') }}"></script>    
 
 @endsection
