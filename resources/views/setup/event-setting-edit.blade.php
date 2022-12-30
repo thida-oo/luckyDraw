@@ -9,31 +9,41 @@
             <h4>Create Event Settings</h4>
         </div>
         <div class="card-body">
-            <form action="{{route('event-setting-store')}}" method="post">
+            <form action="{{route('event-setting-update')}}" method="post">
                 @csrf
                 @method('POST')
+                <input type="hidden" name="event_id" value="{{$res[0]->event_id}}">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="row">
                         <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6 text-right">
                             <label for="present_code" class="col-sm-3 col-md-3 col-lg-3 col-form-label ml-4">Name</label>
                             <div class="col-sm-9 col-md-9 col-lg-9">
-                                <input type="text" name="name" class="form-control form-control-sm" id="present_code">
+                                <input type="text" name="name" class="form-control form-control-sm" value="{{$res[0]->name}}" id="present_code">
                             </div>
                         </div>
-
+                        <?php 
+                        $start_time = strtotime($res[0]->event_start_time);
+                        $end_time = strtotime($res[0]->event_end_time);
+                         ?>
                         <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6">
                             <label for="present_name" class="col-sm-3 col-md-3 col-lg-3 col-form-label">Started Time</label>
                             <div class="col-sm-9 col-md-9 col-lg-9">
-                                <input type="date" name="start_time" class="form-control form-control-sm" id="present_name" required>
+                                <input type="date" name="start_time" class="form-control form-control-sm" id="present_name" value="{{date('Y-m-d',$start_time)}}" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6 ">
                             <label class="col-sm-3 col-md-3 col-lg-3 col-form-label ml-4">Products</label>
                             <div class="col-sm-9 col-md-9 col-lg-9 bg-light">
-                                <select multiple data-placeholder="Choose Product" class="form-control form-control-sm bg-light" data-allow-clear="1" name="product[]">
+                             <select multiple data-placeholder="Choose Product" class="form-control form-control-sm bg-light" data-allow-clear="1" name="product[]">
                                     @foreach($products as $product)
-                                    <option value="{{$product->id}}">{{$product->p_name}}</option>
+                                        @foreach($productID as $pro)
+                                            @if($pro == $product->id)
+                                            <option value="{{$product->id}}" selected>{{$product->p_name}}</option>
+                                            @else
+                                            <option value="{{$product->id}}">{{$product->p_name}}</option>
+                                            @endif
+                                        @endforeach
                                     @endforeach
                                 </select>
                             </div>
@@ -42,7 +52,7 @@
                         <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6">
                             <label for="draw_no" class="col-sm-3 col-md-3 col-lg-3 col-form-label">Ended Time</label>
                             <div class="col-sm-9 col-md-9 col-lg-9">
-                                <input type="date" name="end_time" class="form-control form-control-sm" required>
+                                <input type="date" name="end_time" class="form-control form-control-sm" value="{{date('Y-m-d',$end_time)}}" required>
                             </div>
                         </div>
                     </div>
@@ -65,26 +75,38 @@
                                 <th>#</th>
                                 <th>Present Code</th>
                                 <th>Present Name</th>
-                                <th> <p>Draw Number <span id="total"></span></p></th>
+                                <th>Draw Number</th>
                                 <th>Status</th>
                                 <th>Image</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- get Data from Present -->
+                            <?php $i = 0; ?>
                             @foreach($present_lists as $pList)
+                          
                             <tr>
                                 <td>{{ $pList->id }}</td>
                                 <td>{{ $pList->present_code }}</td>
                                 <td>{{ $pList->present_name }}</td>
+                                    @if((isset($res[$i])) && ($res[$i]->present_id == $pList->id))
                                 <td>
-                                    <input type="number" name="draw_probability[]" class="percentage" value="" />{{ "%" }}
+                                    <input type="text" name="draw_probability[]" class="percentage" value="{{$res[$i]->present_prob}}" />{{ "%" }}
                                 </td>
+
+                                <td><input type="checkbox" name="present_id[]" checked value="{{$pList->id}}"> </td>
+                                    @else
+                                <td>
+                                    <input type="text" name="draw_probability[]" class="percentage" />{{ "%" }}
+                                </td>
+
                                 <td><input type="checkbox" name="present_id[]" value="{{$pList->id}}"> </td>
+                                    @endif
                                 <td>
                                     <img src="{{ asset('image/presentsImage/'. $pList->image) }}" class="img-fluid" alt="default" width="50" height="80">
                                 </td>
                             </tr>
+                            <?php $i++; ?>
                             @endforeach
                         </tbody>
                         <tfoot>
@@ -123,7 +145,9 @@
                     $('#btn_submit').attr('disabled',false);
 
                 }
-                $('#total').text(calculated_total_sum);
+                if(calculated_total_sum > 100){
+                    alert("No More Hundred");
+                }
                 console.log(calculated_total_sum)
           });
      });

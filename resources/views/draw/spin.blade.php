@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<link href="{{ asset('css/spin.css') }}" rel="stylesheet">
 
 <div class="wrapper">
     <div class="container">
