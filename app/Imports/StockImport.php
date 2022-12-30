@@ -12,10 +12,11 @@ class StockImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {   
+        DB::table('stock')->where('imei_sn',$row['ime'])->delete();
         // Store code get from store table $row['orderdepotname']
         $store_code = DB::table('store')->where('store_name','like','%'.$row['orderdepotname'].'%')->get();
-        echo '<pre>',print_r($row,1),'</pre>';
-        echo "<br/>";
+        // echo '<pre>',print_r($row,1),'</pre>';
+        // echo "<br/>";
         // Distributor code get from distributor table $row['distributor']
         $distributor_code = DB::table('distributors')->where('distributor_name','like','%'.$row['purchasing_channel'].'%')->get();
         // Product id get from product table $row['productname']

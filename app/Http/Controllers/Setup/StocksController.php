@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Stocks;
 use App\Imports\StockImport;
+use App\Imports\ProductImport;
 use Maatwebsite\Excel\Facades\Excel;
 class StocksController extends Controller
 {

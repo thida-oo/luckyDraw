@@ -59,7 +59,7 @@
                             <td>{{ $pList->present_code }}</td>
                             <td><input type="checkbox"> </td>
                             <td>
-                                <img src="{{ asset('image/presentsImage/'. $pList->image) }}" class="img-fluid" alt="default" width="50" height="80">
+                                <img src="{{ asset('image/presentsImage/'. $pList->image) }}" alt="default" width="100px;" />
                             </td>
                             <td>
                                 <a href="{{ url('setup/present-edit/' .$pList->id) }}"><span class="material-icons">edit</span></a>

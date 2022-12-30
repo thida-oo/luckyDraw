@@ -22,7 +22,7 @@
   <!-- Styles -->
  
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/spin.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/spin.css') }}" rel="stylesheet"> -->
     <!-- <link href="{{ asset('css/sidebars.css') }}" rel="stylesheet"> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -93,7 +93,11 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    @if(Auth::user()->avatar)
                                     <img src = "{{ Auth::user()->avatar }}" alt="profile" class="img-fluid rounded-circle profile">
+                                    @else
+                                    <img src="{{asset('/user_profile/default.jpg')}}" alt="profile" class="img-fluid rounded-circle profile" style="width:50px;" />
+                                    @endif
                                     <!-- {{ Auth::user()->name }} -->
                                 </a>
 

@@ -74,7 +74,9 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('event-setting',[EventSettingController::class, 'index'])->name('index');
     Route::get('event-setting-create', [EventSettingController::class, 'create'])->name('event-setting-create');
     Route::post('event-setting/store',[EventSettingController::class, 'store'])->name('event-setting-store');
-
+    Route::get('event-setting-overview/{id}',[EventSettingController::class, 'overview'])->name('event-setting-overview');
+    Route::get('event-setting-edit/{id}',[EventSettingController::class, 'edit'])->name('event-setting-edit');
+    Route::post('event-setting-update',[EventSettingController::class, 'update'])->name('event-setting-update');
     
 });
 
