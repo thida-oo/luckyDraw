@@ -71,7 +71,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 
 
     // for event setting
-    Route::get('event-setting',[EventSettingController::class, 'index'])->name('index');
+    Route::get('event-setting',[EventSettingController::class, 'index'])->name('event-setting-index');
     Route::get('event-setting-create', [EventSettingController::class, 'create'])->name('event-setting-create');
     Route::post('event-setting/store',[EventSettingController::class, 'store'])->name('event-setting-store');
     Route::get('event-setting-overview/{id}',[EventSettingController::class, 'overview'])->name('event-setting-overview');
@@ -83,4 +83,9 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 Route::prefix('draw')->group(function(){
     Route::get('index', [DrawController::class, 'index'])->name('index');
     Route::post('draw-store', [DrawController::class, 'store'])->name('store');
+    Route::post('present', [DrawController::class, 'present']);
+
 });
+
+// test
+Route::get('test', [DrawController::class, 'test']);

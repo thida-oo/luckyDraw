@@ -95,9 +95,9 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if(Auth::user()->avatar)
-                                    <img src = "{{ Auth::user()->avatar }}" alt="profile" class="img-fluid rounded-circle profile">
+                                    <img src = "{{ Auth::user()->avatar }}" alt="profile" class="img-fluid rounded-circle profile mx-1" style="width:50px;">
                                     @else
-                                    <img src="{{asset('/user_profile/default.jpg')}}" alt="profile" class="img-fluid rounded-circle profile" style="width:50px;" />
+                                    <img src="{{asset('/user_profile/oppo.jpg')}}" alt="profile" class="img-fluid rounded-circle profile mx-1" style="width:50px;" />
                                     @endif
                                     <!-- {{ Auth::user()->name }} -->
                                 </a>

@@ -104,7 +104,12 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
      * {@inheritdoc}
      */
     public function user(){
-        
+
+        // if($this->user()){   
+        //     dd($this->user());
+        //     return $this->user(); 
+        // }
+
         if($this->hasInvalidState()){             
             throw new InvalidStateException();
         }
@@ -116,8 +121,6 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         $token = Arr::get($response, 'accessToken');
         
         $this->user = $this->mapUserToObject($this->getUserByToken($token));
-
-       // dd($this->user());
 
         return $this->user->setToken($token)
                         ->setRefreshToken(Arr::get($response, 'refreshToken'))
@@ -176,8 +179,6 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         ]);
 
         $me = json_decode($this->removeCallback($response->getBody()->getContents()), true);
-
-        //$this->getDeptData($token);
 
         $this->openId = $me['openId'];
         $this->unionId = Arr::get($me, 'unionId', '');

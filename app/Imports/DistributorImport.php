@@ -52,6 +52,7 @@ class DistributorImport implements ToModel, WithHeadingRow
         }
 
         // $table = DB::table('distributors')->where('distributor_code','=',$row['distributor_code'])->get();
+
         //if($type_data==3){
 
         return new Distributor([
@@ -62,7 +63,9 @@ class DistributorImport implements ToModel, WithHeadingRow
             'price_system' => $price_data,
             'status' => $status_data,
         ]);
+
     //}
+
         
     }
 }

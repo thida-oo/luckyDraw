@@ -19,7 +19,7 @@
                         <div class="mb-3 row">
                             <label for="present_name" class="col-sm-2 col-form-label">Present Name</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="present_name" name="present_name">
+                                <input type="text" class="form-control" id="present_name" name="present_name" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -31,7 +31,7 @@
                         <div class="mb-3 row">
                             <label for="p_image" class="col-sm-2 col-form-label">Image</label>
                             <div class="col-sm-10">
-                                <input type="file" class="form-control" id="p_image" onchange="loadPreview(this)" name="p_image">
+                                <input type="file" class="form-control" id="p_image" onchange="loadPreview(this)" name="p_image" required>
                             </div>
                         </div>
                         <div class="mb-3 row">

@@ -24,6 +24,7 @@ const data = probData;
 const present_value = presentId; 
 const label = presentLabel; //alert(presentLabel); alert(present_value);
 const degree = calPieData(probData);  //alert(degree);
+
 var rotationArray = [];
 
 calRotation(degree, label);
@@ -89,7 +90,9 @@ let spinChart = new Chart(wheel, {
             data: degree,
             label:"%"
         }, ],
+
     },
+
     options: {
         title:{
             display:true,
@@ -124,8 +127,6 @@ let spinChart = new Chart(wheel, {
     },
 
 });
-console.log(spinChart.data.datalabels);
-
 const valueGenerate = (angleValue) => {
 
     for (let i of rotationValues) { 

@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\DrawIMEI;
 use App\Models\EventSetting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use Auth;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -86,9 +86,12 @@ class DrawController extends Controller
                         // $draw_event->draw_date=now();
                         // $draw_event->save();
 
-                        return view('draw/spin', ['id_lists'=> array_column($draw_presents, 'present_id'), 
-                                        'present_lists'=>array_column($draw_presents, 'present_name'), 
-                                        'prob_lists'=>array_column($draw_presents, 'present_prob')]);
+                    return view('draw/spin', [
+                            'id_lists' => array_column($draw_presents, 'present_id'),
+                            'draw_presents' => $draw_presents,
+                            'prob_lists' => array_column($draw_presents, 'present_prob'),
+                            'imei_sn' => $imei_sn
+                            ]);
                     }
                    
                 }
@@ -97,6 +100,25 @@ class DrawController extends Controller
             
         }      
 
+    }
+    public function present(Request $request)
+    {
+
+        $imei_sn = $request->input('imei');
+        $present_id = $request->input('present_id');
+
+        $res = DB::table('stock')->where('imei_sn',$imei_sn)->get();
+
+            $draw_event = new DrawIMEI();
+            $draw_event->imei_sn=$imei_sn;
+            $draw_event->imei_sn_2=$res[0]->imei_sn_2;
+            $draw_event->draw_store=$res[0]->store_code; 
+            $draw_event->present_id=$present_id; 
+            $draw_event->draw_by=Auth::user()->id;
+            $draw_event->draw_date=now();
+            $draw_event->save();
+
+        return response()->json(['msg'=>'success','status'=>200,'imei'=>$imei_sn,'present_id'=>Auth::user()->id]);
     }
 
     
