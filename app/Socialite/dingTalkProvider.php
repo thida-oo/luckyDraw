@@ -18,6 +18,8 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
 
     protected string $userAccessTokenURL = 'https://api.dingtalk.com/v1.0/oauth2/userAccessToken';
 
+    protected string $getUserDepartmentURL = "https://oapi.dingtalk.com/topapi/v2/department/listsub";
+
     
     private $openId;
     protected $unionId;
@@ -103,7 +105,8 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
      */
     public function user(){
 
-        // if($this->user()){  
+        // if($this->user()){   
+        //     dd($this->user());
         //     return $this->user(); 
         // }
         
@@ -119,6 +122,8 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         
         $this->user = $this->mapUserToObject($this->getUserByToken($token));
 
+        //
+
         return $this->user->setToken($token)
                         ->setRefreshToken(Arr::get($response, 'refreshToken'))
                         ->setExpiresIn(Arr::get($response, 'expireIn'))
@@ -126,7 +131,27 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
 
     }
 
-  
+    public function getDeptData($token){
+                //get Dept data
+            
+                $dept_response = $this->getHttpClient()->get($this->getUserDepartmentURL, [
+                    RequestOptions::HEADERS => [
+                        'X-Acs-Dingtalk-Access-Token' => $token,
+                    ],
+                    RequestOptions::JSON => [
+                        'dept_id' => '1',
+                        'language' => 'en_US'
+                    ]
+                ]);
+
+               
+                 echo "dept data .."; var_dump($token); echo "<br>";
+                // dd($dept_response);
+        
+                $dept_me = json_decode($this->removeCallback($dept_response->getBody()->getContents()), true);
+        
+                dd($dept_me);
+    }
 
 
     public function getAccessTokenResponse($code)
@@ -156,6 +181,8 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         ]);
 
         $me = json_decode($this->removeCallback($response->getBody()->getContents()), true);
+
+        $this->getDeptData($token);
 
         $this->openId = $me['openId'];
         $this->unionId = Arr::get($me, 'unionId', '');

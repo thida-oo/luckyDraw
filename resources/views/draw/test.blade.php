@@ -1,6 +1,8 @@
-@extends('layouts.app')
-
-@section('content')
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Wheel of Fortune Bingo</title>
     <style type="text/css">
     text{
         font-family:Helvetica, Arial, sans-serif;
@@ -11,13 +13,15 @@
         position:absolute;
         width:500px;
         height:500px;
-        left:20%;
+        top:0;
+        left:0;
     }
     #question{
         position: absolute;
         width:400px;
         height:500px;
-        left:50%;
+        top:0;
+        left:520px;
     }
     #question h1{
         font-size: 50px;
@@ -34,11 +38,14 @@
     
 </head>
 <body>
-    <div class="d-flex d-flex-row">
-            <div id="chart"></div>
+    <div id="chart"></div>
     <div id="question"><h1></h1></div>
-    </div>
-
+    <?php echo print_r($draw_presents); ?>
+    <ul>
+    @foreach($draw_presents as $value)
+    <li>{{$value->present_name}}</li>
+    @endforeach
+</ul>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
         var padding = {top:20, right:40, bottom:0, left:0},
@@ -50,11 +57,10 @@
             picked = 100000,
             color = d3.scale.category20();//category20c()
             //randomNumbers = getRandomNumbers();
-
+        //http://osric.com/bingo-card-generator/?title=HTML+and+CSS+BINGO!&words=padding%2Cfont-family%2Ccolor%2Cfont-weight%2Cfont-size%2Cbackground-color%2Cnesting%2Cbottom%2Csans-serif%2Cperiod%2Cpound+sign%2C%EF%B9%A4body%EF%B9%A5%2C%EF%B9%A4ul%EF%B9%A5%2C%EF%B9%A4h1%EF%B9%A5%2Cmargin%2C%3C++%3E%2C{+}%2C%EF%B9%A4p%EF%B9%A5%2C%EF%B9%A4!DOCTYPE+html%EF%B9%A5%2C%EF%B9%A4head%EF%B9%A5%2Ccolon%2C%EF%B9%A4style%EF%B9%A5%2C.html%2CHTML%2CCSS%2CJavaScript%2Cborder&freespace=true&freespaceValue=Web+Design+Master&freespaceRandom=false&width=5&height=5&number=35#results
         var data = [
             @foreach($draw_presents as $value)
-
-                    {"label":"{{$value->present_name}}", "value":{{$imei_sn}},"present_id": {{$value->present_id}} ,"question":"{{$value->present_name}}"},
+                    {"label":"{{$value->present_name}}", "value":1, "question":"{{$value->present_name}}"},
             @endforeach
         ];
         var svg = d3.select('#chart')
@@ -96,9 +102,8 @@
         function spin(d){
             
             container.on("click", null);
-            console.log('test');
             //all slices have been seen, all done
-            console.log( "Data length: " + data.length);
+            // console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
             // if(oldpick.length == data.length){
             //     console.log("done");
             //     container.on("click", null);
@@ -122,34 +127,16 @@
             vis.transition()
                 .duration(Math.floor(Math.random() * 7000) + 3000)
                 .attrTween("transform", rotTween)
-                .each("end",async function(){
+                .each("end", function(){
                     //mark question as seen
-                    console.log('testing 2')
                         d3.select(".slice:nth-child(" + (picked + 1) + ") path")
-                            // .attr("fill", "none");
+                            // .attr("fill", "#111");
                     //populate question
                     d3.select("#question h1")
                         .text(data[picked].question);
                     oldrotation = rotation;
-                    var present_id = data[picked].present_id
-                      try {
-                            const response = await fetch('http://localhost:8000/draw/present', {
-                              method: 'POST',
-                              body: JSON.stringify({
-                                imei: {{$imei_sn}},
-                                present_id: present_id
-                              }),
-                              headers: {
-                                'Content-Type': 'application/json',
-                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                              }
-                            });
-                            const data = await response.json();
-                            console.log(data);
-                          } catch (error) {
-                            console.error(error);
-                          }                
-                           container.on("click", spin);
+                
+                    container.on("click", spin);
                 });
         }
         //make arrow
@@ -197,5 +184,5 @@
         }
     </script>
 </body>
-@endsection
+</html>
 

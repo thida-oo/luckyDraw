@@ -44,7 +44,6 @@
                             <th>Present Code</th>
                             <th>Present Name</th>
                             <th>Draw Number</th>
-                            <th>Status</th>
                             <th>Image</th>
                             <th>Action</th>
                         </tr>
@@ -57,7 +56,6 @@
                             <td>{{ $pList->present_code }}</td>
                             <td>{{ $pList->present_name }}</td>
                             <td>{{ $pList->present_code }}</td>
-                            <td><input type="checkbox"> </td>
                             <td>
                                 <img src="{{ asset('image/presentsImage/'. $pList->image) }}" alt="default" width="100px;" />
                             </td>

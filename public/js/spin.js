@@ -22,7 +22,7 @@ const spinResult = document.getElementById("final-value");
 
 const data = probData;
 const present_value = presentId; 
-const label = presentLabel; alert(present_value);
+var label = presentLabel; alert(present_value);
 const degree = calPieData(probData);
 var rotationArray = [];
 
@@ -84,12 +84,14 @@ let spinChart = new Chart(wheel, {
     type: "pie",
     data: {
         labels: presentLabel,
-        datasets: [{
-            backgroundColor: pieColors,
-            data: present_value,
-           
-        }, ],
+        datasets: [ {
+      label: 'Dataset 1',
+      data: [1, 2, 3],
+      borderColor: '#36A2EB',
+      backgroundColor: '#9BD0F5',
+    }, ],
     },
+
     options: {
         responsive: true,
         animation: { duration: 0 },
@@ -117,7 +119,7 @@ let spinChart = new Chart(wheel, {
     },
 
 });
-
+console.log(spinChart.$datalabels._datasets[0][0].$context.dataset)
 const valueGenerate = (angleValue) => {
 
     for (let i of rotationValues) { 
