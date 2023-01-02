@@ -23,6 +23,7 @@ class DrawController extends Controller
             return view('draw/invalid');
         } else {
             return view('draw/index');
+           //return view('draw/spin');
         }
         
     }

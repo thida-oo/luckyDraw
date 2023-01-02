@@ -22,11 +22,11 @@ const spinResult = document.getElementById("final-value");
 
 const data = probData;
 const present_value = presentId; 
-const label = presentLabel; alert(present_value);
-const degree = calPieData(probData);
+const label = presentLabel; //alert(presentLabel); alert(present_value);
+const degree = calPieData(probData);  //alert(degree);
 var rotationArray = [];
 
-calRotation(degree, present_value);
+calRotation(degree, label);
 
 function calRotation(degree, label){ 
 
@@ -35,8 +35,8 @@ function calRotation(degree, label){
     var value = 0;
 
     for(j=0; j<degree.length; j++){
-        var index = degree.length-j-1;
-        value = label[index];
+       // var index = degree.length-j-1;
+        value = label[j];
 
         temp = degree[j];
         maxDegree = minDegree + temp;
@@ -86,21 +86,29 @@ let spinChart = new Chart(wheel, {
         labels: presentLabel,
         datasets: [{
             backgroundColor: pieColors,
-            data: present_value,
-           
+            data: degree,
+            label:"%"
         }, ],
     },
     options: {
+        title:{
+            display:true,
+            text:presentLabel,
+        },
         responsive: true,
         animation: { duration: 0 },
         plugins: {
-            toooltip: false,
+            toooltip: true,
             legend: {
                 display: false,
             },
         },
         datalabels: {
-            color: "#ffffff",
+            color: "pink",
+            labels:{
+                value:{presentLabel},
+            },
+            anchor: 'end',
             display:true,
             //formatter: (_, context) => context.chart.data.labels[context.dataIndex],
             formatter: (val, context) => {
@@ -108,15 +116,15 @@ let spinChart = new Chart(wheel, {
                 const formattedVal = Intl.NumberFormat('en-US', {
                     minimumFractionDigits: 2,
                   }).format(val);
-                return `${labels}: ${formattedVal}`;
+                return `${labels}: ${90}`;
             },
             font: { size: 16 },
-            align:'end',
-            anchor:'end',
+
         },
     },
 
 });
+console.log(spinChart.data.datalabels);
 
 const valueGenerate = (angleValue) => {
 
