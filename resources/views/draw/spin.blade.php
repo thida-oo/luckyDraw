@@ -2,20 +2,12 @@
 
 @section('content')
 
-<link href="{{ asset('css/spin.css') }}" rel="stylesheet">
-
     <style type="text/css">
 text{
     font-family:Helvetica, Arial, sans-serif;
     font-size:11px;
     pointer-events:none;
 }
-<<<<<<< HEAD
-#question h1{
--webkit-transform:translate(0,-50%);
-        transform:translate(0,-50%);
-}
-=======
 
 #question h1{
 
@@ -23,7 +15,6 @@ text{
         transform:translate(0,-50%);
 }
 
->>>>>>> a7336917b6a2d6fd3982adcd633bdd9dafc74f8e
 .container{
 overflow: hidden;
 }
@@ -37,25 +28,15 @@ overflow: hidden;
         margin-left: 24%;
     }
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> a7336917b6a2d6fd3982adcd633bdd9dafc74f8e
 #chart, #question {
   display: flex;
   flex-wrap: wrap;
 }
-<<<<<<< HEAD
-#chart {
-  flex: 1;
-}
-=======
 
 #chart {
   flex: 1;
 }
 
->>>>>>> a7336917b6a2d6fd3982adcd633bdd9dafc74f8e
 #question {
   flex: 1;
 }
@@ -74,7 +55,7 @@ overflow: hidden;
               <div id="chart"></div>
             </div>
             <div class="col-12  ml-4">
-              <div id="question">sasdasd</div>
+              <div id="question"></div>
             </div>
           </div>
         </div>
@@ -178,8 +159,9 @@ overflow: hidden;
                                 present_id: present_id
                               }),
                               headers: {
+                                'Access-Control-Allow-Origin': '*',
                                 'Content-Type': 'application/json',
-                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                               }
                             });
                             const data = await response.json();
