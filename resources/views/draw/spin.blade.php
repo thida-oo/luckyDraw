@@ -10,10 +10,20 @@ text{
     font-size:11px;
     pointer-events:none;
 }
+<<<<<<< HEAD
 #question h1{
 -webkit-transform:translate(0,-50%);
         transform:translate(0,-50%);
 }
+=======
+
+#question h1{
+
+-webkit-transform:translate(0,-50%);
+        transform:translate(0,-50%);
+}
+
+>>>>>>> a7336917b6a2d6fd3982adcd633bdd9dafc74f8e
 .container{
 overflow: hidden;
 }
@@ -27,13 +37,25 @@ overflow: hidden;
         margin-left: 24%;
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a7336917b6a2d6fd3982adcd633bdd9dafc74f8e
 #chart, #question {
   display: flex;
   flex-wrap: wrap;
 }
+<<<<<<< HEAD
 #chart {
   flex: 1;
 }
+=======
+
+#chart {
+  flex: 1;
+}
+
+>>>>>>> a7336917b6a2d6fd3982adcd633bdd9dafc74f8e
 #question {
   flex: 1;
 }
@@ -212,5 +234,6 @@ overflow: hidden;
             return array;
         }
     </script>
+
 
 @endsection
