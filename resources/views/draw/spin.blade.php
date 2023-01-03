@@ -5,56 +5,69 @@
 <link href="{{ asset('css/spin.css') }}" rel="stylesheet">
 
     <style type="text/css">
-    text{
-        font-family:Helvetica, Arial, sans-serif;
-        font-size:11px;
-        pointer-events:none;
-    }
-    #chart{
-        position:absolute;
-        width:500px;
-        height:500px;
-        left:20%;
-    }
+text{
+    font-family:Helvetica, Arial, sans-serif;
+    font-size:11px;
+    pointer-events:none;
+}
+#question h1{
+-webkit-transform:translate(0,-50%);
+        transform:translate(0,-50%);
+}
+.container{
+overflow: hidden;
+}
+@media (max-width: 767px) {
+#chart, #question {
+    width: 100%;
+  }
+}
+@media (min-width: 370px) and (max-width: 456px) {
     #question{
-        position: absolute;
-        width:400px;
-        height:500px;
-        left:50%;
+        margin-left: 24%;
     }
-    #question h1{
-        font-size: 50px;
-        font-weight: bold;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        position: absolute;
-        padding: 0;
-        margin: 0;
-        top:50%;
-        -webkit-transform:translate(0,-50%);
-                transform:translate(0,-50%);
-    }
+}
+#chart, #question {
+  display: flex;
+  flex-wrap: wrap;
+}
+#chart {
+  flex: 1;
+}
+#question {
+  flex: 1;
+}
+.row{
+    margin-left: 10%;
+}
+#question{
+    position: relative;
+    left: 8%;
+}
     </style>
-    
-</head>
-<body>
-    <div class="d-flex d-flex-row">
-            <div id="chart"></div>
-    <div id="question"><h1></h1></div>
-    </div>
+
+<div class="container align-item-center">
+          <div class="row no-gutters">
+            <div class="col-12">
+              <div id="chart"></div>
+            </div>
+            <div class="col-12  ml-4">
+              <div id="question">sasdasd</div>
+            </div>
+          </div>
+        </div>
 
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
         var padding = {top:20, right:40, bottom:0, left:0},
-            w = 500 - padding.left - padding.right,
-            h = 500 - padding.top  - padding.bottom,
+            w = 300 - padding.left - padding.right,
+            h = 300 - padding.top  - padding.bottom,
             r = Math.min(w, h)/2,
             rotation = 0,
             oldrotation = 0,
             picked = 100000,
             color = d3.scale.category20();//category20c()
             //randomNumbers = getRandomNumbers();
-
-
         var data = [
             @foreach($draw_presents as $value)
                 {"label":"{{$value->present_name}}", "value":{{$imei_sn}},"present_id": {{$value->present_id}} ,"question":"{{$value->present_name}}"},
@@ -131,7 +144,7 @@
                         d3.select(".slice:nth-child(" + (picked + 1) + ") path")
                             // .attr("fill", "none");
                     //populate question
-                    d3.select("#question h1")
+                    d3.select("#question h3")
                         .text(data[picked].question);
                     oldrotation = rotation;
                     var present_id = data[picked].present_id
@@ -165,7 +178,7 @@
         container.append("circle")
             .attr("cx", 0)
             .attr("cy", 0)
-            .attr("r", 60)
+            .attr("r", 40)
             .style({"fill":"white","cursor":"pointer"});
         //spin text
         container.append("text")
@@ -199,6 +212,5 @@
             return array;
         }
     </script>
-</body>
-@endsection
 
+@endsection
