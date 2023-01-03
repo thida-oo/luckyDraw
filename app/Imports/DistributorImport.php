@@ -15,9 +15,42 @@ class DistributorImport implements ToModel, WithHeadingRow
         $superior_distributor = $row['upper_level_distributor']; 
         if($superior_distributor == 'BF Science & Technology Co.,Ltd.'){
             $s_data = 1;
+        } else if($superior_distributor == 'NPD Partner'){
+            $s_data = 2;
+        } else if($superior_distributor == 'YGN Partner'){
+            $s_data = 3;
+        } else if($superior_distributor == 'MON Partner'){
+            $s_data = 4;
+        } else if($superior_distributor == 'TNTY'){
+            $s_data = 5;
+        } else if($superior_distributor == 'TGI Partner'){
+            $s_data = 6;
+        } else if($superior_distributor == 'SG Partner'){
+            $s_data = 7;
+        } else if($superior_distributor == 'RK Partner'){
+            $s_data = 8;
+        } else if($superior_distributor == 'PT Partner'){
+            $s_data = 9;
+        } else if($superior_distributor == 'LS Partner'){
+            $s_data = 10;
+        } else if($superior_distributor == 'MG'){
+            $s_data = 11;
+        } else if($superior_distributor == 'MKN Partner'){
+            $s_data = 12;
+        } else if($superior_distributor == 'MDY Partner'){
+            $s_data = 13;
+        } else if($superior_distributor == 'BG Partner'){
+            $s_data = 14;
+        } else if($superior_distributor == 'LS TGOU 经销商'){
+            $s_data = 15;
+        } else if($superior_distributor == '海关（总部)'){
+            $s_data = 16;
+        } else if($superior_distributor == '售后+品牌+税务'){
+            $s_data = 17;
         } else {
             $s_data = 0;
         }
+            
 
         $d_type = $row['distributor_type'];
         if($d_type == 'FIRST_LEVEL_AGENT'){

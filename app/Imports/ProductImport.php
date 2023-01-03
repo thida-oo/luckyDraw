@@ -14,7 +14,7 @@ class ProductImport implements ToModel, WithHeadingRow
     {
         return new product([
             'p_code' => $row['code'],
-            'p_name' => $row['product_item_name'],
+            'p_name' => $row['sku_name'],
             'created_at' => date("Y-m-d H:i:s"),
             'created_by' =>Auth::user()->id,
         ]);

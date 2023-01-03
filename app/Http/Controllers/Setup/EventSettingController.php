@@ -63,7 +63,7 @@ class EventSettingController extends Controller
         } else {
             // if save is not successful
         }
-        return redirect()->route('event-setting-create');
+        return redirect()->route('event-setting-index');
     }
     public function overview($id)
     {

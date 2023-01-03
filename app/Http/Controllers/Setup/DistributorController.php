@@ -9,12 +9,15 @@ use Exception;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Psy\Readline\Hoa\Console;
+use DB;
 
 class DistributorController extends Controller
 {
     public function index(){
         $distributors = Distributor::paginate(10);
-        return view('setup/distributor', ['distributors' => $distributors]);
+        $superiors = DB::table('distributors')->where('type', '<>', 3)->get();
+
+        return view('setup/distributor', ['distributors' => $distributors, 'superiors'=>$superiors]);
     }
 
     public function distributorImport(){
@@ -23,7 +26,7 @@ class DistributorController extends Controller
 
     public function _distributorImport(Request $request){
 
-        Distributor::where('type',3)->delete();
+        Distributor::where('type', 3)->delete();
 
         $import_file = $request->file('distributor_file');
         if($import_file){
@@ -42,10 +45,11 @@ class DistributorController extends Controller
     {
         return view('setup/import');
     }
+
     public function distributorSearch(Request $request)
     {
         $distributor = new Distributor();
         $distributors=$distributor->_searchDistributor($request->input('distributor_search'));
-        return view('setup/distributor', ['distributors' => $distributors]);
+        return view('setup/distributor', ['distributors' => $distributors, 'superiors'=> null]);
     }
 }

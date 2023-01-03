@@ -22,6 +22,7 @@ class ProductController extends Controller
 
     public function _productImport(Request $request)
     {
+       
         $import_file = $request->file('file');
         if ($import_file) {
             try {

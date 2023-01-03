@@ -55,7 +55,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     
 
     Route::get('product',[ProductController::class, 'index'])->name('product.index');
-    Route::post('product/import',[ProductController::class, '_productImport'])->name('product-import');
+    Route::post('product/import',[ProductController::class, '_productImport'])->name('product-import'); //
     Route::post('product/store',[ProductController::class, 'productStore'])->name('product-store');
     Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('product-edit');
     Route::get('product/delete/{id}',[ProductController::class, 'delete'])->name('product-delete');

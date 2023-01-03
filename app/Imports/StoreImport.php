@@ -17,8 +17,8 @@ class StoreImport implements ToModel, WithHeadingRow
         $distributor = new Distributor();
         $distributor_data = $distributor->_getDistributorInfoFromText($row['affiliated_distributor']);
 
-        if($distributor_data[0]->distributor_code==null){
-            $distributor_id=0;
+        if(count($distributor_data) == 0){
+            $distributor_id=null;
         }else{
             $distributor_id=$distributor_data[0]->distributor_code;
         }
