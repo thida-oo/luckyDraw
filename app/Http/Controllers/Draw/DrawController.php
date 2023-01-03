@@ -113,7 +113,7 @@ class DrawController extends Controller
             $draw_event->imei_sn=$imei_sn;
             $draw_event->imei_sn_2=$res[0]->imei_sn_2;
             $draw_event->draw_store=$res[0]->store_code; 
-            $draw_event->present_id=$present_id; 
+            $draw_event->present_id =$present_id; 
             $draw_event->draw_by=Auth::user()->id;
             $draw_event->draw_date=now();
             $draw_event->save();
