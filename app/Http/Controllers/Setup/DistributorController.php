@@ -50,6 +50,7 @@ class DistributorController extends Controller
     {
         $distributor = new Distributor();
         $distributors=$distributor->_searchDistributor($request->input('distributor_search'));
-        return view('setup/distributor', ['distributors' => $distributors, 'superiors'=> null]);
+        $superiors = DB::table('distributors')->where('type', '<>', 3)->get();
+        return view('setup/distributor', ['distributors' => $distributors, 'superiors'=> $superiors]);
     }
 }

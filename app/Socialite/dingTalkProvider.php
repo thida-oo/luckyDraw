@@ -143,8 +143,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
                 ]);
 
                
-                 echo "dept data .."; var_dump($token); echo "<br>";
-                // dd($dept_response);
+                // echo "dept data .."; var_dump($token); echo "<br>";
         
                 $dept_me = json_decode($this->removeCallback($dept_response->getBody()->getContents()), true);
         

@@ -40,7 +40,7 @@
                             </div>
 
                     <!-- </div> -->
-                    <table class="table table-dark table-striped" style="margin-top: 20px; ">
+                    <table class="table table-striped" style="margin-top: 20px; ">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
@@ -53,46 +53,45 @@
                         </tr>
                     </thead>
                     <tbody>
-                    
+                  
                         <?php $i=1; ?>
                         @foreach($distributors as $distributor)
                         <tr>
-                            <th>{{$i++}}</th>
-                            <th>{{ $distributor->distributor_code }}</th>
-                            <th>{{ $distributor->distributor_name }}</th>
-                        
-                        
-                        @switch($distributor->superior_distributor)
-                           @case(1) 
-                            <th> {{ "Suspend Cooperation" }} </th>
-                            @break
-                           @case(2) 
-                            <th> {{ "Close" }} </th>
-                            @break
-                           @default 
-                           <th> {{ "In Cooperation" }} </th>
-                        @endswitch
+                            <td>{{$i++}}</td>
+                            <td>{{ $distributor->distributor_code }}</td>
+                            <td>{{ $distributor->distributor_name }}</td>
+                            <td>                       
+                                @foreach($superiors as $superior)                                
+                                    @if($superior->id == $distributor->superior_distributor)
+                                        {{ $superior->distributor_name; }}
+                                    @endif
+                                @endforeach
+                            </td>
+ 
                         
                         @switch($distributor->type)
-                           @case(2) 
-                            <th> {{ "Suspend Cooperation"  }} </th>
+                           @case(1) 
+                            <td> {{ "First Level Agent(一代代理商)"  }} </td>
                             @break
-                           @case(0) 
-                           <th>{{ "Close"  }} </th>
+                           @case(2) 
+                           <td>{{ "Second Level Agent(二代代理商)"  }} </td>
                             @break
                            @default 
-                           <th>{{ "In Cooperation"  }} </th>
+                           <td>{{ "Distributor(经销商)"  }} </td>
                         @endswitch
 
                         @switch($distributor->price_system)
                            @case(1) 
-                           <th>{{ "Suspend Cooperation"  }} </th>
+                           <td>{{ "Purchase Price(采购价）"  }} </td>
                             @break
                            @case(2) 
-                           <th>{{ "Close"  }} </th>
+                           <td>{{ "Agent Price(代理价)"  }} </td>
+                            @break
+                            @case(3) 
+                           <td>{{ "Distributor Price(批发价-含税）"  }} </td>
                             @break
                            @default 
-                           <th>{{ "In Cooperation"  }} </th>
+                           <td>{{ "Distributor Price(批发价-不含税）"  }} </td>
                         @endswitch
 
                         

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\SocialiteServiceProvider;
+use Laravel\Socialite\Two\InvalidStateException;
 use Overtrue\Socialite\SocialiteManager;
 // include "TopSdk.php";
 
@@ -24,14 +25,15 @@ class DingTalkController extends Controller
 
         $dingUser = Socialite::driver('dingtalk')->user();
 
-        
+        //dd($dingUser);
+
         $findUser = User::where('google_id', $dingUser->id)->first();
 
         if($findUser){ 
             Auth::login($findUser);
             return redirect('/home');
         }else {
-            //dd($dingUser->avatar);
+
             $newUser = User::create([
                 'name' =>$dingUser->name,
                 'email'=>is_null( $dingUser->email)? $dingUser->unionid : $dingUser->email,

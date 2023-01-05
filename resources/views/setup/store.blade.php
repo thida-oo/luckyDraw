@@ -40,12 +40,13 @@
                             </div>
 
                     <!-- </div> -->
-                    <table class="table table-dark table-striped" style="margin-top: 20px; ">
+                    <table class="table table-striped" style="margin-top: 20px; ">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
                         <th scope="col">Store Code</th>
                         <th scope="col">Store Name</th>
+                        <th scope="col">Distributor Name</th>
                         <th scope="col">Shop Level</th>
                         <th scope="col">Type</th>
                         <th scope="col">Price System</th>
@@ -57,54 +58,46 @@
                         <?php $i=1; ?>
                         @foreach($stores as $store)
                         <tr>
-                            <th>{{$i++}}</th>
-                            <th>{{ $store->store_code }}</th>
-                            <th>{{ $store->store_name }}</th>
-                        
-                        
-                        @switch($store->shop_level)
-                           @case(1) 
-                            <th> {{ "Suspend Cooperation" }} </th>
-                            @break
-                           @case(2) 
-                            <th> {{ "Close" }} </th>
-                            @break
-                           @default 
-                           <th> {{ "In Cooperation" }} </th>
-                        @endswitch
+                            <td>{{$i++}}</td>
+                            <td>{{ $store->store_code }}</td>
+                            <td>{{ $store->store_name }}</td>
+                            <td>{{ $store->distributor_id }}</td>
+                            <td>{{ $store->shop_level }}</td>
+                    
                         
                         @switch($store->type)
                            @case(2) 
-                            <th> {{ "Suspend Cooperation"  }} </th>
+                            <td> {{ "Operator Store"  }} </td>
                             @break
-                           @case(0) 
-                           <th>{{ "Close"  }} </th>
-                            @break
+                    
                            @default 
-                           <th>{{ "In Cooperation"  }} </th>
+                           <td>{{ "Composite shop"  }} </td>
                         @endswitch
 
                         @switch($store->price_system)
-                           @case(1) 
-                           <th>{{ "Suspend Cooperation"  }} </th>
+                            @case(1) 
+                           <td>{{ "Purchase Price(采购价）"  }} </td>
                             @break
                            @case(2) 
-                           <th>{{ "Close"  }} </th>
+                           <td>{{ "Agent Price(代理价)"  }} </td>
+                            @break
+                            @case(3) 
+                           <td>{{ "Distributor Price(批发价-含税）"  }} </td>
                             @break
                            @default 
-                           <th>{{ "In Cooperation"  }} </th>
+                           <td>{{ "Distributor Price(批发价-不含税）"  }} </td>
                         @endswitch
 
                         
                         @switch($store->status)
                            @case(1) 
-                           <th>{{ "Suspend Cooperation"  }} </th>
+                           <td>{{ "Suspend Cooperation"  }} </td>
                             @break
                            @case(2) 
-                           <th>{{ "Close"  }} </th>
+                           <td>{{ "Close"  }} </td>
                             @break
                            @default 
-                           <th>{{ "In Cooperation"  }} </th>
+                           <td>{{ "In Cooperation"  }} </td>
                         @endswitch
 
      
