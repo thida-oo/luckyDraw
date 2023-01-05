@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -24,5 +24,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+        public function test()
+    {
+         $superiors = DB::table('distributors')->where('type', 2)->get()->toArray();
+         return view('test',['superiors'=>$superiors]);
     }
 }

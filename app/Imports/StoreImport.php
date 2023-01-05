@@ -9,6 +9,8 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use RealRashid\SweetAlert\Facades\Alert;
+
 class StoreImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
@@ -16,6 +18,11 @@ class StoreImport implements ToModel, WithHeadingRow
         // echo '<pre>',print_r($row,1),'</pre>';
         $distributor = new Distributor();
         $distributor_data = $distributor->_getDistributorInfoFromText($row['affiliated_distributor']);
+  // dd($row);
+        if($distributor_data->isEmpty()){
+            Alert::info("Store code '".$row['store_code']."' has no distributor in table.");
+            // return redirect()->route('setup/import');
+        }
 
         if(count($distributor_data) == 0){
             $distributor_id=null;
