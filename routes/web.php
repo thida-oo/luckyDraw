@@ -53,8 +53,6 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     
     Route::get('import',[DistributorController::class, 'import'])->name('import');
 
-    
-
     Route::get('product',[ProductController::class, 'index'])->name('product.index');
     Route::post('product/import',[ProductController::class, '_productImport'])->name('product-import'); //
     Route::post('product/store',[ProductController::class, 'productStore'])->name('product-store');
@@ -67,8 +65,8 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 
     // for present
     Route::get('present',[PresentController::class, 'index'])->name('index');
-    Route::get('present-create', [PresentController::class, 'create'])->name('create');
-    Route::post('present-save',[PresentController::class, 'store'])->name('store');
+    Route::get('present-create', [PresentController::class, 'create'])->name('present-create');
+    Route::post('present-save',[PresentController::class, 'store'])->name('present-store');
 
 
     // for event setting
