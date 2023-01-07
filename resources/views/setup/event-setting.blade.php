@@ -42,9 +42,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($e_settings as $setting)
+                        @foreach($e_settings as $k=>$setting)
                         <tr>
-                            <td>{{ $setting->id}}</td>
+                            <td>{{ ++$k }}</td>
                             <td>{{ $setting->name}}</td>
                             <td>{{ $setting->event_start_time}}</td>
                             <td>{{ $setting->event_end_time}}</td>

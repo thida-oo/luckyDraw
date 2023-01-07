@@ -73,10 +73,10 @@
                         </thead>
                         <tbody>
                             <!-- get Data from Present -->
-                            @foreach($res as $pList)
-                     
+                            @foreach($res as $k=>$pList)
+                    
                             <tr>
-                                <td>{{ $pList->id }}</td>
+                                <td>{{ ++$k }}</td>
                                 <td>{{ $pList->present_code }}</td>
                                 <td>{{ $pList->present_name }}</td>
                                    

@@ -15,16 +15,12 @@ class StoreImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        // echo '<pre>',print_r($row,1),'</pre>';
+
         $distributor = new Distributor();
         $distributor_data = $distributor->_getDistributorInfoFromText($row['affiliated_distributor']);
-  // dd($row);
-        if($distributor_data->isEmpty()){
-            Alert::info("Store code '".$row['store_code']."' has no distributor in table.");
-            // return redirect()->route('setup/import');
-        }
 
         if(count($distributor_data) == 0){
+            Alert::info("Store code '".$row['store_code']."' has no distributor in table.")->persistent('Dismiss');
             $distributor_id=null;
         }else{
             $distributor_id=$distributor_data[0]->distributor_code;

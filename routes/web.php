@@ -10,6 +10,7 @@ use App\Http\Controllers\Setup\PresentController;
 use App\Http\Controllers\Setup\ProductController;
 use App\Http\Controllers\Setup\StoreController;
 use App\Http\Controllers\Setup\StocksController;
+use App\Http\Controllers\Report\LuckyDrawResultController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 
@@ -86,5 +87,9 @@ Route::prefix('draw')->group(function(){
 
 });
 
-// test
-Route::get('test', [HomeController::class, 'test']);
+Route::prefix('report')->group(function(){
+    Route::get('lucky-draw-result', [LuckyDrawResultController::class, 'index'])->name('result-index');
+
+});
+
+

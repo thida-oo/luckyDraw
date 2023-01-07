@@ -65,16 +65,16 @@
                                 <th>#</th>
                                 <th>Present Code</th>
                                 <th>Present Name</th>
-                                <th> <p>Draw Number <span id="total"></span></p></th>
+                                <th> <p>Probability <span id="total"></span></p></th>
                                 <th>Status</th>
                                 <th>Image</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- get Data from Present -->
-                            @foreach($present_lists as $pList)
+                            @foreach($present_lists as $k=>$pList)
                             <tr>
-                                <td>{{ $pList->id }}</td>
+                                <td>{{ ++ $k }}</td>
                                 <td>{{ $pList->present_code }}</td>
                                 <td>{{ $pList->present_name }}</td>
                                 <td>

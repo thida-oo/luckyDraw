@@ -10,6 +10,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EventSettingController extends Controller
 {
@@ -34,37 +35,54 @@ class EventSettingController extends Controller
 
         $products = implode(',', $products);
 
+        // echo "<pre><br>"; var_dump($presents); echo "</pre><br>";
+        // dd($draw_probability);
 
-        $eventSetting = new EventSetting();
-        $eventSetting->name                 = $request->input('name');
-        $eventSetting->event_start_time     = $request->input('start_time');
-        $eventSetting->event_end_time       = $request->input('end_time');
-        $eventSetting->product_id           = $products;
-        //$eventSetting->present_id           =$presents;
-        $eventSetting->created_by           = Auth::user()->id;
-        $saved = $eventSetting->save();
-        if ($saved) {
-            $event = DB::table('event_settings')
-                ->whereDate('event_start_time', '=', date('Y-m-d', strtotime($event_start)))
-                ->whereDate('event_end_time', '=', date('Y-m-d', strtotime($event_end)))
-                ->get();
+        //Vaildation for event time
+        $valid_time = EventSetting::whereBetween('event_start_time',[DATE('Y-m-d', strtotime($event_start)), DATE('Y-m-d', strtotime($event_end))])
+                   ->orwhereBetween('event_end_time', [DATE('Y-m-d', strtotime($event_start)), DATE('Y-m-d', strtotime($event_end))])->count();
 
-                // dd($event);
+        if($valid_time == 0){ 
+            $eventSetting = new EventSetting();
+            $eventSetting->name                 = $request->input('name');
+            $eventSetting->event_start_time     = $request->input('start_time');
+            $eventSetting->event_end_time       = $request->input('end_time');
+            $eventSetting->product_id           = $products;
+            //$eventSetting->present_id           =$presents;
+            $eventSetting->created_by           = Auth::user()->id;
+            $saved = $eventSetting->save();
 
-            foreach ($presents as $k => $value) {
-                $eventDetails = new EventSettingDetail();
+            if ($saved) {
+                $event = DB::table('event_settings')
+                    ->whereDate('event_start_time', '=', date('Y-m-d', strtotime($event_start)))
+                    ->whereDate('event_end_time', '=', date('Y-m-d', strtotime($event_end)))
+                    ->get();
 
-                $eventDetails->event_id     = $event[0]->id;
-                $eventDetails->present_id   = $value;
-                $eventDetails->present_prob = $draw_probability[$k];
-                $eventDetails->created_by   = Auth::user()->id;
-                $eventDetails->save();
+
+                foreach ($presents as $k => $value) {
+                
+                    $eventDetails = new EventSettingDetail();
+
+                    $eventDetails->event_id     = $event[0]->id;
+                    $eventDetails->present_id   = $value;
+                    $eventDetails->present_prob = $draw_probability[$value -1];
+                    $eventDetails->created_by   = Auth::user()->id;
+                    $eventDetails->save();
+                }
+            } else {
+                // if save is not successful
             }
+            Alert::success('Successful','Event is already saved!')->persistent('Dismiss');
+            return redirect()->route('event-setting-index');
         } else {
-            // if save is not successful
+            Alert::warning('Event Time is duplicate (တူညီသော အချိန်တွင် တခြား Event ရှိနေသောကြောင့် အချိန်ကို ပြန်ရွေးပါ')->persistent('Dismiss');
+            return redirect()->route('event-setting-index');
         }
-        return redirect()->route('event-setting-index');
+
+
+        
     }
+
     public function overview($id)
     {
         $present_lists = Present::all();

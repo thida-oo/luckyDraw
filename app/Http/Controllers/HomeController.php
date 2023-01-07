@@ -25,9 +25,5 @@ class HomeController extends Controller
     {
         return view('home');
     }
-        public function test()
-    {
-         $superiors = DB::table('distributors')->where('type', 2)->get()->toArray();
-         return view('test',['superiors'=>$superiors]);
-    }
+        
 }

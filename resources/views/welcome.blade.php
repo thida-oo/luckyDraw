@@ -139,10 +139,6 @@
                             <div class="or-label">or</div>
                             <div class="line-separator"></div>
                         </div>
-
-                        <a href="{{ url('draw/index') }} " role="button" class="btn btn-primary" type="button">   
-                            Let's Draw 
-                        </a>
                        
                         <a href="{{ url('auth/dingtalk') }} " role="button" class="btn btn-secondary" type="button">                            
                             <img src="{{ asset('image/dingTalk.png') }} " width="23" height="23"> Sigin with DingTalk

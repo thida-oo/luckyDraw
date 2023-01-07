@@ -73,6 +73,15 @@
                                 <li><a class="dropdown-item" href="{{ url('setup/event-setting')}}">Event Setting</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownReportMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Report
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownReportMenuLink">
+                                <li><a class="dropdown-item" href="{{ url('report/lucky-draw-result')}}">List of Lucky Draw Result</a></li>
+
+                            </ul>
+                        </li>
                     </ul>
                    
 
