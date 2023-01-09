@@ -8,15 +8,21 @@
             <div class="card-header">
                 <h4><span class="badge"> Search </span></h4>
             </div>
+            <?php 
+            if(isset($_GET['search'])){
+               $search = $_GET['search'];
+              }else{
+                $search = '';
+              }; ?>
             <div class="card-body">
-                <form class="row g-3">
+                <form class="row g-3" action="{{url('/setup/event-setting/search')}}" method="get">
                     <div class="col-auto">
                         <label for="searchText" class="visually-hidden">Search Text</label>
-                        <input type="text" readonly class="form-control-plaintext" id="searchText" value="Search Text">
+                        <input type="text" readonly class="form-control-plaintext" id="search" value="Search Text">
                     </div>
                     <div class="col-auto">
                         <label for="searchBox" class="visually-hidden">Search</label>
-                        <input type="text" class="form-control" id="searchBox" placeholder="Please enter search text here">
+                        <input type="text" class="form-control" value="{{$search}}" name="search" id="searchBox" placeholder="Please enter search text here">
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
@@ -44,7 +50,7 @@
                     <tbody>
                         @foreach($e_settings as $k=>$setting)
                         <tr>
-                            <td>{{ ++$k }}</td>
+                            <td>{{ $loop->iteration + ($e_settings->currentPage() - 1) * $e_settings->perPage() }}</td>
                             <td>{{ $setting->name}}</td>
                             <td>{{ $setting->event_start_time}}</td>
                             <td>{{ $setting->event_end_time}}</td>
@@ -57,6 +63,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $e_settings->links()}}
             </div>
         </div>
     </div>

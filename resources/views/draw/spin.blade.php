@@ -15,9 +15,6 @@ text{
         transform:translate(0,-50%);
 }
 
-.container{
-overflow: hidden;
-}
 @media (max-width: 767px) {
 #chart, #question {
     width: 100%;
@@ -47,16 +44,33 @@ overflow: hidden;
     position: relative;
     left: 8%;
 }
+.event-name{
+    position: relative;
+    left: 8%;
+}
+#present-name{
+    position: relative;
+    left: 7%;
+}
     </style>
 
-<div class="container align-item-center">
-          <div class="row no-gutters">
-            <div class="col-12">
+<div class="container">
+    <div class="row no-gutters">
+       <div class="col-12">
+               <h4> {{$valid_event}} </h4> 
+               <small id="screenshoot_msg"></small>
+       </div>
+       <div class="col-sm-4 col-lg-4 col-md-4">
               <div id="chart"></div>
+        </div>
+        <div class="col-sm-8 col-lg-8 col-md-8">
+            <div class="row text-left">
+                <div id="present-name" style="font-weight: bold;" class="mt-4 col-sm-12 col-lg-12 col-md-12"></div>
+                <div class="col-sm-12 col-lg-12 col-md-12 mt-4">
+                  <img src="" class="imgDiv px-2" id="imgDiv" width="180px" />
+               </div>
             </div>
-            <div class="col-12  ml-4">
-              <div id="question"></div>
-            </div>
+        </div>
           </div>
         </div>
 
@@ -116,13 +130,8 @@ overflow: hidden;
             
             container.on("click", null);
             console.log('test');
-            //all slices have been seen, all done
             console.log( "Data length: " + data.length);
-            // if(oldpick.length == data.length){
-            //     console.log("done");
-            //     container.on("click", null);
-            //     return;
-            // }
+
             var  ps       = 360/data.length,
                  pieslice = Math.round(1440/data.length),
                  rng      = Math.floor((Math.random() * 1440) + 360);
@@ -143,7 +152,6 @@ overflow: hidden;
                 .attrTween("transform", rotTween)
                 .each("end",async function(){
                     //mark question as seen
-                    console.log('testing 2')
                         d3.select(".slice:nth-child(" + (picked + 1) + ") path")
                             // .attr("fill", "none");
                     //populate question
@@ -152,7 +160,7 @@ overflow: hidden;
                     oldrotation = rotation;
                     var present_id = data[picked].present_id
                       try {
-                            const response = await fetch('http://localhost:8000/draw/present', {
+                            const response = await fetch('/draw/present', {
                               method: 'POST',
                               body: JSON.stringify({
                                 imei: {{$imei_sn}},
@@ -165,7 +173,18 @@ overflow: hidden;
                               }
                             });
                             const data = await response.json();
-                            console.log(data);
+
+                            console.log(data)
+                            console.log(data.state)
+                            if(data.state==false){
+                                document.getElementById('present-name').innerHTML = data.msg;
+                                document.getElementById("imgDiv").src = "";
+
+                            }else if(data.state==true){
+                                document.getElementById('present-name').innerHTML = data.present[0].present_name;
+                                document.getElementById("imgDiv").src = "/image/presentsImage/" + data.present[0].image;
+                                document.getElementById('screenshoot_msg').innerHTML = data.msg;
+                            }
                           } catch (error) {
                             console.error(error);
                           }                

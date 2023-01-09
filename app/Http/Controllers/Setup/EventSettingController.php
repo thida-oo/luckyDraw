@@ -15,7 +15,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class EventSettingController extends Controller
 {
     public function index(){
-        $e_settings = EventSetting::all();
+        $e_settings = EventSetting::orderBy('created_at','desc')->where('status',1)->paginate(10);
         return view('setup/event-setting', ['e_settings'=>$e_settings]);
     }
 
@@ -26,7 +26,10 @@ class EventSettingController extends Controller
     }
      public function store(Request $request)
     {
-        //dd($request->all());
+        if(array_sum($request->input('draw_probability'))!=100){
+            Alert::warning("The sum of percentage is must be 100%;")->persistent('Dismiss');
+                 return redirect()->route('event-setting-create');
+        }
         $event_start = $request->input('start_time');
         $event_end = $request->input('end_time');
         $products = $request->input('product');
@@ -78,9 +81,6 @@ class EventSettingController extends Controller
             Alert::warning('Event Time is duplicate (တူညီသော အချိန်တွင် တခြား Event ရှိနေသောကြောင့် အချိန်ကို ပြန်ရွေးပါ')->persistent('Dismiss');
             return redirect()->route('event-setting-index');
         }
-
-
-        
     }
 
     public function overview($id)
@@ -111,7 +111,7 @@ class EventSettingController extends Controller
         $productID = $event_product[0]->product_id;
         $productID = explode(",",$productID);
     
-        return view('setup/event-setting',['res'=>$res,'products'=>$products,'productID'=>$productID,'present_lists'=>$present_lists]);
+        return view('setup/event-setting-edit',['res'=>$res,'products'=>$products,'productID'=>$productID,'present_lists'=>$present_lists]);
     }
     public function update(Request $request)
     {
@@ -157,5 +157,19 @@ class EventSettingController extends Controller
             // if save is not successful
         }
         return redirect()->route('event-setting');
+    }
+    public function search(Request $request)
+    {
+        $searchTerm = '%' . $request->input('search') . '%';
+
+        $e_settings = DB::table('event_settings')->where('name','like',$searchTerm)->paginate(10);
+        return view('setup/event-setting', ['e_settings'=>$e_settings]);
+    }
+    public function delete($id)
+    {
+         DB::table('event_setting_details')
+    ->updateOrInsert(['id' => $id], ['status' => 0]);
+            return redirect()->route('event-setting-index');
+         
     }
 }

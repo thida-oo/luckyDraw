@@ -121,7 +121,6 @@
                     alert('Percentage greater than 100%.')
                 }else{
                     $('#btn_submit').attr('disabled',false);
-
                 }
                 $('#total').text(calculated_total_sum);
                 console.log(calculated_total_sum)

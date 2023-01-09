@@ -65,9 +65,12 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::post('stock/import',[StocksController::class, '_stockImport'])->name('stock-import');
 
     // for present
-    Route::get('present',[PresentController::class, 'index'])->name('index');
+    Route::get('present',[PresentController::class, 'index'])->name('present-index');
     Route::get('present-create', [PresentController::class, 'create'])->name('present-create');
     Route::post('present-save',[PresentController::class, 'store'])->name('present-store');
+    Route::get('present-edit/{id}',[PresentController::class, 'edit'])->name('present-edit');
+    Route::get('present-delete/{id}',[PresentController::class, 'delete'])->name('present-delete');
+    Route::post('present-update/{id}',[PresentController::class, 'update'])->name('present-update');
 
 
     // for event setting
@@ -77,11 +80,12 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('event-setting-overview/{id}',[EventSettingController::class, 'overview'])->name('event-setting-overview');
     Route::get('event-setting-edit/{id}',[EventSettingController::class, 'edit'])->name('event-setting-edit');
     Route::post('event-setting-update',[EventSettingController::class, 'update'])->name('event-setting-update');
-    
+    Route::get('event-setting/search',[EventSettingController::class, 'search'])->name('event-setting-search');
+    Route::get('event-setting-delete/{id}',[EventSettingController::class, 'delete'])->name('event-setting-delete');
 });
 
 Route::prefix('draw')->group(function(){
-    Route::get('index', [DrawController::class, 'index'])->name('index');
+    Route::get('index', [DrawController::class, 'index'])->name('draw-index');
     Route::post('draw-store', [DrawController::class, 'store'])->name('store');
     Route::post('present', [DrawController::class, 'present']);
 
@@ -89,6 +93,7 @@ Route::prefix('draw')->group(function(){
 
 Route::prefix('report')->group(function(){
     Route::get('lucky-draw-result', [LuckyDrawResultController::class, 'index'])->name('result-index');
+    Route::get('search/lucky/draw/result', [LuckyDrawResultController::class, 'search'])->name('search-lucky-draw-result');
 
 });
 
