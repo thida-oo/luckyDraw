@@ -71,6 +71,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('present-edit/{id}',[PresentController::class, 'edit'])->name('present-edit');
     Route::get('present-delete/{id}',[PresentController::class, 'delete'])->name('present-delete');
     Route::post('present-update/{id}',[PresentController::class, 'update'])->name('present-update');
+    Route::get('present-search/',[PresentController::class, 'search'])->name('present-search');
 
 
     // for event setting

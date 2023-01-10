@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Setup;
 use App\Http\Controllers\Controller;
 use App\Models\Present;
 use Illuminate\Http\Request;
-
+use DB;
 class PresentController extends Controller
 {
     public function index(){
@@ -34,8 +34,7 @@ class PresentController extends Controller
             $present->image = $filename;
         }
         $present->save();
-        $presents = Present::all();
-        return view('setup/present', ['presents'=>$presents]);
+        return redirect()->route('present-index');
     }
     public function edit($id)
     {
@@ -64,5 +63,17 @@ class PresentController extends Controller
         $present->status = 0;
         $present->save();
         return redirect()->route('present-index');
+    }
+    public function search(Request $request)
+    {
+        $searchTerm = '%' . $request->input('search') . '%';
+        $presents = DB::table('presents')
+            ->select('presents.*')
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('present_name', 'like', $searchTerm)
+                    ->orWhere('present_code', 'like', $searchTerm);
+            })
+           ->paginate(10);
+           return view('setup/present', ['presents'=>$presents]);
     }
 }

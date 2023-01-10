@@ -51,9 +51,13 @@
                         @foreach($e_settings as $k=>$setting)
                         <tr>
                             <td>{{ $loop->iteration + ($e_settings->currentPage() - 1) * $e_settings->perPage() }}</td>
-                            <td>{{ $setting->name}}</td>
-                            <td>{{ $setting->event_start_time}}</td>
-                            <td>{{ $setting->event_end_time}}</td>
+                            <td>{{ $setting->name }}</td>
+                            <td>
+                                <?php echo date('d-m-Y',strtotime($setting->event_start_time)); ?>
+                            </td>
+                            <td>
+                                <?php echo date('d-m-Y',strtotime($setting->event_end_time)); ?>
+                            </td>
                             <td>
                             <a href="{{ url('setup/event-setting-overview/' .$setting->id) }}"><span class="material-symbols-outlined">overview</span>
                             <a href="{{ url('setup/event-setting-edit/' .$setting->id) }}"><span class="material-icons">edit</span>
