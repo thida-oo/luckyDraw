@@ -23,14 +23,14 @@ class StockImport implements ToModel, WithHeadingRow
             // Distributor code get from distributor table $row['distributor']
             $distributor_code = DB::table('distributors')->where('distributor_name','like','%'.$row['purchasing_channel'].'%')->get();
             
-            if($store_code->isEmpty() || $distributor_code->isEmpty()){
-                Alert::info("IMEI'".$row['ime']."' has error.Please check store'".$row['orderdepotname']."' and distributor '".$row['purchasing_channel']." exist or not'.")->persistent('Dismiss');
-            }
+             if($store_code->count() > 0 || $distributor_code->count() > 0){
+            Alert::info("IMEI'".$row['ime']."' has error.Please check store'".$row['orderdepotname']."' and distributor '".$row['purchasing_channel']." exist or not'.");
+        }
 
             // Product id get from product table $row['productname']
             $product_id = DB::table('products')->where('p_name','like','%'.$row['productname'].'%')->get();
-            if($product_id->isEmpty()){
-                Alert::info("Prouct '".$row['productname']."does not exist.'")->persistent('Dismiss');
+            if($product_id->count() > 0){
+                Alert::info("Prouct '".$row['productname']."does not exist.'");
             }
             // Warehouse id get from warehouse table
             $warehouse_id = DB::table('warehouses')->where('name','like','%'.$row['shipping_warehouse'].'%')->get();

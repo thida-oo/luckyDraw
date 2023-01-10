@@ -17,8 +17,8 @@ class DrawController extends Controller
     public function index(){
         // need to date within event period, if not, don't show view
         $current_date = DATE('Y-m-d', strtotime(now()));
-        $valid_event = EventSetting::whereDate('event_start_time','<=', $current_date)->whereDate('event_end_time','>=', $current_date)->count();
-        
+        $valid_event = EventSetting::whereDate('event_start_time','<=', $current_date)->whereDate('event_end_time','>=', $current_date)->get();
+
         if(empty($valid_event)){
             return view('draw/invalid');
         } else {
@@ -57,8 +57,11 @@ class DrawController extends Controller
                 $valid_event = DB::table('event_settings')->whereDate('event_start_time','<=', $current_date)
                                 ->whereDate('event_end_time','>=', $current_date)
                                 ->first();
-                
-                $products = explode(',', $valid_event->product_id);
+                if($valid_event == null){
+                    Alert::warning('ယနေ့အတွက် Event မရှိပါ။')->persistent('Dismiss');
+                    return view('draw/index');
+                }
+                    $products = explode(',', $valid_event->product_id);
 
                 if(!in_array($imei_data[0]->product_id, $products)){
                     Alert::warning('This IMEI Model is not allowed to participate! (ဤ IMEI ၏ Model သည် လက်ရှိ Event တွင် ပါ၀င်ခြင်း မရှိပါ )')->persistent('Dismiss');
@@ -83,7 +86,8 @@ class DrawController extends Controller
                             'id_lists' => array_column($draw_presents, 'present_id'),
                             'draw_presents' => $draw_presents,
                             'prob_lists' => array_column($draw_presents, 'present_prob'),
-                            'imei_sn' => $imei_sn
+                            'imei_sn' => $imei_sn,
+                            'valid_event' => $valid_event->name,
                             ]);
                     }
                    
@@ -92,26 +96,39 @@ class DrawController extends Controller
             }
             
         }      
-
     }
+
     public function present(Request $request)
     {
- dd('draw present');
+
         $imei_sn = $request->input('imei');
         $present_id = $request->input('present_id');
 
-        $res = DB::table('stock')->where('imei_sn',$imei_sn)->get();
-
+        $res = DB::table('stock as s')->join('store','s.store_code','=','store.store_code')->select('s.*','store.*')->where('s.imei_sn',$imei_sn)->get();
+        // $res = DB::table('stock')->where('imei_sn',$imei_sn)->get();
+        $present = DB::table('presents')->where('id',$present_id)->get();
+        $val = DB::table('draw_imeis')->where('imei_sn',$imei_sn)->count();
+        // store code - store name 
+        if($val < 1){
             $draw_event = new DrawIMEI();
             $draw_event->imei_sn=$imei_sn;
             $draw_event->imei_sn_2=$res[0]->imei_sn_2;
-            $draw_event->draw_store=$res[0]->store_code; 
+            $draw_event->draw_store=$res[0]->store_code.' - '.$res[0]->store_name; 
             $draw_event->present_id =$present_id; 
             $draw_event->draw_by=Auth::user()->id;
             $draw_event->draw_date=now();
             $draw_event->save();
-
-        return response()->json(['msg'=>'success','status'=>200,'imei'=>$imei_sn,'present_id'=>Auth::user()->id]);
+        }
+        if($val > 0){
+            return response()->json([
+                'msg' => "This IMEI is already done by ".$present[0]->present_name.".",
+                'status' => 200,
+                'imei' => $imei_sn,
+                'state' => false
+            ]);
+        }else{
+            return response()->json(['msg'=>'Please take screenshoot after present is choose.','status'=>200,'imei'=>$imei_sn,'present'=>$present,'state'=>true]);
+        }
     }
 
     
