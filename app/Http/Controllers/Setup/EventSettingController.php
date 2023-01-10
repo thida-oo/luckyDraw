@@ -15,7 +15,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class EventSettingController extends Controller
 {
     public function index(){
-        $e_settings = EventSetting::all();
+        $e_settings = DB::table('event_settings')->orderBy('id', 'desc')->paginate(10);
         return view('setup/event-setting', ['e_settings'=>$e_settings]);
     }
 
