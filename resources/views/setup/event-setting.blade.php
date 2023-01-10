@@ -57,6 +57,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $e_settings->links(); }}
             </div>
         </div>
     </div>

@@ -159,7 +159,6 @@ overflow: hidden;
                                 present_id: present_id
                               }),
                               headers: {
-                                'Access-Control-Allow-Origin': '*',
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                               }
