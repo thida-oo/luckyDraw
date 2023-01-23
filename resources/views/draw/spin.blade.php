@@ -86,7 +86,7 @@ text{
             color = d3.scale.category20();//category20c()
             //randomNumbers = getRandomNumbers();
         var data = [
-            @foreach($draw_presents as $value)
+            @foreach($present_draw as $value)
                 {"label":"{{$value->present_name}}", "value":{{$imei_sn}},"present_id": {{$value->present_id}} ,"question":"{{$value->present_name}}"},
             @endforeach
         ];

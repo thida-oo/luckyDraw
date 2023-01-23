@@ -34,7 +34,8 @@ class EventSettingController extends Controller
         $event_end = $request->input('end_time');
         $products = $request->input('product');
         $presents = $request->input('present_id');
-        $draw_probability = array_filter($request->input('draw_probability'));
+        $draw_probability = array_values(array_filter($request->input('draw_probability')));
+        
         if(count($draw_probability) != count($presents)){
             Alert::warning("The probability and presents count is did not match.")->persistent('Dismiss');
                  return redirect()->route('event-setting-create');
@@ -50,10 +51,13 @@ class EventSettingController extends Controller
         // dd($draw_probability);
 
         //Vaildation for event time
-        $valid_time = EventSetting::whereBetween('event_start_time',[DATE('Y-m-d', strtotime($event_start)), DATE('Y-m-d', strtotime($event_end))])
-                   ->orwhereBetween('event_end_time', [DATE('Y-m-d', strtotime($event_start)), DATE('Y-m-d', strtotime($event_end))])->count();
+        $valid_time = DB::table('event_settings')
+                ->whereDate('event_start_time', '=', date('Y-m-d', strtotime($event_start)))
+                ->whereDate('event_end_time', '=', date('Y-m-d', strtotime($event_end)))
+                ->where('status','1')
+                ->get();
 
-        if($valid_time == 0){ 
+        if(count($valid_time) == 0){ 
             $eventSetting = new EventSetting();
             $eventSetting->name                 = $request->input('name');
             $eventSetting->event_start_time     = $request->input('start_time');
@@ -104,10 +108,13 @@ class EventSettingController extends Controller
       //  echo $res;die;
 
         $event_product = DB::table('event_settings')->where('id',$id)->get();
+
         $productID = $event_product[0]->product_id;
         $productID = explode(",",$productID);
-    
+        
         return view('setup/event-setting-overview',['res'=>$res,'products'=>$products,'productID'=>$productID,'present_lists'=>$present_lists]);
+        // dd($res);
+
     }
     public function edit($id)
     {
@@ -117,12 +124,13 @@ class EventSettingController extends Controller
         ->join('event_setting_details as esd','es.id','=','esd.event_id')
         ->join('presents as pre','pre.id','=','esd.present_id')
         ->join('products as pro','pro.id','=','es.product_id')
-        ->select('es.*','esd.*','pre.id as present_id','pre.present_name','pre.present_code','pro.id as product_id','pro.p_name as product_name','pre.image')->where('es.id',$id)->get();
+        ->select('es.*','esd.*','pre.id as present_id','pre.present_name','pre.present_code','pro.id as product_id','pro.p_name as product_name','pre.image')->where('es.id',$id)->where('pre.status','1')->get();
         $event_product = DB::table('event_settings')->where('id',$id)->get();
         $productID = $event_product[0]->product_id;
         $productID = explode(",",$productID);
     
         return view('setup/event-setting-edit',['res'=>$res,'products'=>$products,'productID'=>$productID,'present_lists'=>$present_lists]);
+        // dd($present_lists);
     }
     public function update(Request $request)
     {
@@ -136,7 +144,7 @@ class EventSettingController extends Controller
         $event_end = $request->input('end_time');
         $products = $request->input('product');
         $presents = $request->input('present_id');
-        $draw_probability = array_filter($request->input('draw_probability'));
+        $draw_probability = array_value(array_filter($request->input('draw_probability')));
         // match percentage and present
         if(count($draw_probability) != count($presents)){
             Alert::warning("The probability and presents count is did not match.")->persistent('Dismiss');
@@ -165,6 +173,7 @@ class EventSettingController extends Controller
             $event = DB::table('event_settings')
                 ->whereDate('event_start_time', '=', date('Y-m-d', strtotime($event_start)))
                 ->whereDate('event_end_time', '=', date('Y-m-d', strtotime($event_end)))
+                ->where('status','1')
                 ->get();
 
                 // dd($event);
