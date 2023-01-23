@@ -118,7 +118,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         $code = $this->request->input('authCode');
         
         $response = $this->getAccessTokenResponse($code);
-        dd(dingTalkController::test());
+        // dd(dingTalkController::test());
         $token = Arr::get($response, 'accessToken');
         
         $this->user = $this->mapUserToObject($this->getUserByToken($token));
@@ -186,7 +186,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
     }
 
     public function mapUserToObject(array $user){
-        dd($user);
+        // dd($user);
         return (new User())->setRaw($user)->map([
             'id'   => $this->openId, 
             'unionid' => $this->unionId, 
