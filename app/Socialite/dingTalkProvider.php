@@ -117,7 +117,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         $code = $this->request->input('authCode');
         
         $response = $this->getAccessTokenResponse($code);
-dd($response);
+
         $token = Arr::get($response, 'accessToken');
         
         $this->user = $this->mapUserToObject($this->getUserByToken($token));
