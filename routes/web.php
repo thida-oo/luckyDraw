@@ -101,3 +101,4 @@ Route::prefix('report')->group(function(){
 
 
 Route::get('get/access-token',[dingTalkController::class, 'orderAndListDepartment']);
+Route::get('/test',[dingTalkController::class, 'validateUserStatus']);

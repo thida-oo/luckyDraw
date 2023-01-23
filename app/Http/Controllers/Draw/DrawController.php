@@ -134,14 +134,16 @@ class DrawController extends Controller
                             }
 
                         }
-
+                        
+                            shuffle($present_draw);
+                            
                              return view('draw/spin', [
                             'id_lists' => array_column($draw_presents, 'present_id'),
                             'draw_presents' => $draw_presents,
                             'prob_lists' => array_column($draw_presents, 'present_prob'),
                             'present_draw' => $present_draw,
                             'imei_sn' => $imei_sn,
-                            'valid_event' => $valid_event->name,
+                            'valid_event' => $valid_event,
                             ]);
 
                     }

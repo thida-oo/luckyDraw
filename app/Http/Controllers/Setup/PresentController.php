@@ -9,7 +9,7 @@ use DB;
 class PresentController extends Controller
 {
     public function index(){
-        $presents = Present::where('status',1)->paginate(10);
+        $presents = Present::paginate(10);
         return view('setup/present', ['presents'=>$presents]);
     }
 
@@ -60,7 +60,7 @@ class PresentController extends Controller
     }
     public function delete($id){
         $present = Present::find($id);
-        $present->status = 0;
+        $present->status = !$present->status;
         $present->save();
         return redirect()->route('present-index');
     }
@@ -72,8 +72,17 @@ class PresentController extends Controller
             ->where(function ($query) use ($searchTerm) {
                 $query->where('present_name', 'like', $searchTerm)
                     ->orWhere('present_code', 'like', $searchTerm);
-            })
-           ->paginate(10);
+            });
+
+            if($request->input('status')==1){
+             $presents = $presents->where('status','1');  
+            }elseif($request->input('status')==0){
+             $presents = $presents->where('status','0');  
+            }elseif($request->input('status')==2){
+                $presents=$presents;
+            }
+          $presents = $presents->paginate(10);
+
            return view('setup/present', ['presents'=>$presents]);
     }
 }

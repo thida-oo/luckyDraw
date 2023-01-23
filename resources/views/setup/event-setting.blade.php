@@ -13,7 +13,13 @@
                $search = $_GET['search'];
               }else{
                 $search = '';
-              }; ?>
+              }; 
+              if(isset($_GET['status'])){
+                $status = $_GET['status'];
+            }else{
+                $status = 2;
+            }
+              ?>
             <div class="card-body">
                 <form class="row g-3" action="{{url('/setup/event-setting/search')}}" method="get">
                     <div class="col-auto">
@@ -24,6 +30,13 @@
                         <label for="searchBox" class="visually-hidden">Search</label>
                         <input type="text" class="form-control" value="{{$search}}" name="search" id="searchBox" placeholder="Please enter search text here">
                     </div>
+                      <div class="col-3">
+                  <select class="form-control w-100" name="status">
+                      <option value="2" @if($status==2) {{'selected'}} @endif>All</option>
+                      <option value="1" @if($status==1) {{'selected'}} @endif>Active</option>
+                      <option value="0" @if($status==0) {{'selected'}} @endif>Deactive</option>
+                  </select>
+                </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary mb-3">Search</button>
                     </div>
@@ -44,6 +57,7 @@
                             <th scope="col">Event Name</th>
                             <th scope="col">Start Time</th>
                             <th scope="col">End Time</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -58,10 +72,23 @@
                             <td>
                                 <?php echo date('d-m-Y',strtotime($setting->event_end_time)); ?>
                             </td>
+                            <td class="align-middle">
+                                @if($setting->status==0)
+                                <button type="button" class="btn btn-sm btn-outline-danger" disabled>Deactive</button>
+                                @elseif($setting->status==1)
+                              
+                                  <button type="button" class="btn btn-sm btn-outline-primary" disabled>Active</button>
+                                @endif
+                            </td>
                             <td>
                             <a href="{{ url('setup/event-setting-overview/' .$setting->id) }}"><span class="material-symbols-outlined">overview</span>
                             <a href="{{ url('setup/event-setting-edit/' .$setting->id) }}"><span class="material-icons">edit</span>
-                            <a href="{{ url('setup/event-setting-delete/' .$setting->id) }}"><span class="material-icons">delete</span>
+                                @if($setting->status==0)
+                             <a href="{{ url('setup/event-setting-delete/' .$setting->id) }}"><span class="material-icons">autorenew</span>
+                                @elseif($setting->status==1)
+                             <a href="{{ url('setup/event-setting-delete/' .$setting->id) }}"><span class="material-icons">delete</span>
+
+                                @endif
                             </td>
                         </tr>
                         @endforeach

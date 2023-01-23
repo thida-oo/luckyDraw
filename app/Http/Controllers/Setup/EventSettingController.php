@@ -15,7 +15,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 class EventSettingController extends Controller
 {
     public function index(){
-        $e_settings = EventSetting::orderBy('created_at','desc')->where('status',1)->paginate(10);
+        $e_settings = EventSetting::orderBy('created_at','desc');
+        $e_settings=$e_settings->paginate(10);
         return view('setup/event-setting', ['e_settings'=>$e_settings]);
     }
 
@@ -198,14 +199,24 @@ class EventSettingController extends Controller
     {
         $searchTerm = '%' . $request->input('search') . '%';
 
-        $e_settings = DB::table('event_settings')->where('name','like',$searchTerm)->where('status',1)->paginate(10);
+        $e_settings = DB::table('event_settings')->where('name','like',$searchTerm);
+        if($request->input('status')==1){
+            $e_settings->where('status',1);
+        }elseif($request->input('status')==0){
+            $e_settings->where('status',0);
+        }elseif($request->input('status')==2){
+            $e_settings= $e_settings;
+        }
+        $e_settings=$e_settings->paginate(10);
         return view('setup/event-setting', ['e_settings'=>$e_settings]);
     }
     public function delete($id)
     {
-         DB::table('event_settings')
-    ->updateOrInsert(['id' => $id], ['status' => 0]);
-            return redirect()->route('event-setting-index');
+        $event_setting = EventSetting::find($id);
+        $event_setting->status = !$event_setting->status;
+        $event_setting->save();
+
+        return redirect()->route('event-setting-index');
          
     }
 }

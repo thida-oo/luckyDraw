@@ -20,11 +20,13 @@ class dingTalkController extends Controller
         $this->getToken ="https://oapi.dingtalk.com/gettoken?";
         $this->getDepartment = "https://oapi.dingtalk.com/topapi/v2/department/listsub?";
         $this->getSubDepartment = "https://oapi.dingtalk.com/topapi/v2/department/listsub?";
+        $this->getUserId = "https://oapi.dingtalk.com/topapi/v2/user/getbymobile?";
+        $this->userDetail = "https://oapi.dingtalk.com/topapi/v2/user/get?";
         $this->appKey = env('DINGTALK_APP_KEY');
         $this->appSecret = env('DINGTALK_APP_SECRET');
     }
    
-    private function getAccessToken()
+    public function getAccessToken()
     {
         $url = $this->getToken.'appkey='.$this->appKey.'&appsecret='.$this->appSecret;
         $res = Http::get($url);
@@ -48,16 +50,28 @@ class dingTalkController extends Controller
 
         return $res['result'];
     }
-    public function orderAndListDepartment($value='')
-    {
-     foreach ($this->getDepartmentList(null) as $key => $value) {
-         
 
-     }
-     die;
-    }
-    public function test()
+    public function validateUserStatus($phone_number)
     {
-        return "text";
+
+        // get current login user id
+        $access_token = $this->getAccessToken();
+        // return $access_token;
+        // $user_id_url = $this->getUserId.'access_token='.$access_token;
+        // $res = Http::post($user_id_url,[
+        //     "mobile"=>$phone_number
+        // ]);
+        // $current_login_id = $res['result']['userid'];
+
+        // $user_detail_url = $this->userDetail.'access_token='.$access_token;
+        // $response = Http::post($user_detail_url,[
+        //     'language'=> 'zh_CN',
+        //     'userid'=> $current_login_id
+        // ]);
+       
+        // $user_status = $response['result']['active'];
+
+        // return $user_status;
+
     }
 }

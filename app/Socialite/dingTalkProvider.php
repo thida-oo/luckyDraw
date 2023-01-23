@@ -9,6 +9,8 @@ use Laravel\Socialite\Two\InvalidStateException;
 use Laravel\Socialite\Two\ProviderInterface;
 use Laravel\Socialite\Two\User;
 use App\Http\Controllers\Setup\dingTalkController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class dingTalkProvider extends AbstractProvider implements ProviderInterface {
 
@@ -118,10 +120,20 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         $code = $this->request->input('authCode');
         
         $response = $this->getAccessTokenResponse($code);
-        // dd(dingTalkController::test());
         $token = Arr::get($response, 'accessToken');
         
         $this->user = $this->mapUserToObject($this->getUserByToken($token));
+        
+        $phone_number ='+'.$this->user['stateCode'].'-'.$this->user['mobile'];
+        $status = dingTalkController::validateUserStatus($phone_number);
+        dd($status);
+        // die;
+        // if($status==1){
+        //     Auth::logout();
+        //     Session::flush();
+        //     return redirect('/');
+        // }
+
         return $this->user->setToken($token)
                         ->setRefreshToken(Arr::get($response, 'refreshToken'))
                         ->setExpiresIn(Arr::get($response, 'expireIn'))
@@ -191,7 +203,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
             'id'   => $this->openId, 
             'unionid' => $this->unionId, 
             'nickname' => $user['nick'] ?? null,
-            'name' => $user['id'] ?? null,
+            'name' => $user['nick'] ?? null,
             'email' => $user['email'] ?? null, 
             'avatar' => $user['avatarUrl'] ?? null,
         ]);
