@@ -24,9 +24,7 @@ class DingTalkController extends Controller
     public function dingTalkCallback(Request $request){
 
         $dingUser = Socialite::driver('dingtalk')->user();
-
-        //dd($dingUser);
-
+            
         $findUser = User::where('google_id', $dingUser->id)->first();
 
         if($findUser){ 

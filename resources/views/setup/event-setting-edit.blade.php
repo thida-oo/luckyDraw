@@ -82,7 +82,7 @@
                         </thead>
                         <tbody>
                             <!-- get Data from Present -->
-                            <?php $i = 0; ?>
+                            <?php  $i = 0; ?>
                             @foreach($present_lists as $pList)
                           
                             <tr>
@@ -95,6 +95,8 @@
                                 </td>
 
                                 <td><input type="checkbox" name="present_id[]" checked value="{{$pList->id}}"> </td>
+                              <?php $i++; ?>
+
                                     @else
                                 <td>
                                     <input type="text" name="draw_probability[]" class="percentage" />{{ "%" }}
@@ -106,7 +108,6 @@
                                     <img src="{{ asset('image/presentsImage/'. $pList->image) }}" class="img-fluid" alt="default" width="50" height="80">
                                 </td>
                             </tr>
-                            <?php $i++; ?>
                             @endforeach
                         </tbody>
                         <tfoot>

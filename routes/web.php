@@ -10,6 +10,7 @@ use App\Http\Controllers\Setup\PresentController;
 use App\Http\Controllers\Setup\ProductController;
 use App\Http\Controllers\Setup\StoreController;
 use App\Http\Controllers\Setup\StocksController;
+use App\Http\Controllers\Setup\dingTalkController;
 use App\Http\Controllers\Report\LuckyDrawResultController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +72,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('present-edit/{id}',[PresentController::class, 'edit'])->name('present-edit');
     Route::get('present-delete/{id}',[PresentController::class, 'delete'])->name('present-delete');
     Route::post('present-update/{id}',[PresentController::class, 'update'])->name('present-update');
+    Route::get('present-search/',[PresentController::class, 'search'])->name('present-search');
 
 
     // for event setting
@@ -98,3 +100,4 @@ Route::prefix('report')->group(function(){
 });
 
 
+Route::get('get/access-token',[dingTalkController::class, 'orderAndListDepartment']);
