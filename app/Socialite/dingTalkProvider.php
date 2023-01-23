@@ -8,6 +8,7 @@ use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\InvalidStateException;
 use Laravel\Socialite\Two\ProviderInterface;
 use Laravel\Socialite\Two\User;
+use App\Http\Controllers\Setup\dingTalkController;
 
 class dingTalkProvider extends AbstractProvider implements ProviderInterface {
 
@@ -117,11 +118,10 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         $code = $this->request->input('authCode');
         
         $response = $this->getAccessTokenResponse($code);
-
+        dd(dingTalkController::test());
         $token = Arr::get($response, 'accessToken');
         
         $this->user = $this->mapUserToObject($this->getUserByToken($token));
-
         return $this->user->setToken($token)
                         ->setRefreshToken(Arr::get($response, 'refreshToken'))
                         ->setExpiresIn(Arr::get($response, 'expireIn'))
@@ -186,12 +186,12 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
     }
 
     public function mapUserToObject(array $user){
-
+        dd($user);
         return (new User())->setRaw($user)->map([
             'id'   => $this->openId, 
             'unionid' => $this->unionId, 
             'nickname' => $user['nick'] ?? null,
-            'name' => $user['nick'] ?? null,
+            'name' => $user['id'] ?? null,
             'email' => $user['email'] ?? null, 
             'avatar' => $user['avatarUrl'] ?? null,
         ]);

@@ -17,7 +17,7 @@ class DrawController extends Controller
     public function index(){
         // need to date within event period, if not, don't show view
         $current_date = DATE('Y-m-d', strtotime(now()));
-        $valid_event = EventSetting::whereDate('event_start_time','<=', $current_date)->whereDate('event_end_time','>=', $current_date)->get();
+        $valid_event = EventSetting::whereDate('event_start_time','<=', $current_date)->whereDate('event_end_time','>=', $current_date)->where('status',1)->get();
 
         if(empty($valid_event)){
             return view('draw/invalid');
@@ -55,7 +55,7 @@ class DrawController extends Controller
             } else {
                 $current_date = DATE('Y-m-d', strtotime(now()));
                 $valid_event = DB::table('event_settings')->whereDate('event_start_time','<=', $current_date)
-                                ->whereDate('event_end_time','>=', $current_date)
+                                ->whereDate('event_end_time','>=', $current_date)->where('status',1)
                                 ->first();
                 if($valid_event == null){
                     Alert::warning('ယနေ့အတွက် Event မရှိပါ။')->persistent('Dismiss');
@@ -81,14 +81,69 @@ class DrawController extends Controller
                         Alert::info('No Present set up, please contact Adminstrator!! (လက်ရှိ Event အတွက် လက်ဆောင် များ မရှိပါ, Admin သို့ ဆက်သွယ်ပါ !! )')->persistent('Dismiss');
                         return view('draw/index');
                     } else {
+                        // dd($valid_event);
 
-                    return view('draw/spin', [
+                        // dd($draw_presents);
+                        $present_draw=array();
+                        foreach($draw_presents as $key=>$value){
+                            if($value->present_prob <= 5){
+
+                            }
+                            if(($value->present_prob >=6 && $value->present_prob <= 10) || ($value->present_prob >=11 && $value->present_prob <= 15)){
+                                $present_draw[] = $value;
+                            }
+                            if(($value->present_prob >=16 && $value->present_prob <= 20) || ($value->present_prob >=21 && $value->present_prob <= 25) ){
+                                for($i=1;$i<=2; $i++){
+                                    $present_draw[] = $value;
+                                }
+                            }
+                            if(($value->present_prob >=26 && $value->present_prob <= 30) || ($value->present_prob >=31 && $value->present_prob <= 35) ){
+                                for($i=1;$i<=3; $i++){
+                                    $present_draw[] = $value;
+                                }
+                            }
+                            if(($value->present_prob >=36 && $value->present_prob <= 40) || ($value->present_prob >=41 && $value->present_prob <= 45) ){
+                                for($i=1;$i<=4; $i++){
+                                    $present_draw[] = $value;
+                                }
+                            }
+                            if(($value->present_prob >=46 && $value->present_prob <= 50) || ($value->present_prob >=51 && $value->present_prob <= 55) ){
+                                for($i=1;$i<=5; $i++){
+                                    $present_draw[] = $value;
+                                }
+                            }
+                            if(($value->present_prob >=56 && $value->present_prob <= 60) || ($value->present_prob >=61 && $value->present_prob <= 65) ){
+                                for($i=1;$i<=6; $i++){
+                                    $present_draw[] = $value;
+                                }
+                            }
+                            if(($value->present_prob >=66 && $value->present_prob <= 70) || ($value->present_prob >=71 && $value->present_prob <= 75) ){
+                                for($i=1;$i<= 7; $i++){
+                                    $present_draw[] = $value;
+                                }
+                            }
+                            if(($value->present_prob >=76 && $value->present_prob <= 80) || ($value->present_prob >=81 && $value->present_prob <= 85) ){
+                                for($i=1;$i<=8; $i++){
+                                    $present_draw[] = $value;
+                                }
+                            }
+                           if(($value->present_prob >=86 && $value->present_prob <= 90) || ($value->present_prob >=91 && $value->present_prob <= 95) ){
+                                for($i=1;$i<=9; $i++){
+                                    $present_draw[] = $value;
+                                }
+                            }
+
+                        }
+
+                             return view('draw/spin', [
                             'id_lists' => array_column($draw_presents, 'present_id'),
                             'draw_presents' => $draw_presents,
                             'prob_lists' => array_column($draw_presents, 'present_prob'),
+                            'present_draw' => $present_draw,
                             'imei_sn' => $imei_sn,
                             'valid_event' => $valid_event->name,
                             ]);
+
                     }
                    
                 }

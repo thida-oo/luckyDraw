@@ -7,15 +7,22 @@
         <div class="card-header">
             <h4><span class="badge"> Search </span></h4>
         </div>
+        <?php 
+            if(isset($_GET['search'])){
+                $search = $_GET['search'];
+            }else{
+                $search = null;
+            }
+         ?>
         <div class="card-body">
-            <form class="row g-3">
+            <form class="row g-3" action="{{route('present-search')}}" method="get">
                 <div class="col-auto">
                     <label for="searchText" class="visually-hidden">Search Text</label>
                     <input type="text" readonly class="form-control-plaintext" id="searchText" value="Search Text">
                 </div>
                 <div class="col-auto">
                     <label for="searchBox" class="visually-hidden">Search</label>
-                    <input type="text" class="form-control" id="searchBox" placeholder="Please enter search text here">
+                    <input type="text" class="form-control" value="{{$search}}" name="search" id="searchBox" placeholder="Please enter search text here">
                 </div>
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary mb-3">Search</button>
@@ -69,6 +76,9 @@
 
                     </tbody>
                 </table>
+                <div class="col-sm-12 col-lg-12 col-md-12 ">
+                    {{ $presents->links() }}
+                </div>
             </div>
         </div>
     </div>
