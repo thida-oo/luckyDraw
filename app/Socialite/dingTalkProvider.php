@@ -11,19 +11,23 @@ use Laravel\Socialite\Two\User;
 use App\Http\Controllers\Setup\dingTalkController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Http;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Controllers\HomeController;
 
 class dingTalkProvider extends AbstractProvider implements ProviderInterface {
 
     protected string $authURL = "https://login.dingtalk.com/oauth2/auth";
     protected string $getUserInfobyCode = "https://oapi.dingtalk.com/sns/getuserinfo_bycode";
-
+    protected string $getToken ="https://oapi.dingtalk.com/gettoken?";
     protected string $getUserInfoURL = 'https:/api.dingtalk.com/v1.0/contact/users/me';
 
     protected string $userAccessTokenURL = 'https://api.dingtalk.com/v1.0/oauth2/userAccessToken';
 
     protected string $getUserDepartmentURL = "https://oapi.dingtalk.com/topapi/v2/department/listsub";
 
-    
+    protected string $getUserId = "https://oapi.dingtalk.com/topapi/v2/user/getbymobile?";
+    protected string $userDetail = "https://oapi.dingtalk.com/topapi/v2/user/get?";
     private $openId;
     protected $unionId;
 
@@ -31,6 +35,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
 
     protected $scopes = ['openid'];
 
+    
     public function withUnionId($value = true)
     {
         $this->withUnionId = $value;
@@ -125,15 +130,8 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         $this->user = $this->mapUserToObject($this->getUserByToken($token));
         
         $phone_number ='+'.$this->user['stateCode'].'-'.$this->user['mobile'];
-        $status = dingTalkController::validateUserStatus($phone_number);
-        dd($status);
-        // die;
-        // if($status==1){
-        //     Auth::logout();
-        //     Session::flush();
-        //     return redirect('/');
-        // }
-
+        $status = $this->validateUserStatus($phone_number);
+        // print_r($status);
         return $this->user->setToken($token)
                         ->setRefreshToken(Arr::get($response, 'refreshToken'))
                         ->setExpiresIn(Arr::get($response, 'expireIn'))
@@ -198,7 +196,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
     }
 
     public function mapUserToObject(array $user){
-        // dd($user);
+
         return (new User())->setRaw($user)->map([
             'id'   => $this->openId, 
             'unionid' => $this->unionId, 
@@ -224,7 +222,47 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
 
         return $response;
     }
+    public function getAccessToken()
+    {
+        $url = $this->getToken.'appkey='.$this->clientId.'&appsecret='.$this->clientSecret;
+        $res = Http::get($url);
+        return $res['access_token'];
+    }
 
+        public function validateUserStatus($phone_number)
+    {
+
+        // get current login user id
+        $access_token = $this->getAccessToken();
+       
+        $user_id_url = $this->getUserId.'access_token='.$access_token;
+        $res = Http::post($user_id_url,[
+            "mobile"=>$phone_number
+        ]);
+        if($res['errcode']==60121){
+            // HomeController::validateUser($res['errcode']);
+            Alert::warning("The user is not valid.")->persistent('Dismiss');
+            Auth::logout();
+            Session::flush();
+            echo "You cannot login and please contact administrator;";
+            // return view('welcome');
+            // Alert::warning("The user is not valid;")->persistent('Dismiss');
+            die;
+        }
+
+        // $current_login_id = $res['result']['userid'];
+
+        // $user_detail_url = $this->userDetail.'access_token='.$access_token;
+        // $response = Http::post($user_detail_url,[
+        //     'language'=> 'zh_CN',
+        //     'userid'=> $current_login_id
+        // ]);
+       
+        // $user_status = $response['result']['active'];
+
+        // return $user_status;
+
+    }
 
 }
 
