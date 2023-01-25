@@ -144,7 +144,7 @@ class EventSettingController extends Controller
         $event_end = $request->input('end_time');
         $products = $request->input('product');
         $presents = $request->input('present_id');
-        $draw_probability = array_value(array_filter($request->input('draw_probability')));
+        $draw_probability = array_values(array_filter($request->input('draw_probability')));
         // match percentage and present
         if(count($draw_probability) != count($presents)){
             Alert::warning("The probability and presents count is did not match.")->persistent('Dismiss');
