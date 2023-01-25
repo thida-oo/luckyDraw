@@ -71,6 +71,7 @@
                                 <li><a class="dropdown-item" href="{{ url('setup/import')}}">Import</a></li>
                                 <li><a class="dropdown-item" href="{{ url('setup/present')}}">Present</a></li>                                
                                 <li><a class="dropdown-item" href="{{ url('setup/event-setting')}}">Event Setting</a></li>
+                                <li><a class="dropdown-item" href="{{ url('department/list')}}">Department List</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

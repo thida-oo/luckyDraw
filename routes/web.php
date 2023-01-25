@@ -11,6 +11,7 @@ use App\Http\Controllers\Setup\ProductController;
 use App\Http\Controllers\Setup\StoreController;
 use App\Http\Controllers\Setup\StocksController;
 use App\Http\Controllers\Setup\dingTalkController;
+use App\Http\Controllers\Setup\departmentController;
 use App\Http\Controllers\Report\LuckyDrawResultController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -101,3 +102,8 @@ Route::prefix('report')->group(function(){
 
 
 Route::get('get/access-token',[dingTalkController::class, 'orderAndListDepartment']);
+Route::get('/test',[dingTalkController::class, 'validateUserStatus']);
+
+Route::get('/get/department',[departmentController::class, 'fetchDepartmentApi']);
+Route::get('/department/list',[departmentController::class, 'index'])->name('department-list-index');
+// Route::get('sync/dept',[departmentController::class, 'syncDept'])->name('sync-dept');

@@ -102,7 +102,7 @@
                                     <input type="text" name="draw_probability[]" class="percentage" />{{ "%" }}
                                 </td>
 
-                                <td><input type="checkbox" name="present_id[]" value="{{$pList->id}}"> </td>
+                                <td><input type="checkbox" class="form-check-input" name="present_id[]" value="{{$pList->id}}"> </td>
                                     @endif
                                 <td>
                                     <img src="{{ asset('image/presentsImage/'. $pList->image) }}" class="img-fluid" alt="default" width="50" height="80">

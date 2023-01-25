@@ -57,7 +57,14 @@ text{
 <div class="container">
     <div class="row no-gutters">
        <div class="col-12">
-               <h4> {{$valid_event}} </h4> 
+               <h4> {{$valid_event->name}} </h4> 
+               <p>
+                    <span style="color: red;">Start Date</span> 
+                - <?php echo date('d-m-Y',strtotime($valid_event->event_start_time)); ?> 
+                <i class="fa fa-arrows-h px-2" aria-hidden="true"></i>
+                    <span style="color: red;">End Date</span> 
+                - <?php echo date('d-m-Y',strtotime($valid_event->event_end_time)); ?>
+                </p>
                <small id="screenshoot_msg"></small>
        </div>
        <div class="col-sm-4 col-lg-4 col-md-4">
