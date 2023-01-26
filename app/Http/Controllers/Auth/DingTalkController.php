@@ -38,6 +38,7 @@ class DingTalkController extends Controller
                 'password'=>Hash::make('oppoGoogle'),
                 'google_id'=>$dingUser->id,
                 'avatar'=>$dingUser->avatar,
+                'contact_number'=>$dingUser->contact_number,
             ]);
 			
 			Auth::login($newUser);
