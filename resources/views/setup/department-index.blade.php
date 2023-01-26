@@ -27,14 +27,20 @@
 
                 <div class="card-body">
                     <!-- <div class="container"> -->
-                               
-                    <form action="" method="get">
+                               <?php 
+                               if(isset($_GET['search'])){
+                               $search=$_GET['search'];
+                               }else{
+                               	$search = null;
+                               }
+                                ?>
+                    <form action="{{url('/department/search')}}" method="get">
                         @method('get')
                         <div class="row">
                             <div class="form-group row col-sm-6 col-lg-6 col-md-6">
                                 <label for="search_text" class="col-sm-2 col-form-label">Search</label>
                                 <div class="col-sm-10">
-                                <input type="text" name="distributor_search" class="form-control form-control-sm col-sm-4" id="search_text" placeholder="Please Enter Search Text">
+                                <input type="text" name="search" class="form-control form-control-sm col-sm-4" id="search_text" value="<?php echo $search; ?>" placeholder="Please Enter Search Text">
                                 </div>
                             </div>
                     </form>
@@ -79,6 +85,7 @@
                     </tbody>
                     </table>
                 </div>
+                 {{ $res->links(); }}
             	</div>
         </div>
     </div>

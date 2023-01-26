@@ -37,7 +37,7 @@ class departmentController extends Controller
             'dept_id'=> $parent_id
         ]);
             $response = array();
-            
+
         DB::table('departmentList')->where('parent_id', '=', $parent_id)->delete();
 
         foreach($res['result'] as $key=>$val){
@@ -51,5 +51,18 @@ class departmentController extends Controller
 
         DB::table('departmentList')->insert($response);
         return redirect()->route('department-list-index');
+    }
+    public function search(Request $request)
+    {
+         $search = '%' . $request->input('search') . '%';
+        $res = DB::table('departmentList');
+                  $res->where(function($res) use ($search){
+                  $res->orWhere('dept_id', 'like', '%'.$search.'%');
+                  $res->orWhere('parent_id', 'like', '%'.$search.'%');
+                  $res->orWhere('dept_name', 'like', '%'.$search.'%');
+                })->get();
+                  $res = $res->paginate(20);
+
+                return view('setup/department-index',['res'=>$res]);
     }
 }
