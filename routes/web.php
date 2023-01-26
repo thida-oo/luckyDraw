@@ -85,6 +85,11 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::post('event-setting-update',[EventSettingController::class, 'update'])->name('event-setting-update');
     Route::get('event-setting/search',[EventSettingController::class, 'search'])->name('event-setting-search');
     Route::get('event-setting-delete/{id}',[EventSettingController::class, 'delete'])->name('event-setting-delete');
+
+    //for Deptartment
+    Route::get('/department/list',[departmentController::class, 'index'])->name('department-list-index');
+    Route::get('/get/department',[departmentController::class, 'fetchDepartmentApi']);
+    
 });
 
 Route::prefix('draw')->group(function(){
@@ -100,10 +105,9 @@ Route::prefix('report')->group(function(){
 
 });
 
-
+//For testing
 Route::get('get/access-token',[dingTalkController::class, 'orderAndListDepartment']);
 Route::get('/test',[dingTalkController::class, 'validateUserStatus']);
 
-Route::get('/get/department',[departmentController::class, 'fetchDepartmentApi']);
-Route::get('/department/list',[departmentController::class, 'index'])->name('department-list-index');
+
 // Route::get('sync/dept',[departmentController::class, 'syncDept'])->name('sync-dept');
