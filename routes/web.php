@@ -39,7 +39,7 @@ Route::get('auth/dingtalk', [App\Http\Controllers\Auth\DingTalkController::class
  Route::get('auth/dingtalk/callback', [App\Http\Controllers\Auth\DingTalkController::class, 'dingTalkCallback'])->name('dingTalkCallback');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/validate/user/{phone_number}',[dingTalkController::class, 'validateUserStatus'])->name('validate-user');
 Route::prefix('admin')->group(function(){
     Route::get('dashboard', [DashboardController::class, 'index'])->name('index');
 });
@@ -108,7 +108,7 @@ Route::prefix('report')->group(function(){
 
 //For testing
 Route::get('get/access-token',[dingTalkController::class, 'orderAndListDepartment']);
-Route::get('/test',[dingTalkController::class, 'validateUserStatus']);
+Route::get('/test/{id}',[dingTalkController::class, 'test'])->name('test');
 
 
 

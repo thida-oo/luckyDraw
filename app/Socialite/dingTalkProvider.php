@@ -8,6 +8,7 @@ use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\InvalidStateException;
 use Laravel\Socialite\Two\ProviderInterface;
 use Laravel\Socialite\Two\User;
+// use App\Models\User;    
 use App\Http\Controllers\Setup\dingTalkController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -128,10 +129,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         $token = Arr::get($response, 'accessToken');
         
         $this->user = $this->mapUserToObject($this->getUserByToken($token));
-        
-        $phone_number ='+'.$this->user['stateCode'].'-'.$this->user['mobile'];
-        $status = $this->validateUserStatus($phone_number);
-        // print_r($status);
+  
         return $this->user->setToken($token)
                         ->setRefreshToken(Arr::get($response, 'refreshToken'))
                         ->setExpiresIn(Arr::get($response, 'expireIn'))
@@ -196,7 +194,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
     }
 
     public function mapUserToObject(array $user){
-
+        $phone_number ='+'.$user['stateCode'].'-'.$user['mobile'];
         return (new User())->setRaw($user)->map([
             'id'   => $this->openId, 
             'unionid' => $this->unionId, 
@@ -204,7 +202,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
             'name' => $user['nick'] ?? null,
             'email' => $user['email'] ?? null, 
             'avatar' => $user['avatarUrl'] ?? null,
-            'contact_number'=>$user['mobile'] ?? null,
+            'contact_number'=>$phone_number,
         ]);
     }
 
@@ -230,40 +228,6 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
         return $res['access_token'];
     }
 
-        public function validateUserStatus($phone_number)
-    {
-
-        // get current login user id
-        $access_token = $this->getAccessToken();
-       
-        $user_id_url = $this->getUserId.'access_token='.$access_token;
-        $res = Http::post($user_id_url,[
-            "mobile"=>$phone_number
-        ]);
-        if($res['errcode']==60121){
-            // HomeController::validateUser($res['errcode']);
-            Alert::warning("The user is not valid.")->persistent('Dismiss');
-            Auth::logout();
-            Session::flush();
-            echo "You cannot login and please contact administrator;";
-            // return view('welcome');
-            // Alert::warning("The user is not valid;")->persistent('Dismiss');
-            die;
-        }
-
-        // $current_login_id = $res['result']['userid'];
-
-        // $user_detail_url = $this->userDetail.'access_token='.$access_token;
-        // $response = Http::post($user_detail_url,[
-        //     'language'=> 'zh_CN',
-        //     'userid'=> $current_login_id
-        // ]);
-       
-        // $user_status = $response['result']['active'];
-
-        // return $user_status;
-
-    }
 
 }
 

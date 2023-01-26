@@ -54,7 +54,12 @@
 
 </style>
     <body class="antialiased ">
-
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <p>Error code: {{ $errors->first('error_code') }}</p>
+        <p>Error message: {{ $errors->first('error_message') }}</p>
+    </div>
+@endif
         <div class="container text-center">
             <div class="col-sm-12 col-lg-12 col-md-12">
                 <div class="row no-gutters">

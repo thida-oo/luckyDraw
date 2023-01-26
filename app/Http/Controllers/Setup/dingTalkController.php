@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Socialite\dingTalkProvider;
 use Illuminate\Support\Facades\Http;
-
+use App\Models\User;
+use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 class dingTalkController extends Controller
 {
     protected $getToken;
@@ -51,26 +55,39 @@ class dingTalkController extends Controller
         return $res['result'];
     }
 
-    public function validateUserStatus($phone_number)
+    public function validateUserStatus($contact_number)
     {
 
         // get current login user id
         $access_token = $this->getAccessToken();
-        // return $access_token;
-        // $user_id_url = $this->getUserId.'access_token='.$access_token;
-        // $res = Http::post($user_id_url,[
-        //     "mobile"=>$phone_number
-        // ]);
-        // $current_login_id = $res['result']['userid'];
+        $user_id_url = $this->getUserId.'access_token='.$access_token;
+        $res = Http::post($user_id_url,[
+            "mobile"=>$contact_number
+        ]);
+        if(isset($res['result'])){
+            
 
-        // $user_detail_url = $this->userDetail.'access_token='.$access_token;
-        // $response = Http::post($user_detail_url,[
-        //     'language'=> 'zh_CN',
-        //     'userid'=> $current_login_id
-        // ]);
-       
-        // $user_status = $response['result']['active'];
+           $current_login_id = $res['result']['userid'];
 
+        $user_detail_url = $this->userDetail.'access_token='.$access_token;
+        $response = Http::post($user_detail_url,[
+            'language'=> 'zh_CN',
+            'userid'=> $current_login_id
+        ]);
+       DB::table('users')->where('contact_number',$contact_number)
+            ->update([
+                'title'=>$response['result']['title'],
+                'status'=>1,
+                'dept_id'=>$response['result']['dept_id_list'][0],
+            ]);
+
+            return view('home');
+        }else{
+            Auth::logout();
+            Session::flush();
+             return Redirect::to('/')->withErrors(['error_code' => '401', 'error_message' => 'Unauthorized']);
+        }
+        
         // return $user_status;
 
     }

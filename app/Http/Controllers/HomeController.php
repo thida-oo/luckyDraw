@@ -7,6 +7,8 @@ use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Http\Controllers\Setup\dingTalkController;
+
 class HomeController extends Controller
 {
     /**
@@ -26,15 +28,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
-    }
-
-    public function validateUser($errcode)
-    {
-       if($errcode==60121){
-         return false;
-
+        if(Auth::user()->google_id!=null){
+            return redirect()->route('validate-user', ['phone_number' => Auth::user()->contact_number]);
+        }else{
+            return view('home');
         }
+      
     }
         
 }
