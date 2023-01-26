@@ -89,6 +89,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     //for Deptartment
     Route::get('/department/list',[departmentController::class, 'index'])->name('department-list-index');
     Route::get('/get/department',[departmentController::class, 'fetchDepartmentApi']);
+    Route::get('/department/search',[departmentController::class, 'search'])->name('department-search');
     
 });
 
@@ -108,6 +109,8 @@ Route::prefix('report')->group(function(){
 //For testing
 Route::get('get/access-token',[dingTalkController::class, 'orderAndListDepartment']);
 Route::get('/test',[dingTalkController::class, 'validateUserStatus']);
+
+
 
 
 // Route::get('sync/dept',[departmentController::class, 'syncDept'])->name('sync-dept');

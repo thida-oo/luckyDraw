@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="card  col-10">
 			<div class="card-header">
-					<h3><span class="badge badge-dark">Import Lists for Set UP</span></h3>
+					<h3><span class="badge badge-dark text-dark">Import Lists for Set UP</span></h3>
 			</div>
 			<div class="card-body">
 				<form method="POST" enctype="multipart/form-data" action="{{ url('setup/distributor/import')}}">
