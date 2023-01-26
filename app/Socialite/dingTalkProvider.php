@@ -204,6 +204,7 @@ class dingTalkProvider extends AbstractProvider implements ProviderInterface {
             'name' => $user['nick'] ?? null,
             'email' => $user['email'] ?? null, 
             'avatar' => $user['avatarUrl'] ?? null,
+            'contact_number'=>$user['mobile'] ?? null,
         ]);
     }
 
