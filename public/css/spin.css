@@ -1,4 +1,4 @@
-.wrapper {
+/* .wrapper {
     width: 90%;
     max-width: 34.37em;
     max-height: 90vh;
@@ -71,4 +71,35 @@ img {
     margin-top: 1.5em;
     color: #202020;
     font-weight: 30;
+} */
+
+text{
+    font-family:Helvetica, Arial, sans-serif;
+    font-size:14px;
+    pointer-events:none;
+}
+#chart{
+    position:absolute;
+    width:500px;
+    height:500px;
+    top:0;
+    left:0;
+}
+#question{
+    position: absolute;
+    width:400px;
+    height:500px;
+    top:0;
+    left:520px;
+}
+#question h1{
+    font-size: 50px;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top:50%;
+    -webkit-transform:translate(0,-50%);
+            transform:translate(0,-50%);
 }
