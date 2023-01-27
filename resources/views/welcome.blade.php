@@ -55,8 +55,7 @@
 </style>
     <body class="antialiased ">
         @if ($errors->any())
-    <div class="alert alert-danger">
-        <p>Error code: {{ $errors->first('error_code') }}</p>
+    <div class="alert alert-danger text-center">
         <p>Error message: {{ $errors->first('error_message') }}</p>
     </div>
 @endif

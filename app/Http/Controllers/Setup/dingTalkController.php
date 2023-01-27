@@ -85,7 +85,7 @@ class dingTalkController extends Controller
         }else{
             Auth::logout();
             Session::flush();
-             return Redirect::to('/')->withErrors(['error_code' => '401', 'error_message' => 'Unauthorized']);
+             return Redirect::to('/')->withErrors(['error_code' => '401', 'error_message' => 'User have Unauthorized']);
         }
         
         // return $user_status;
