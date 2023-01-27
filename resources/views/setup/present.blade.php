@@ -74,10 +74,10 @@
                         <!-- get Data from Present -->
                         @foreach($presents as $pList)
                         <tr>
-                            <td>{{ $pList->id }}</td>
-                            <td>{{ $pList->present_code }}</td>
-                            <td>{{ $pList->present_name }}</td>
-                            <td>{{ $pList->present_code }}</td>
+                            <td class="align-middle">{{ $pList->id }}</td>
+                            <td class="align-middle">{{ $pList->present_code }}</td>
+                            <td class="align-middle">{{ $pList->present_name }}</td>
+                            <td class="align-middle">{{ $pList->present_code }}</td>
                             <td>
                                 <img src="{{ asset('image/presentsImage/'. $pList->image) }}" alt="default" width="100px;" />
                             </td>
@@ -89,7 +89,7 @@
                                   <button type="button" class="btn btn-sm btn-outline-primary" disabled>Active</button>
                                 @endif
                             </td>
-                            <td>
+                            <td class="align-middle">
                                 <a href="{{ url('setup/present-edit/' .$pList->id) }}"><span class="material-icons">edit</span></a>
                                 @if($pList->status==1)
                                 <a href="{{ url('setup/present-delete/' .$pList->id) }}"><span class="material-icons" style="padding-left: 3.5%;">delete</span>

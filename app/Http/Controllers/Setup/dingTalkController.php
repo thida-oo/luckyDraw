@@ -74,6 +74,7 @@ class dingTalkController extends Controller
             'userid'=> $current_login_id
         ]);
        $user = User::where('contact_number', $contact_number)->first();
+       
        if(isset($response['result']['title'])){
           $user->title = $response['result']['title'];
        }else{
