@@ -14,7 +14,7 @@ class StockImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {   
-        DB::table('stock')->where('imei_sn',$row['ime'])->delete();
+        DB::table('stock')->where('imei_sn',$row['imei'])->delete();
         
         if( $row['shipping_warehouse'] != "HQ_MDY"){
             // Store code get from store table $row['orderdepotname'] 
