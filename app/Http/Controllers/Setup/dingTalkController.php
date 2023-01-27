@@ -65,7 +65,6 @@ class dingTalkController extends Controller
             "mobile"=>$contact_number
         ]);
         if(isset($res['result'])){
-            
 
            $current_login_id = $res['result']['userid'];
 
@@ -74,12 +73,17 @@ class dingTalkController extends Controller
             'language'=> 'zh_CN',
             'userid'=> $current_login_id
         ]);
-       DB::table('users')->where('contact_number',$contact_number)
-            ->update([
-                'title'=>$response['result']['title'],
-                'status'=>1,
-                'dept_id'=>$response['result']['dept_id_list'][0],
-            ]);
+       $user = User::where('contact_number', $contact_number)->first();
+       if(isset($response['result']['title'])){
+          $user->title = $response['result']['title'];
+       }else{
+         $user->title = null;
+       }
+        $user->status = 1;
+
+        $user->dept_id = $response['result']['dept_id_list'];
+        $user->save();
+
 
             return view('home');
         }else{
