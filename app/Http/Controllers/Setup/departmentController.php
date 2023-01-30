@@ -36,7 +36,8 @@ class departmentController extends Controller
             'language'=> 'zh_CN',
             'dept_id'=> $parent_id
         ]);
-            $response = array();
+        
+        $response = array();
 
         DB::table('departmentList')->where('parent_id', '=', $parent_id)->delete();
 

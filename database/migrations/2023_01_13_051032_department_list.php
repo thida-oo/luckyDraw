@@ -17,7 +17,7 @@ class DepartmentList extends Migration
             $table->id();
             $table->integer('dept_id');
             $table->integer('parent_id')->nullable(true);
-            $table->timestamp('dept_name');
+            $table->string('dept_name');
             $table->timestamps();
         });
     }

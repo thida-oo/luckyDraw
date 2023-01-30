@@ -91,7 +91,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 
     //for Deptartment
     Route::get('/department/list',[departmentController::class, 'index'])->name('department-list-index');
-    Route::get('/get/department',[departmentController::class, 'fetchDepartmentApi']);
+    Route::get('/department/get',[departmentController::class, 'fetchDepartmentApi'])->name('department-fetchDepartmentApi');
     Route::get('/department/search',[departmentController::class, 'search'])->name('department-search');
     
 });
