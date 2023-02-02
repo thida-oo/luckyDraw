@@ -68,6 +68,22 @@
 						
 					</div>
 				</form>
+				<form method="POST" enctype="multipart/form-data" action="{{ route('sale-import')}}">
+					@csrf
+					@method('POST')
+					<div class="row mt-4">
+						<div class="col-sm-2 col-lg-2 col-md-2">
+							Sale Import
+						</div>
+						<div class="col-sm-6 col-lg-6 col-md-6">
+							<input type="file" name="file" class="form-control form-control-sm" required />
+						</div>
+						<div class="col-sm-4 col-lg-4 col-md-4">
+							<button class="btn  btn-primary btn-sm">Submit</button>
+						</div>
+						
+					</div>
+				</form>
 			</div>
 			
 		</div>
