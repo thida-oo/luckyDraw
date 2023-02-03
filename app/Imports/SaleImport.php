@@ -18,22 +18,47 @@ class SaleImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChunkRe
 {
 
     private $distributor_array;
+    private $area;
+    private $products;
+    private $store;
 
-    public function __construct($distributor_array)
+    public function __construct($distributor_array,$area,$products,$store)
     {
         $this->distributor_array = $distributor_array;
+        $this->area = $area;
+        $this->products = $products; 
+        $this->store = $store;
+
     }
 
     public function model(array $row)
     {   
+            $match_area = array_search($row['asm_area'],$this->area->toArray());
+     
+            //  Validate ASM area
+            if(!isset($match_area)){
+                echo $row['asm_area'].' is not found.'; die;
+            }else{
+                $asm_area = $row['asm_area'];
+            }
+
+            //  Validate Stores
+            $match_store = in_array($row['sales_store_code'],$this->store->toArray());
+
+            if(!isset($match_store)){
+                echo $row['sales_store_code'].' is not found.'; die;
+            }else{
+                $stores = $row['sales_store_code'];
+            }
+
             return new Sale([
                 'imei_sn'=>$row['imei_1'],
                 'imei_sn_2'=>$row['imei_2'],
                 'box_id'=>$row['box_no'],
-                'area_id'=>1,
-                'sku_id'=>1,
+                'area_id'=>$match_area,
+                'sku_id'=>$this->products[$row['sku_name']],
                 'distributor_code'=>$this->distributor_array[$row['distributor_code']],
-                'store_code'=>$row['sales_store_code'],
+                'store_code'=>$stores,
                 'verifier_id'=>$row['salespeople_employee_number'],
                 'verification_time'=>$row['verification_time'],
                 'registered_time'=>$row['registration_time'],

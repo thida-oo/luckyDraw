@@ -11,12 +11,22 @@ class SaleController extends Controller
 {
     public function _saleImport(Request $request)
     {   
-        $res = DB::table("distributors")->select("distributor_code","distributor_name")->pluck("distributor_name", "distributor_code");
+        // distributor List
+        $distributor = DB::table("distributors")->select("distributor_code","distributor_name")->pluck("distributor_name", "distributor_code");
+
+        // ASM Area List
+        $area = DB::table("departmentList")->select("dept_name")->pluck("dept_name");
+        
+        // Product List
+        $products = DB::table("products")->select("p_code","p_name")->pluck("p_code","p_name");
+
+        // Stores
+        $store = DB::table("store")->select("store_code")->pluck("store_code");
 
         $import_file = $request->file('file');
         if ($import_file) {
             try {
-                Excel::import(new SaleImport($res), $import_file);
+                Excel::import(new SaleImport($distributor,$area,$products,$store), $import_file);
                 return view('setup/import')->with('success', 'Data successfully imported');
             } catch (Exception $e) {
 

@@ -24,7 +24,7 @@ class departmentController extends Controller
 
     public function index()
     {
-        $res = DB::table('departmentList')->orderBy('created_at','desc')->paginate(20);
+        $res = DB::table('departmentList')->orderBy('parent_id','asc')->paginate(20);
         return view('setup/department-index',['res'=>$res]);
     }
     public function fetchDepartmentApi(Request $request)
