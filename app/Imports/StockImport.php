@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 use Illuminate\Support\Facades\Auth;
 use DB;
 use RealRashid\SweetAlert\Facades\Alert;
-
+set_time_limit(3000);//for testing
 class StockImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
