@@ -37,15 +37,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="p_image" class="col-sm-2 col-form-label">Started Date</label>
+                            <label for="p_image" class="col-sm-2 col-form-label">KPI Started Date</label>
                             <div class="col-sm-10">
                                 <input type="date" name="started_date" class="form-control form-control-sm" id="started_date" required>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="p_image" class="col-sm-2 col-form-label">Ended Date</label>
-                            <div class="col-sm-10">
-                                <input type="date" name="ended_date" class="form-control form-control-sm" id="ended_date" >
                             </div>
                         </div>
                     </div>

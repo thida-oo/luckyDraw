@@ -27,7 +27,7 @@ class KpiSettingController extends Controller
         $kpi_setting->staff_type = $request->input('staff_type');
         $kpi_setting->amount = $request->input('kpi_amt');
         $kpi_setting->started_date = $request->input('started_date');
-        $kpi_setting->ended_date = $request->input('ended_date');
+        $kpi_setting->ended_date = null;
         $kpi_setting->save();
 
 
