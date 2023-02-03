@@ -15,7 +15,7 @@ use App\Http\Controllers\Setup\departmentController;
 use App\Http\Controllers\Setup\SaleController;
 use App\Http\Controllers\Report\LuckyDrawResultController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\Setup\KpiSettingController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -97,6 +97,11 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::get('/department/list',[departmentController::class, 'index'])->name('department-list-index');
     Route::get('/department/get',[departmentController::class, 'fetchDepartmentApi'])->name('department-fetchDepartmentApi');
     Route::get('/department/search',[departmentController::class, 'search'])->name('department-search');
+
+    //for KPI Setting
+    Route::get('/kpi-setting/list', [KpiSettingController::class, 'index'])->name('kpi-setting-index');
+    Route::get('/kpi-setting/create', [KpiSettingController::class, 'create'])->name('kpi-setting-create');
+    Route::get('/kpi-setting/store', [KpiSettingController::class, 'store'])->name('kpi-setting-store');
     
 });
 

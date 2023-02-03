@@ -8,7 +8,7 @@
 				<div class="card-header">
 					Sync
 				</div>
-				<form action="{{url('setup/get/department')}}" method="get">
+				<form action="{{url('setup/department/get')}}" method="get">
 				<div class="col-md-8 mt-2">
 					<div class="form-group row col-sm-12 col-lg-12 col-md-12 ml-2">
                     <label for="search_text" class="col-sm-4 col-lg-4 col-md-4 col-form-label px-4">Parent Id</label>

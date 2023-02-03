@@ -72,6 +72,7 @@
                                 <li><a class="dropdown-item" href="{{ url('setup/present')}}">Present</a></li>                                
                                 <li><a class="dropdown-item" href="{{ url('setup/event-setting')}}">Event Setting</a></li>
                                 <li><a class="dropdown-item" href="{{ url('setup/department/list')}}">Department List</a></li>
+                                <li><a class="dropdown-item" href="{{ url('setup/kpi-setting/list')}}">KPI Setting List</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
