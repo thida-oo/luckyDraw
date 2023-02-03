@@ -53,8 +53,8 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>#</th>
-                            <th>SKU Name</th>
-                            <th>Staff Type</th>                            
+                            <th>Staff Type</th> 
+                            <th>SKU Name</th>                                                       
                             <th>KPI Amount</th>
                             <th>Started Date</th>
                             <th>Ended Date</th>

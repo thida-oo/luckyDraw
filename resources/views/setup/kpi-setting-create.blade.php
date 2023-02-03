@@ -13,17 +13,17 @@
                         <div class="mb-3 row">
                             <label for="present_code" class="col-sm-2 col-form-label">Staff Type</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="staff_type">
-                                    <option>PG</option>
-                                    <option>Sale</option>
-                                    <option>Leader</option>
+                                <select class="form-control" id="staff_type" name="staff_type">
+                                    <option value="1">PG</option>
+                                    <option value="2">Sale</option>
+                                    <option value="3">Leader</option>
                                 </select>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="present_name" class="col-sm-2 col-form-label">SKU Name</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="sku_name">
+                                <select class="form-control" id="sku_name" name="sku_name">
                                     @foreach($sku_lists as $sku)
                                     <option value="{{ $sku->p_code }}">{{ $sku->p_name }}</option>
                                     @endforeach
