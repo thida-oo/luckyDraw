@@ -100,7 +100,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 
     //for KPI Setting
     Route::get('/kpi-setting/list', [KpiSettingController::class, 'index'])->name('kpi-setting-index');
-    Route::get('/kpi-setting/create', [KpiSettingController::class, 'create'])->name('kpi-setting-create');
+    Route::get('/kpi-setting-create', [KpiSettingController::class, 'create'])->name('kpi-setting-create');
     Route::get('/kpi-setting/store', [KpiSettingController::class, 'store'])->name('kpi-setting-store');
     
 });

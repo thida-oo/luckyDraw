@@ -25,7 +25,7 @@
                             <div class="col-sm-10">
                                 <select class="form-control" id="sku_name">
                                     @foreach($sku_lists as $sku)
-                                    <option value="{{ $sku->id }}">{{ $sku->name }}</option>
+                                    <option value="{{ $sku->p_code }}">{{ $sku->p_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
