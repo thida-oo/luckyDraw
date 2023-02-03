@@ -3,14 +3,16 @@
 namespace App\Imports;
 
 use App\Models\Stock;
+use DB;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
-use Illuminate\Support\Facades\Auth;
-use DB;
 use RealRashid\SweetAlert\Facades\Alert;
-set_time_limit(3000);//for testing
-class StockImport implements ToModel, WithHeadingRow
+set_time_limit(99999);
+class StockImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChunkReading
 {
     public function model(array $row)
     {   
@@ -53,4 +55,13 @@ class StockImport implements ToModel, WithHeadingRow
 
         
      }
+     public function batchSize(): int
+    {
+        return 1000;
+    }
+    
+    public function chunkSize(): int
+    {
+        return 1000;
+    }
 }

@@ -12,8 +12,10 @@ use App\Http\Controllers\Setup\StoreController;
 use App\Http\Controllers\Setup\StocksController;
 use App\Http\Controllers\Setup\dingTalkController;
 use App\Http\Controllers\Setup\departmentController;
+use App\Http\Controllers\Setup\SaleController;
 use App\Http\Controllers\Report\LuckyDrawResultController;
 use App\Http\Controllers\HomeController;
+
 use Illuminate\Support\Facades\Auth;
 
 
@@ -68,6 +70,8 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
 
     //For stock
     Route::post('stock/import',[StocksController::class, '_stockImport'])->name('stock-import');
+    // For Sale
+    Route::post('sale/import',[SaleController::class, '_saleImport'])->name('sale-import');
 
     // for present
     Route::get('present',[PresentController::class, 'index'])->name('present-index');
