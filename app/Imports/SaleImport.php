@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Sale;
+use Exception;
 set_time_limit(99999);
 
 class SaleImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChunkReading
@@ -28,28 +29,30 @@ class SaleImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChunkRe
         $this->area = $area;
         $this->products = $products; 
         $this->store = $store;
-
     }
 
     public function model(array $row)
     {   
+          try {
             $match_area = array_search($row['asm_area'],$this->area->toArray());
      
             //  Validate ASM area
-            if(!isset($match_area)){
-                echo $row['asm_area'].' is not found.'; die;
+            if($match_area==false){
+                Alert::info("ASM Area '".$row['asm_area']."' has not found.")->persistent('Dismiss');
+                $asm_area = null;
             }else{
                 $asm_area = $row['asm_area'];
             }
 
             //  Validate Stores
             $match_store = in_array($row['sales_store_code'],$this->store->toArray());
-
-            if(!isset($match_store)){
-                echo $row['sales_store_code'].' is not found.'; die;
+           
+            if($match_store==false){
+                 Alert::info("Store code '".$row['sales_store_code']."' has not found.");
             }else{
                 $stores = $row['sales_store_code'];
             }
+
 
             return new Sale([
                 'imei_sn'=>$row['imei_1'],
@@ -64,6 +67,12 @@ class SaleImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChunkRe
                 'registered_time'=>$row['registration_time'],
                 'created_at'=>now()
             ]);
+            
+    // Code that might throw an exception
+            } catch (Exception $e) {
+                Alert::info($e->getMessage())->persistent('Dismiss');
+            }
+
     }
 
         

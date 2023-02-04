@@ -30,7 +30,8 @@ class SaleController extends Controller
                 return view('setup/import')->with('success', 'Data successfully imported');
             } catch (Exception $e) {
 
-                dd($e);
+                Alert::info($e->getMessage())->persistent('Dismiss');
+                 return redirect()->route('import');
             }
         }
         die;
