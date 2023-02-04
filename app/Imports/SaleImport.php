@@ -18,14 +18,14 @@ set_time_limit(99999);
 class SaleImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChunkReading
 {
 
-    private $distributor_array;
+
     private $area;
     private $products;
     private $store;
 
-    public function __construct($distributor_array,$area,$products,$store)
+    public function __construct($area,$products,$store)
     {
-        $this->distributor_array = $distributor_array;
+
         $this->area = $area;
         $this->products = $products; 
         $this->store = $store;
@@ -53,22 +53,20 @@ class SaleImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChunkRe
                 $stores = $row['sales_store_code'];
             }
 
-
             return new Sale([
                 'imei_sn'=>$row['imei_1'],
                 'imei_sn_2'=>$row['imei_2'],
                 'box_id'=>$row['box_no'],
                 'area_id'=>$match_area,
                 'sku_id'=>$this->products[$row['sku_name']],
-                'distributor_code'=>$this->distributor_array[$row['distributor_code']],
+                'distributor_code'=>$row['distributor_code'],
                 'store_code'=>$stores,
                 'verifier_id'=>$row['salespeople_employee_number'],
                 'verification_time'=>$row['verification_time'],
                 'registered_time'=>$row['registration_time'],
                 'created_at'=>now()
             ]);
-            
-    // Code that might throw an exception
+
             } catch (Exception $e) {
                 Alert::info($e->getMessage())->persistent('Dismiss');
             }
