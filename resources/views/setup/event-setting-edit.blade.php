@@ -38,10 +38,10 @@
                              <select multiple data-placeholder="Choose Product" class="form-control form-control-sm bg-light" data-allow-clear="1" name="product[]">
                                     @foreach($products as $product)
                                         @foreach($productID as $pro)
-                                            @if($pro == $product->id)
-                                            <option value="{{$product->id}}" selected>{{$product->p_name}}</option>
+                                            @if($pro == $product->p_code)
+                                            <option value="{{$product->p_code}}" selected>{{$product->p_name}}</option>
                                             @else
-                                            <option value="{{$product->id}}">{{$product->p_name}}</option>
+                                            <option value="{{$product->p_code}}">{{$product->p_name}}</option>
                                             @endif
                                         @endforeach
                                     @endforeach
