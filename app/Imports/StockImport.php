@@ -30,7 +30,7 @@ class StockImport implements ToModel, WithHeadingRow,WithBatchInserts,WithChunkR
         }
 
             // Product id get from product table $row['productname']
-            $product_id = DB::table('products')->where('p_code','like','%'.$row['productname'].'%')->get();
+            $product_id = DB::table('products')->where('p_name','like','%'.$row['productname'].'%')->get();
             if($product_id->count() > 0){
                 Alert::info("Prouct '".$row['productname']."does not exist.'");
             }
