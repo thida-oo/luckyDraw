@@ -8,6 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'OPPO') }}</title>
+    <meta name="theme-color" content="#6777ef"/>
+<link rel="apple-touch-icon" href="{{ asset('oppo.png') }}">
+<link rel="manifest" href="{{ asset('/manifest.json') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -153,7 +156,14 @@
             }
         });
     </script> -->
-
+<script src="{{ asset('/sw.js') }}"></script>
+<script>
+    if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("/sw.js").then(function (reg) {
+            console.log("Service worker has been registered for scope: " + reg.scope);
+        });
+    }
+</script>
 
     
 </body>
