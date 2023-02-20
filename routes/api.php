@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\Mobile\LuckyDrawController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,11 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/check/token', [LoginController::class, 'getProfileData']);
 
-// Route::Controller(TodoController::class)->group(function(){
-//     Route::get('todos', 'index');
-// });
-// Route::get('/index', [App\Http\Controllers\TodoController::class, 'index'])->name('index');
+Route::get('test', [LoginController::class, 'test']);
+Route::post('testtoken',[LuckyDrawController::class, 'testtoken']);
+
+
+// Route::post('/login/code', 'LoginController@loginWithCode')->middleware('cors');
+
+
+ Route::post('login/code',[LoginController::class, 'loginWithCode'])                                                                                                                  ;
