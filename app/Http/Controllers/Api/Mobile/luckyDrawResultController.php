@@ -17,7 +17,7 @@ class luckyDrawResultController extends Controller
                 ->select('di.*', 'u.name', 'p.present_name')
                 ->join('presents as p', 'p.id', '=', 'di.present_id')
                 ->join('users as u', 'u.id', '=', 'di.draw_by')
-                ->paginate(3);
+                ->paginate(100);
                 
     $pages = $records->lastPage();
     
