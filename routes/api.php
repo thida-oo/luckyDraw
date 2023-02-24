@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\Mobile\LuckyDrawController;
+use App\Http\Controllers\Api\Mobile\LuckyDrawResultController;
+use App\Http\Controllers\Api\Mobile\LuckyDrawStoreController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,4 +26,7 @@ Route::post('testtoken',[LuckyDrawController::class, 'testtoken']);
 // Route::post('/login/code', 'LoginController@loginWithCode')->middleware('cors');
 
 
- Route::post('login/code',[LoginController::class, 'loginWithCode'])                                                                                                                  ;
+ Route::post('login/code',[LoginController::class, 'loginWithCode']);  
+ Route::post('spin/draw',[LuckyDrawController::class, 'spinDraw']);         
+ Route::get('spin/results',[LuckyDrawResultController::class, 'index']);
+ Route::post('spin/wheel/data',[LuckyDrawStoreController::class, 'spinWheelData']);                                                                                                     

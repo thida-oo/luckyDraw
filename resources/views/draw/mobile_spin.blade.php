@@ -1,7 +1,10 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, user-scalable=yes">
 
-@section('content')
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title></title>
     <style type="text/css">
 text{
     font-family:Helvetica, Arial, sans-serif;
@@ -54,16 +57,23 @@ text{
 }
     </style>
 
-<div class="container">
+</head>
+
+<body>
+    <?php
+        $datajson =$_GET['data'];
+        $dataArray = json_decode($datajson, true);
+     ?>
+    <div class="container">
     <div class="row no-gutters">
        <div class="col-12">
-               <h4> {{$valid_event->name}} </h4> 
+               <h4> <?php echo $dataArray['valid_event']['name']; ?> </h4> 
                <p>
                     <span style="color: red;">Start Date</span> 
-                - <?php echo date('d-m-Y',strtotime($valid_event->event_start_time)); ?> 
+                - <?php echo date('d-m-Y',strtotime($dataArray['valid_event']['event_start_time'])); ?> 
                 <i class="fa fa-arrows-h px-2" aria-hidden="true"></i>
                     <span style="color: red;">End Date</span> 
-                - <?php echo date('d-m-Y',strtotime($valid_event->event_end_time)); ?>
+                - <?php echo date('d-m-Y',strtotime($dataArray['valid_event']['event_end_time'])); ?>
                 </p>
                <small id="screenshoot_msg"></small>
        </div>
@@ -80,6 +90,8 @@ text{
         </div>
           </div>
         </div>
+</body>
+
 
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
@@ -93,9 +105,9 @@ text{
             color = d3.scale.category20();//category20c()
             //randomNumbers = getRandomNumbers();
         var data = [
-            @foreach($present_draw as $value)
-                {"label":"{{$value->present_name}}", "value":{{$imei_sn}},"present_id": {{$value->present_id}} ,"question":"{{$value->present_name}}"},
-            @endforeach
+            @foreach ($dataArray['present_draw'] as $value)
+            {"label": "{{$value['present_name']}}", "value": "{{$dataArray['imei_sn']}}", "present_id": "{{$value['present_id']}}", "question": "{{$value['present_name']}}"},
+        @endforeach
         ];
         var svg = d3.select('#chart')
             .append("svg")
@@ -162,17 +174,19 @@ text{
                     oldrotation = rotation;
                     var present_id = data[picked].present_id
                       try {
-                            const response = await fetch('/draw/present', {
-                              method: 'POST',
-                              body: JSON.stringify({
-                                imei: {{$imei_sn}},
-                                present_id: present_id
-                              }),
-                              headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                              }
-                            });
+                            const response = await fetch('/api/spin/wheel/data', {
+                                  method: 'POST',
+                                  headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                  },
+                                  body: JSON.stringify({
+                                    user_id: "<?php echo $dataArray['user_id']; ?>",
+                                    imei: "<?php echo $dataArray['imei_sn']; ?>",
+                                    present_id: present_id
+                                  })
+                                });
+
                             const data = await response.json();
 
                             console.log(data)
@@ -236,6 +250,8 @@ text{
             return array;
         }
     </script>
+   
+</html>
 
+    
 
-@endsection

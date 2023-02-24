@@ -86,7 +86,7 @@ class dingTalkController extends Controller
         $user->save();
 
 
-            return view('home');
+            return view('home',['generate_code'=>$user->loginCode]);
         }else{
             Auth::logout();
             Session::flush();

@@ -36,7 +36,9 @@ Route::get('/', function () {
 Route::get('/phpinfo', function () {
     return view('phpinfo');
 });
-
+Route::get('/mobile_spin',function(){
+    return view('draw/mobile_spin');
+});
 Auth::routes();
 
 //For dingTalk Login
@@ -120,8 +122,4 @@ Route::prefix('report')->group(function(){
 //For testing
 Route::get('get/access-token',[dingTalkController::class, 'orderAndListDepartment']);
 Route::get('/test/{id}',[dingTalkController::class, 'test'])->name('test');
-
-
-
-
 // Route::get('sync/dept',[departmentController::class, 'syncDept'])->name('sync-dept');

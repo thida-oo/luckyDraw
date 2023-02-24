@@ -14,7 +14,11 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                   <div>
+                    @if(isset($generte_code))
+                       {{$generate_code}}
+                       @endif
+                   </div>
                 </div>
             </div>
         </div>
