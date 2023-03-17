@@ -64,6 +64,7 @@ class EventSettingController extends Controller
             $eventSetting->event_start_time     = $request->input('start_time');
             $eventSetting->event_end_time       = $request->input('end_time');
             $eventSetting->product_id           = $products;
+            $eventSetting->status               = 1;
             //$eventSetting->present_id           =$presents;
             $eventSetting->created_by           = Auth::user()->id;
             $saved = $eventSetting->save();
@@ -106,7 +107,6 @@ class EventSettingController extends Controller
         ->leftJoin('presents as pre','pre.id','=','esd.present_id')
         ->rightJoin('products as pro','pro.id','=','es.product_id')
         ->select('es.*','esd.*','pre.id as present_id','pre.present_name','pre.present_code','pro.id as product_id','pro.p_name as product_name','pre.image')->where('es.id',$id)->where('pre.status','1')->get();
-      //  echo $res;die;
 
         $event_product = DB::table('event_settings')->where('id',$id)->get();
 

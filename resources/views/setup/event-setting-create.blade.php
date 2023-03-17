@@ -33,7 +33,7 @@
                             <div class="col-sm-9 col-md-9 col-lg-9 bg-light">
                                 <select multiple data-placeholder="Choose Product" class="form-control form-control-sm bg-light" data-allow-clear="1" name="product[]">
                                     @foreach($products as $product)
-                                    <option value="{{$product->p_code}}">{{$product->p_name}}</option>
+                                    <option value="{{$product->id}}">{{$product->p_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
