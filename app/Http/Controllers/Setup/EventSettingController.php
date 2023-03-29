@@ -17,14 +17,14 @@ class EventSettingController extends Controller
     public function index(){
         $e_settings = EventSetting::orderBy('created_at','desc');
         $e_settings=$e_settings->paginate(10);
-        $depts = DB::table('departmentlist')->where('parent_id',112692215)->pluck('dept_name','id');
+        $depts = DB::table('departmentList')->where('parent_id',112692215)->pluck('dept_name','id');
         return view('setup/event-setting', ['e_settings'=>$e_settings,'depts'=>$depts]);
     }
 
     public function create(){  
         $present_lists = Present::where('status',1)->get();
         $products = Product::all();
-        $department_list = DB::table('departmentlist')->where('parent_id',112692215)->get();
+        $department_list = DB::table('departmentList')->where('parent_id',112692215)->get();
         return view('setup/event-setting-create', ['present_lists'=>$present_lists, 'products'=>$products,'department_list'=>$department_list]);
     }
      public function store(Request $request)
@@ -133,7 +133,7 @@ class EventSettingController extends Controller
         $event_product = DB::table('event_settings')->where('id',$id)->get();
         $productID = $event_product[0]->product_id;
         $productID = explode(",",$productID);
-        $department_list = DB::table('departmentlist')->where('parent_id',112692215)->get();
+        $department_list = DB::table('departmentList')->where('parent_id',112692215)->get();
 
         return view('setup/event-setting-edit',['res'=>$res,'products'=>$products,'productID'=>$productID,'present_lists'=>$present_lists,'department_list'=>$department_list]);
         // dd($present_lists);
