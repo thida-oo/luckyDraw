@@ -39,6 +39,11 @@ Route::get('/phpinfo', function () {
 Route::get('/mobile_spin',function(){
     return view('draw/mobile_spin');
 });
+
+Route::get('/test',function(){
+    return view('test');
+});
+
 Auth::routes();
 
 //For dingTalk Login

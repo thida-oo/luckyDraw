@@ -180,6 +180,7 @@ text{
                             if(data.state==false){
                                 document.getElementById('present-name').innerHTML = data.msg;
                                 document.getElementById("imgDiv").src = "";
+                                window.location.replace('/draw/index');
 
                             }else if(data.state==true){
                                 document.getElementById('present-name').innerHTML = data.present[0].present_name;

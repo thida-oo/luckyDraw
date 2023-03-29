@@ -55,6 +55,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Event Name</th>
+                            <th scope="col">Region</th>
                             <th scope="col">Start Time</th>
                             <th scope="col">End Time</th>
                             <th scope="col">Status</th>
@@ -66,12 +67,16 @@
                         <tr>
                             <td>{{ $loop->iteration + ($e_settings->currentPage() - 1) * $e_settings->perPage() }}</td>
                             <td>{{ $setting->name }}</td>
+                            <td class="align-middle">
+                                {{$depts[$setting->region_id]}}
+                           </td>
                             <td>
                                 <?php echo date('d-m-Y',strtotime($setting->event_start_time)); ?>
                             </td>
                             <td>
                                 <?php echo date('d-m-Y',strtotime($setting->event_end_time)); ?>
                             </td>
+
                             <td class="align-middle">
                                 @if($setting->status==0)
                                 <button type="button" class="btn btn-sm btn-outline-danger" disabled>Deactive</button>

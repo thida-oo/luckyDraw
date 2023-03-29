@@ -17,13 +17,15 @@ class EventSettingController extends Controller
     public function index(){
         $e_settings = EventSetting::orderBy('created_at','desc');
         $e_settings=$e_settings->paginate(10);
-        return view('setup/event-setting', ['e_settings'=>$e_settings]);
+        $depts = DB::table('departmentlist')->where('parent_id',112692215)->pluck('dept_name','id');
+        return view('setup/event-setting', ['e_settings'=>$e_settings,'depts'=>$depts]);
     }
 
     public function create(){  
         $present_lists = Present::where('status',1)->get();
         $products = Product::all();
-        return view('setup/event-setting-create', ['present_lists'=>$present_lists, 'products'=>$products]);
+        $department_list = DB::table('departmentlist')->where('parent_id',112692215)->get();
+        return view('setup/event-setting-create', ['present_lists'=>$present_lists, 'products'=>$products,'department_list'=>$department_list]);
     }
      public function store(Request $request)
     {
@@ -34,6 +36,7 @@ class EventSettingController extends Controller
         $event_start = $request->input('start_time');
         $event_end = $request->input('end_time');
         $products = $request->input('product');
+        $dept = $request->input('dept');
         $presents = $request->input('present_id');
         $draw_probability = array_values(array_filter($request->input('draw_probability')));
         
@@ -65,6 +68,7 @@ class EventSettingController extends Controller
             $eventSetting->event_end_time       = $request->input('end_time');
             $eventSetting->product_id           = $products;
             $eventSetting->status               = 1;
+            $eventSetting->region_id            = $dept;
             //$eventSetting->present_id           =$presents;
             $eventSetting->created_by           = Auth::user()->id;
             $saved = $eventSetting->save();
@@ -129,8 +133,9 @@ class EventSettingController extends Controller
         $event_product = DB::table('event_settings')->where('id',$id)->get();
         $productID = $event_product[0]->product_id;
         $productID = explode(",",$productID);
-    
-        return view('setup/event-setting-edit',['res'=>$res,'products'=>$products,'productID'=>$productID,'present_lists'=>$present_lists]);
+        $department_list = DB::table('departmentlist')->where('parent_id',112692215)->get();
+
+        return view('setup/event-setting-edit',['res'=>$res,'products'=>$products,'productID'=>$productID,'present_lists'=>$present_lists,'department_list'=>$department_list]);
         // dd($present_lists);
     }
     public function update(Request $request)
@@ -145,6 +150,7 @@ class EventSettingController extends Controller
         $event_end = $request->input('end_time');
         $products = $request->input('product');
         $presents = $request->input('present_id');
+        $dept = $request->input('dept');
         // dd(array_value(array_filter($request->input('draw_probability'))));
         $draw_probability = array_values(array_filter($request->input('draw_probability')));
         // match percentage and present
@@ -168,6 +174,7 @@ class EventSettingController extends Controller
         $eventSetting->event_start_time     = $request->input('start_time');
         $eventSetting->event_end_time       = $request->input('end_time');
         $eventSetting->product_id           = $products;
+        $eventSetting->region_id            = $dept;
         //$eventSetting->present_id           =$presents;
         $eventSetting->created_by           = Auth::user()->id;
         $saved = $eventSetting->save();

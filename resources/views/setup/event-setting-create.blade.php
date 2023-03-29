@@ -45,6 +45,17 @@
                                 <input type="date" name="end_time" class="form-control form-control-sm" required>
                             </div>
                         </div>
+
+                        <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6 ">
+                            <label class="col-sm-3 col-md-3 col-lg-3 col-form-label ml-4">Region</label>
+                            <div class="col-sm-9 col-md-9 col-lg-9 bg-light">
+                                <select  placeholder="Choose Region" class="form-control form-control-sm bg-light" data-allow-clear="1" name="dept">
+                                    @foreach($department_list as $dept)
+                                    <option value="{{$dept->id}}">{{$dept->dept_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

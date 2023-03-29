@@ -13,8 +13,7 @@ class StocksController extends Controller
 {
     public function _stockImport(Request $request)
     {
-        $products = DB::table("products")->select("p_code","p_name")->pluck("p_code","p_name");
-        // dd($products);
+        $products = DB::table("products")->select("id","p_name")->pluck("id","p_name");
         $import_file = $request->file('file');
         if ($import_file) {
             try {

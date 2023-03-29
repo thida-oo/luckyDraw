@@ -38,10 +38,10 @@
                              <select multiple data-placeholder="Choose Product" class="form-control form-control-sm bg-light" data-allow-clear="1" name="product[]">
                                     @foreach($products as $product)
                                         @foreach($productID as $pro)
-                                            @if($pro == $product->p_code)
-                                            <option value="{{$product->p_code}}" selected>{{$product->p_name}}</option>
+                                            @if($pro == $product->id)
+                                            <option value="{{$product->id}}" selected>{{$product->p_name}}</option>
                                             @else
-                                            <option value="{{$product->p_code}}">{{$product->p_name}}</option>
+                                            <option value="{{$product->id}}">{{$product->p_name}}</option>
                                             @endif
                                         @endforeach
                                     @endforeach
@@ -53,6 +53,22 @@
                             <label for="draw_no" class="col-sm-3 col-md-3 col-lg-3 col-form-label">Ended Time</label>
                             <div class="col-sm-9 col-md-9 col-lg-9">
                                 <input type="date" name="end_time" class="form-control form-control-sm" value="{{date('Y-m-d',$end_time)}}" required>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3 row col-sm-6 col-md-6 col-md-lg-6 ">
+                            <label class="col-sm-3 col-md-3 col-lg-3 col-form-label ml-4">Region</label>
+                            <div class="col-sm-9 col-md-9 col-lg-9 bg-light">
+                                <select  placeholder="Choose Region" class="form-control form-control-sm bg-light" data-allow-clear="1" name="dept">
+                            @foreach($department_list as $dept)
+                                @if($res[0]->region_id == $dept->id)
+                                    <option value="{{$dept->id}}" @if($res[0]->region_id == $dept->id) {{'selected'}} @endif>{{$dept->dept_name}}</option>
+                                @else
+                                <option value="{{$dept->id}}">{{$dept->dept_name}}</option>
+                                @endif
+                            @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
