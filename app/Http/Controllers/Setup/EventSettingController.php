@@ -116,8 +116,8 @@ class EventSettingController extends Controller
 
         $productID = $event_product[0]->product_id;
         $productID = explode(",",$productID);
-        
-        return view('setup/event-setting-overview',['res'=>$res,'products'=>$products,'productID'=>$productID,'present_lists'=>$present_lists]);
+        $department_list = DB::table('departmentList')->where('parent_id',112692215)->get();
+        return view('setup/event-setting-overview',['res'=>$res,'products'=>$products,'productID'=>$productID,'present_lists'=>$present_lists,'department_list'=>$department_list]);
         // dd($res);
 
     }
