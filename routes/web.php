@@ -89,16 +89,7 @@ Route::prefix('setup')->middleware('auth', 'isAdmin')->group(function(){
     Route::post('present-update/{id}',[PresentController::class, 'update'])->name('present-update');
     Route::get('present-search/',[PresentController::class, 'search'])->name('present-search');
 
-    // for event setting
-    Route::get('event-setting',[EventSettingController::class, 'index'])->name('event-setting-index');
-    Route::get('event-setting-create', [EventSettingController::class, 'create'])->name('event-setting-create');
-    Route::post('event-setting/store',[EventSettingController::class, 'store'])->name('event-setting-store');
-    Route::get('event-setting-overview/{id}',[EventSettingController::class, 'overview'])->name('event-setting-overview');
-    Route::get('event-setting-edit/{id}',[EventSettingController::class, 'edit'])->name('event-setting-edit');
-    Route::post('event-setting-update',[EventSettingController::class, 'update'])->name('event-setting-update');
-    Route::get('event-setting/search',[EventSettingController::class, 'search'])->name('event-setting-search');
-    Route::get('event-setting-delete/{id}',[EventSettingController::class, 'delete'])->name('event-setting-delete');
-
+  
     //for Deptartment
     Route::get('/department/list',[departmentController::class, 'index'])->name('department-list-index');
     Route::get('/department/get',[departmentController::class, 'fetchDepartmentApi'])->name('department-fetchDepartmentApi');
@@ -128,3 +119,14 @@ Route::prefix('report')->group(function(){
 Route::get('get/access-token',[dingTalkController::class, 'orderAndListDepartment']);
 Route::get('/test/{id}',[dingTalkController::class, 'test'])->name('test');
 // Route::get('sync/dept',[departmentController::class, 'syncDept'])->name('sync-dept');
+
+
+  // for event setting
+    Route::get('setup/event-setting',[EventSettingController::class, 'index'])->name('event-setting-index');
+    Route::get('setup/event-setting-create', [EventSettingController::class, 'create'])->name('event-setting-create');
+    Route::post('setup/event-setting/store',[EventSettingController::class, 'store'])->name('event-setting-store');
+    Route::get('setup/event-setting-overview/{id}',[EventSettingController::class, 'overview'])->name('event-setting-overview');
+    Route::get('setup/event-setting-edit/{id}',[EventSettingController::class, 'edit'])->name('event-setting-edit');
+    Route::post('setup/event-setting-update',[EventSettingController::class, 'update'])->name('event-setting-update');
+    Route::get('setup/event-setting/search',[EventSettingController::class, 'search'])->name('event-setting-search');
+    Route::get('setup/event-setting-delete/{id}',[EventSettingController::class, 'delete'])->name('event-setting-delete');

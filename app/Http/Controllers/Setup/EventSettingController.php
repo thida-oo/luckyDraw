@@ -15,8 +15,28 @@ use RealRashid\SweetAlert\Facades\Alert;
 class EventSettingController extends Controller
 {
     public function index(){
-        $e_settings = EventSetting::orderBy('created_at','desc');
-        $e_settings=$e_settings->paginate(10);
+        $user_dept;
+        $dept_id = json_decode(Auth::user()->dept_id);
+
+        if(!empty($dept_id)){
+            foreach($dept_id as $value){
+                $user_dept = DB::table('departmentList')->where('parent_id',112692215)->where('dept_id',$value)->get();
+                if(count($user_dept) > 0){
+                    break;
+                }
+            };
+        }
+
+        if(!empty($user_dept)){
+            $e_settings = EventSetting::where('region_id', $user_dept[0]->id)
+                    ->orderBy('created_at','desc')
+                    ->paginate(10);
+                }else{
+                    $e_settings = EventSetting::orderBy('created_at','desc')
+                    ->paginate(10);
+                }
+        
+
         $depts = DB::table('departmentList')->where('parent_id',112692215)->pluck('dept_name','id');
         return view('setup/event-setting', ['e_settings'=>$e_settings,'depts'=>$depts]);
     }
@@ -204,9 +224,27 @@ class EventSettingController extends Controller
     }
     public function search(Request $request)
     {
-        $searchTerm = '%' . $request->input('search') . '%';
+        $user_dept;
+        $dept_id = json_decode(Auth::user()->dept_id);
 
+        if(!empty($dept_id)){
+            foreach($dept_id as $value){
+                $user_dept = DB::table('departmentList')->where('parent_id',112692215)->where('dept_id',$value)->get();
+                if(count($user_dept) > 0){
+                    break;
+                }
+            };
+        }
+
+
+
+        $searchTerm = '%' . $request->input('search') . '%';
+        $depts = DB::table('departmentList')->where('parent_id',112692215)->pluck('dept_name','id');
         $e_settings = DB::table('event_settings')->where('name','like',$searchTerm);
+        if(!empty($user_dept)){
+            $e_settings->where('region_id', $user_dept[0]->id);
+        }
+
         if($request->input('status')==1){
             $e_settings->where('status',1);
         }elseif($request->input('status')==0){
@@ -215,7 +253,7 @@ class EventSettingController extends Controller
             $e_settings= $e_settings;
         }
         $e_settings=$e_settings->paginate(10);
-        return view('setup/event-setting', ['e_settings'=>$e_settings]);
+        return view('setup/event-setting', ['e_settings'=>$e_settings,'depts'=>$depts]);
     }
     public function delete($id)
     {
