@@ -27,11 +27,13 @@ class EventSettingController extends Controller
             };
         }
 
-        if(!empty($user_dept)){
+        if(isset($user_dept) && count($user_dept) > 0){
+
             $e_settings = EventSetting::where('region_id', $user_dept[0]->id)
                     ->orderBy('created_at','desc')
                     ->paginate(10);
                 }else{
+
                     $e_settings = EventSetting::orderBy('created_at','desc')
                     ->paginate(10);
                 }
@@ -241,7 +243,8 @@ class EventSettingController extends Controller
         $searchTerm = '%' . $request->input('search') . '%';
         $depts = DB::table('departmentList')->where('parent_id',112692215)->pluck('dept_name','id');
         $e_settings = DB::table('event_settings')->where('name','like',$searchTerm);
-        if(!empty($user_dept)){
+        
+        if(isset($user_dept) && count($user_dept) > 0){
             $e_settings->where('region_id', $user_dept[0]->id);
         }
 
